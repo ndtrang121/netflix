@@ -6,8 +6,8 @@ import Favorite from '../pages/Favorite'
 
 import NotTrailer from '../layouts/NotTrailer'
 
-export const routes = [
-	{ path: '/', component: Home },
+export const loginRoutes = [
+	{ path: '/browse', component: Home },
 	{ path: '/genre', component: Shows },
 	{ path: '/movies', component: Movies },
 	{ path: '/latest', component: Trending, layout: NotTrailer },

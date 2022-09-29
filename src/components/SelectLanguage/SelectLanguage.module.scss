@@ -1,0 +1,44 @@
+
+.wrapper {
+	position: relative;
+}
+
+.wrapper::before  {
+	content: "\e896";
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 8px;
+	font-family: var(--font-icon);
+    font-size: 1.2rem;
+	pointer-events: none;
+	color: var(--text-color);
+}
+
+.wrapper::after  {
+	content: "\e898";
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 45px;
+	font-family: var(--font-icon);
+	font-size: 6px;
+	pointer-events: none;
+	color: var(--text-color);
+}
+
+.select {
+	background-color: rgba($color: #000000, $alpha: .4);
+	border-radius: 3px;
+	min-width: 112px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+.medium {
+	height: 36px;
+	padding: 8px 22px;
+	font-size: 1.4rem;
+	margin-right: 35px;
+	color: var(--text-color);
+}

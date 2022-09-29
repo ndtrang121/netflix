@@ -1,0 +1,21 @@
+.wrapper {
+	background-color: red;
+	font-family: var(--font-family);
+	font-size: 1.6rem;
+	line-height: 1.5;
+	color: var(--white);
+	padding: 6px 17px;
+	border-radius: 2px;
+	min-height: 34px;
+
+	+.wrapper {
+		margin-left: 35px;
+	}
+}
+
+
+.icon {
+	color: var(--text-color);
+	font-size: 25px;
+    padding-left: 12px;
+}

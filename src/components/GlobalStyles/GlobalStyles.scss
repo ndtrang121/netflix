@@ -1,0 +1,87 @@
+:root {
+	--primary: #E50914;
+	--black: #000;
+	--white: #fff;
+	--text-color: #fff;
+
+	--font-family: 'NetflixSans', Helvetica, Arial, sans-serif;
+	--font-icon: 'nf-icon';
+
+
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+	font-size: 62.5%;
+}
+
+body {
+	font-family: var(--font-family);
+	font-size: 1.6rem;
+	line-height: 1.5;
+	text-rendering: optimizeSpeed;
+}
+
+// scrollbar CSS
+html *::-webkit-scrollbar {
+    border-radius: 0;
+    width: 8px;
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .15);
+}
+
+html *::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .15);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+html *::-webkit-scrollbar-track {
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+
+button,
+input {
+	outline: none;
+	border: none;
+}
+
+a[href] {
+	color: var(--text-color);
+	text-decoration: none;
+}
+
+// Fonts embed
+@font-face {
+	font-family: NetflixSans;
+	src: url('../../assets/fonts/NetflixSans_W_Rg.woff2');
+	font-weight: 400;
+}
+
+@font-face {
+	font-family: NetflixSans;
+	src: url('../../assets/fonts/NetflixSans_W_Md.woff2');
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: nf-icon;
+	src: url('../../assets/fonts/nf-icon-v1-93.woff');
+	font-weight: 400;
+
+}
