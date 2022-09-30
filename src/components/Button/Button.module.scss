@@ -11,6 +11,10 @@
 	+.wrapper {
 		margin-left: 35px;
 	}
+
+	&:hover {
+		cursor: pointer;
+	}
 }
 
 
@@ -18,4 +22,17 @@
 	color: var(--text-color);
 	font-size: 25px;
     padding-left: 12px;
+}
+
+
+
+.faq {
+	font-size: 26px;
+	width: 100%;
+	background: rgb(48, 48, 48);
+	text-align: left;
+	border-radius: 0;
+	padding: 21px 32px;
+	display: flex;
+	justify-content: space-between;
 }

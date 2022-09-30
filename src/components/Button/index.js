@@ -8,12 +8,14 @@ function Button({
 	to,
 	href,
 	children,
+	faq = false,
 	primary = false,
 	disabled = false,
 	leftIcon,
 	rightIcon,
 	onClick,
 	className,
+	rotateIcon,
 	...passProps
 }) {
 
@@ -35,6 +37,7 @@ function Button({
 
 	const classes = cx('wrapper', {
 		primary,
+		faq,
 		[className]: className
 	})
 
@@ -42,7 +45,7 @@ function Button({
 		<Comp className={classes} {...props}>
 			{leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
 			{children}
-			{rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
+			{rightIcon && <span className={cx('icon', { [rotateIcon]: rotateIcon })}>{rightIcon}</span>}
 		</Comp>
 	);
 }

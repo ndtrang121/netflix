@@ -10,7 +10,7 @@ import Button from "../../../components/Button";
 const cx = classNames.bind(styles)
 
 
-function FormStart() {
+function FormStart({ id }) {
 	const [input, setInput] = useState('')
 	const [error, setError] = useState(false);
 	const [msg, setMsg] = useState('Email is required!')
@@ -45,16 +45,16 @@ function FormStart() {
 			<form className={cx('form')} onSubmit={handleSubmit}>
 				<div className={cx('input-wrapper')}>
 					<div className={cx('input-placeholder')}>
-						<input id="id_email" className={cx('input', { error, valid })}
+						<input id={id} className={cx('input', { error, valid })}
 							type={'email'}
 							value={input}
 							onChange={(e) => setInput(e.target.value)}
 						/>
-						<label htmlFor="id_email" className={cx("input-label")}>Email address</label>
+						<label htmlFor={id} className={cx("input-label")}>Email address</label>
 					</div>
 					{error && <div className={cx('inputError')}>{msg}</div>}
 				</div>
-				<Button primary className={cx('submit')} rightIcon={<FontAwesomeIcon icon={faAngleRight} />} >Get Started</Button>
+				<Button className={cx('submit')} rightIcon={<FontAwesomeIcon icon={faAngleRight} />} >Get Started</Button>
 			</form>
 		</div>
 

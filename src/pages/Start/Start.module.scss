@@ -89,12 +89,8 @@
 }
 
 //TV
-.animation-tv {
-}
-
 .text {
 	width: 52%;
-	height: 325px;
 	display: flex;
     flex-direction: column;
     justify-content: center;
@@ -113,7 +109,10 @@
 }
 
 .img {
+	display: flex;
+	justify-content: center;
 	width: 48%;
+	height: 325px;
 	position: relative;
 
 	.tv {
@@ -130,4 +129,112 @@
 		top: 20px;
 		right: 70px;
 	}
+}
+
+// mobile
+.animation-kids,
+.animation-mobile {
+	flex-direction: row-reverse;
+}
+
+.download {
+	background-color: var(--black);
+	display: flex;
+	width: 330px;
+	height: 104px;
+	padding: 8px 12px;
+	border: 2px solid hsla(0,0%,100%,.25);
+	border-radius: 15px;
+	position: absolute;
+	bottom: 0;
+}
+
+.mobile {
+	width: 100%;
+	position: absolute;
+	top: -45px;
+}
+
+.text-img {
+	flex-grow: 1;
+	margin-left: 16px;
+	align-self: center;
+
+	h3 {
+		font-size: 16px;
+	}
+
+	p {
+		font-size: 15px;
+		color: #0071eb;
+	}
+}
+
+.icon {
+	align-self: center;
+	width: 48px;
+	height: 60px;
+}
+
+//Get app
+.get-app {
+	display: block;
+    width: fit-content;
+	font-size: 26px;
+	margin: 13px 0;
+
+	span {
+		padding-right: 5px;
+	}
+
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+//Faq
+.faq {
+	flex-direction: column;
+	align-items: center;
+
+	.text h1 {
+		text-align: center;
+		margin-bottom: 60px;
+	}
+}
+
+.faq-list {
+	width: 75%;
+	max-width: 815px;
+    display: block;
+    text-align: left;
+	margin-bottom: 52px;
+}
+
+.faq-item {
+	margin-bottom: 8px;
+}
+
+.faq-answer {
+	font-size: 26px;
+	margin-top: 1px;
+	background: rgb(48, 48, 48);
+	transition: max-height 0.25s cubic-bezier(0.5, 0, 0.1, 1) 0s;
+	overflow: hidden;
+
+	p {
+		padding: 32px;
+	}
+
+	&.close {
+		max-height: 0;
+	}
+
+	&.open {
+		max-height: 1200px;
+	}
+}
+
+.rotate {
+	transform: translateY(-6%) rotate(45deg);
 }
