@@ -1,12 +1,12 @@
-import classNames from "classnames/bind";
-import styles from './Start.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faXmark } from '@fortawesome/free-solid-svg-icons'
+import classNames from "classnames/bind";
 
-import { images, Logo, videos } from "../../assets/medias";
-import Button from "../../components/Button";
-import SelectLanguage from '../../components/SelectLanguage';
-import FormStart from "../../layouts/components/FormStart";
+import styles from './Start.module.scss'
+import { images, Logo, videos } from "~/assets/medias";
+import Button from "~/components/Button";
+import SelectLanguage from '~/components/SelectLanguage';
+import FormStart from "~/layouts/components/FormStart";
 
 const cx = classNames.bind(styles)
 

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './FormStart.module.scss'
-import Button from "../../../components/Button";
+import Button from "~/components/Button";
 
 const cx = classNames.bind(styles)
 

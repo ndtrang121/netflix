@@ -1,10 +1,9 @@
-import Home from '../pages/Home'
-import Shows from '../pages/Shows'
-import Movies from '../pages/Movies'
-import Trending from '../pages/Trending'
-import Favorite from '../pages/Favorite'
-
-import NotTrailer from '../layouts/NotTrailer'
+import Home from '~/pages/Home'
+import Shows from '~/pages/Shows'
+import Movies from '~/pages/Movies'
+import Trending from '~/pages/Trending'
+import Favorite from '~/pages/Favorite'
+import NotTrailer from '~/layouts/NotTrailer'
 
 export const loginRoutes = [
 	{ path: '/browse', component: Home },
