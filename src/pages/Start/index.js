@@ -27,7 +27,6 @@ function Start() {
 		}
 	}
 
-
 	return (
 		<div className={cx('wrapper')}>
 			<div className={cx('background')} >
