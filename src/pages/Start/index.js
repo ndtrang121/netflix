@@ -7,6 +7,7 @@ import { images, Logo, videos } from '~/assets/medias'
 import Button from '~/components/Button'
 import SelectLanguage from '~/components/SelectLanguage'
 import FormStart from '~/layouts/components/FormStart'
+import Footer from '~/layouts/components/Footer'
 
 const cx = classNames.bind(styles)
 
@@ -245,7 +246,9 @@ function Start() {
                 <FormStart id={'end'} />
             </div>
 
-            <div className={cx('story-card-wrapper')}></div>
+            <div className={cx('story-card-wrapper-footer')}>
+                <Footer></Footer>
+            </div>
         </div>
     )
 }

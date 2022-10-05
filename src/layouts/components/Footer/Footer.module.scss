@@ -1,0 +1,41 @@
+.wrapper {
+	width: 980px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	margin-top: 20px;
+}
+
+.social-links {
+	margin-bottom: 10px;
+
+}
+
+.social-link {
+	margin-right: 15px;
+}
+
+.footer-links {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 14px;
+}
+
+.footer-link-wrapper {
+	width: 245px;
+	margin-bottom: 14px;
+
+}
+
+
+.footer-link-content {
+	color: grey;
+	font-size: 1.3rem;
+}
+
+.footer-country {
+	font-size: 1.3rem;
+	color: grey;
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
