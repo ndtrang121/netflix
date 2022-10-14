@@ -1,11 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { isAuth } from './auth';
+import { Navigate, Outlet } from 'react-router-dom'
 
-function LogoutRequire() {
-
-	return (
-		isAuth ? <Navigate to='/browse' /> : <Outlet />
-	);
+function LogoutRequire({ isAuthenticated }) {
+    return isAuthenticated ? <Navigate to="/browse" /> : <Outlet />
 }
 
-export default LogoutRequire;
+export default LogoutRequire

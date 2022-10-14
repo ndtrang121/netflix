@@ -1,12 +1,8 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { isAuth } from './auth';
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-function LoginRequire() {
-	const location = useLocation()
-
-	return (
-		isAuth ? <Outlet /> : <Navigate to='/login' state={{ from: location }} />
-	);
+function LoginRequire({ isAuthenticated }) {
+    const location = useLocation()
+    return isAuthenticated ? <Outlet /> : <Navigate to="/login" state={{ from: location }} />
 }
 
-export default LoginRequire;
+export default LoginRequire
