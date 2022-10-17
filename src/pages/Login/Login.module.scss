@@ -14,7 +14,6 @@
 	justify-content: center;
 }
 
-
 .background {
 	background-size: cover;
     display: block;
@@ -60,12 +59,55 @@
     padding: 60px 68px 40px;
     margin: 90px auto 0;
     border-radius: 4px;
+}
 
-	.title {
-		font-size: 32px;
-		font-weight: 700;
-		margin-bottom: 26px;
+.signup-now {
+	color: #737373;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-top: 16px;
+	line-height: 1.1;
+
+	.signup-link:hover {
+		text-decoration: underline;
 	}
+}
+
+.recaptcha {
+	color: #8c8c8c;
+    font-size: 1.3rem;
+    margin: 11px 0;
+	line-height: 1.2;
+}
+
+.recaptcha-link-button {
+	background-color: transparent;
+	color: #0080ff;
+
+	&:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+}
+
+.recaptcha-more {
+	color: #8c8c8c;
+    font-size: 1.3rem;
+	line-height: 1.2;
+	opacity: 1;
+	transition: opacity .5s ease;
+	
+	.more-link {
+		color: #0080ff;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.visible {
+	opacity: 0;
 }
 
 .footer {
