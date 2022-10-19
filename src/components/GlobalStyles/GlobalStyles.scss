@@ -26,6 +26,7 @@ body {
 	font-size: 1.6rem;
 	line-height: 1.5;
 	text-rendering: optimizeSpeed;
+	background-color: var(--black);
 }
 
 // scrollbar CSS
@@ -61,7 +62,7 @@ input {
 	border: none;
 }
 
-a[href] {
+a {
 	color: var(--text-color);
 	text-decoration: none;
 }

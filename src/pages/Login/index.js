@@ -1,16 +1,15 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import classNames from 'classnames/bind'
 import styles from './Login.module.scss'
-import { images, Logo } from '~/assets/medias'
+import { images, Logo } from '~/assets/media'
 import Footer from '~/layouts/components/Footer'
 
-import { Link, Navigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import FormLogin from '~/layouts/components/FormLogin'
 import { useState } from 'react'
 
 const cx = classNames.bind(styles)
 
-function Login({ setAuth, isAuthenticated }) {
+function Login({ setAuth }) {
     const [visible, setVisible] = useState(true)
 
     const handleLearnMore = () => {
@@ -19,10 +18,9 @@ function Login({ setAuth, isAuthenticated }) {
 
     return (
         <div className={cx('root')}>
-            {isAuthenticated && <Navigate to={'/browse'} />}
             <div className={cx('wrapper')}>
                 <div className={cx('background')}>
-                    <img className={cx('background-img')} src={images.bg_login} alt="" />
+                    <img className={cx('background-img')} src={images.backgroudLogin} alt="" />
                 </div>
                 <div className={cx('header')}>
                     <Link to={'/'}>

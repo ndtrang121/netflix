@@ -7,6 +7,7 @@ import Login from './pages/Login'
 import Start from './pages/Start'
 import { loginRoutes } from './routes'
 import { LogoutRequire, LoginRequire, AuthContext } from './components/Auth'
+import TitlePage from './components/TitlePage'
 
 function App() {
     const { isAuthenticated, setAuth } = useContext(AuthContext)
@@ -29,7 +30,9 @@ function App() {
                             path={route.path}
                             element={
                                 <Layout>
-                                    <Page />
+                                    <TitlePage title={route.title}>
+                                        <Page />
+                                    </TitlePage>
                                 </Layout>
                             }
                         />
@@ -37,10 +40,31 @@ function App() {
                 })}
             </Route>
             <Route element={<LogoutRequire isAuthenticated={isAuthenticated} />}>
-                <Route path="/" element={<Start />} />
-                <Route path="/login" element={<Login setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+                <Route
+                    path="/"
+                    element={
+                        <TitlePage title="Netflix">
+                            <Start />
+                        </TitlePage>
+                    }
+                />
+                <Route
+                    path="/login"
+                    element={
+                        <TitlePage title="Netflix">
+                            <Login setAuth={setAuth} isAuthenticated={isAuthenticated} />
+                        </TitlePage>
+                    }
+                />
             </Route>
-            <Route path="*" element={<NotFound />} />
+            <Route
+                path="*"
+                element={
+                    <TitlePage title="Not Found">
+                        <NotFound />
+                    </TitlePage>
+                }
+            />
         </Routes>
     )
 }

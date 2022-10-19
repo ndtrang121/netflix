@@ -3,7 +3,7 @@ import { faAngleRight, faXmark } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
 
 import styles from './Start.module.scss'
-import { images, Logo, videos } from '~/assets/medias'
+import { images, Logo, videos } from '~/assets/media'
 import Button from '~/components/Button'
 import SelectLanguage from '~/components/SelectLanguage'
 import FormStart from '~/layouts/components/FormStart'
@@ -67,7 +67,7 @@ function Start() {
                     <div className={cx('img')}>
                         <img className={cx('mobile')} src={images.mobile} alt="tv" />
                         <div className={cx('download')}>
-                            <img className={cx('poster')} src={images.boxshot} alt="boxshot" />
+                            <img className={cx('poster')} src={images.boxShot} alt="boxShot" />
                             <div className={cx('text-img')}>
                                 <h3>Stranger Things</h3>
                                 <p>Downloading...</p>

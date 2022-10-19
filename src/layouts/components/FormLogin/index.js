@@ -105,10 +105,10 @@ function FormLogin({ setAuth }) {
                             className={cx('checkbox')}
                             id="rememberMe_true"
                             data-uia="rememberMe"
-                            checked={checked}
+                            defaultChecked={checked}
                             onClick={handleCheckRemember}
                         />
-                        <label for="rememberMe_true">
+                        <label htmlFor="rememberMe_true">
                             <span className={cx('label-text')}>Remember me</span>
                         </label>
                     </div>

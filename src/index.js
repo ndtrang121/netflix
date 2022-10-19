@@ -6,15 +6,18 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import GlobalStyles from './components/GlobalStyles'
 import { AuthContextProvider } from './components/Auth'
+import SearchContextProvider from './components/SearchContextProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     // <React.StrictMode>
     <GlobalStyles>
         <AuthContextProvider>
-            <Router>
-                <App />
-            </Router>
+            <SearchContextProvider>
+                <Router>
+                    <App />
+                </Router>
+            </SearchContextProvider>
         </AuthContextProvider>
     </GlobalStyles>,
     // </React.StrictMode>,

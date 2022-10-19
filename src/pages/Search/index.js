@@ -2,8 +2,9 @@ import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Button from '~/components/Button'
 import { AuthContext } from '~/components/Auth'
+import Header from '~/layouts/components/Header'
 
-function Home() {
+function Search() {
     const { setAuth } = useContext(AuthContext)
 
     const handleLogout = () => {
@@ -12,7 +13,8 @@ function Home() {
     }
     return (
         <>
-            <h1>Home page</h1>
+            <Header />
+            <h1>Search page</h1>
             <Link to="/favorite" className="link-home">
                 Go favorite
             </Link>
@@ -21,4 +23,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Search

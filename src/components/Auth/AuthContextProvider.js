@@ -9,9 +9,7 @@ const AuthContextProvider = ({ children }) => {
         setIsAuthenticated(boolean)
     }
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, setAuth }}>{children}</AuthContext.Provider>
-    )
+    return <AuthContext.Provider value={{ isAuthenticated, setAuth }}>{children}</AuthContext.Provider>
 }
 
 export default AuthContextProvider

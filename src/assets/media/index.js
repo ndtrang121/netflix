@@ -2,10 +2,12 @@ export const images = {
     tv: require('./tv.png'),
     mobile: require('./mobile-start.jpg'),
     download: require('./download-icon.gif'),
-    boxshot: require('./boxshot.png'),
+    boxShot: require('./boxShot.png'),
     kids: require('./kid.png'),
     phone: require('./phone.jpg'),
-    bg_login: require('./background-login.jpg'),
+    backgroudLogin: require('./background-login.jpg'),
+    fakeAvatar: require('./fakeAvatar.jpg'),
+    noImage: require('./no-image.png'),
 }
 
 export const videos = {
