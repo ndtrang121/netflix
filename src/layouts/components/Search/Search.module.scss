@@ -1,4 +1,5 @@
 .search-wrapper {
+	position: relative;
 	overflow-X: hidden;
 	display: flex;
 }
@@ -40,4 +41,33 @@
 	color: var(--white);
 	width: 0;
 	height: 100%;
+}
+
+.clear,
+.loading {
+	background-color: transparent;
+	position: absolute;
+	right: 10px;
+	top: 50%;
+	transform: translateY(-50%)
+}
+
+.loading,
+.clear-icon {
+	height: 16px;
+	width: 16px;
+	color: var(--white);
+}
+
+.loading {
+	animation: spinner 0.8s linear infinite;
+}
+
+@keyframes spinner {
+	from {
+		transform: translateY(-50%) rotate(0deg);
+	}
+	to {
+		transform: translateY(-50%) rotate(360deg);
+	}
 }

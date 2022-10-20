@@ -1,18 +1,28 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightArrowLeft, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faCircleQuestion, faUser, faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './Header.module.scss'
 import { images, Logo } from '~/assets/media'
 import { loginRoutes } from '~/routes'
 import Avatar from '~/components/Avatar'
 import Search from '../Search'
+import { useContext } from 'react'
+import { AuthContext } from '~/components/Auth'
 
 const cx = classNames.bind(styles)
 
 function Header() {
+    const { setAuth } = useContext(AuthContext)
     const location = useLocation()
+
+    const handleLogout = () => {
+        setAuth(false)
+        window.localStorage.setItem('MY_APP_STATE', false)
+    }
 
     return (
         <div className={cx('wrapper')}>
@@ -23,7 +33,8 @@ function Header() {
                 <ul className={cx('nav-items')}>
                     {loginRoutes.map((route, index) => {
                         if (index === loginRoutes.length - 1) {
-                            return 0
+                            // eslint-disable-next-line array-callback-return
+                            return
                         }
                         return (
                             <li className={cx('nav-item')} key={index}>
@@ -46,13 +57,51 @@ function Header() {
                     <Search />
                 </div>
                 <div className={cx('icon-item')}>
-                    <FontAwesomeIcon className={cx('bell-icon')} icon={faBell} />
+                    <div className={cx('notify-btn')}>
+                        <FontAwesomeIcon className={cx('bell-icon')} icon={faBell} />
+                        <ul className={cx('notifycations')}>
+                            <li className={cx('emty-notify')}>
+                                <p>No recent notifications</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div className={cx('icon-item')}>
                     <div className={cx('account-items')}>
                         <Avatar className={cx('avatar')} alt="avatar" src={images.fakeAvatar} />
                         <span className={cx('arrow-icon')}></span>
+                        <ul className={cx('menu-items')}>
+                            <li className={cx('menu-item')}>
+                                <a className={cx('profile-link')} href="#" alt="profile">
+                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faPenToSquare} />
+                                    Manage Profiles
+                                </a>
+                            </li>
+                            <li className={cx('menu-item')}>
+                                <a className={cx('profile-link')} href="#" alt="profile">
+                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faArrowRightArrowLeft} />
+                                    Transfer Profiles
+                                </a>
+                            </li>
+                            <li className={cx('menu-item')}>
+                                <a className={cx('profile-link')} href="#" alt="profile">
+                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faUser} />
+                                    Account
+                                </a>
+                            </li>
+                            <li className={cx('menu-item')}>
+                                <a className={cx('profile-link')} href="#" alt="profile">
+                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faCircleQuestion} />
+                                    Help Center
+                                </a>
+                            </li>
+                            <li className={cx('signout')}>
+                                <div onClick={handleLogout} className={cx('profile-signout')}>
+                                    Sign out of Netflix
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,7 @@
 .wrapper {
-	height: 68px;
+	--height-header: 68px;
+
+	height: var(--height-header);
 	width: 100%;
 	padding: 0 60px;
 	display: flex;
@@ -66,29 +68,159 @@
     height: 100%;
 }
 
+.notify-btn {
+	--height-notify-btn: 36px;
 
+	height: 36px;
+	position: relative;
+}
+
+.notify-btn:hover .notifycations {
+	display: block;
+}
 
 .bell-icon {
+	cursor: pointer;
 	width: 20px;
 	height: 20px;
+	padding: 8px 8px;
+}
+
+.notifycations {
+	display: none;
+	cursor: unset;
+	background-color: rgba(0,0,0,.85);
+    min-height: 100px;
+    width: 408px;
+	border: 1px solid hsla(0,0%,100%,.25);
+	border-top: 2px solid var(--white);
+    color: var(--white);
+	position: absolute;
+	top: calc(var(--height-header) / 2 + var(--height-notify-btn) /2);
+	right: 0;
+}
+
+.notifycations::before {
+	content: "";
+	position: absolute;
+	display: inline-block;
+	border-color: transparent transparent var(--white) ;
+	border-style: solid;
+	border-width: 0 7px 7px;
+	top: -9px;
+	right: 9px;
+}
+
+.notifycations::after {
+	content: "";
+	position: absolute;
+	background-color: transparent;
+	width: 50px;
+	height: 20px;
+	top: -20px;
+    right: 0;
+}
+
+.emty-notify {
+	user-select: none;
+	padding: 50px 0;
+	text-align: center;
+	color: #6d6d6d;
+	font-size: 1.3rem;
 }
 
 .account-items {
-	height: 32px;
+	--height-account: 32px;
+
+	height: var(--height-account);
 	align-items: center;
     display: flex;
+	position: relative;
+	&:hover {
+		.arrow-icon{
+			transform: rotate(180deg);
+		}
+
+		.menu-items {
+			display: block;
+		}
+	}
 }
 
 .avatar {
 	width: 32px;
 	height: 32px;
 	border-radius: 4px;
+	cursor: pointer;
 }
 
 .arrow-icon {
+	cursor: pointer;
 	margin-left: 10px;
 	height: 0;
 	border-color: var(--white) transparent transparent;
 	border-style: solid;
 	border-width: 5px 5px 0;
+	transition: transform 367ms cubic-bezier(.21,0,.07,1);
+}
+
+.menu-items {
+	display: none;
+	background-color: rgba(0,0,0,.85);
+    width: 220px;
+	border: 1px solid hsla(0,0%,100%,.25);
+    color: var(--white);
+	position: absolute;
+	top: calc(var(--height-header) / 2 + var(--height-account) / 2);
+	right: 0;
+	font-size: 1.3rem;
+}
+
+.profile-link {
+	height: 34px;
+	padding: 5px 10px;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+.menu-icon {
+	height: 20px;
+	width: 20px;
+	padding: 0 13px 0 5px;
+}
+
+.menu-items::before {
+	content: "";
+	position: absolute;
+	display: inline-block;
+	border-color: transparent transparent var(--white) ;
+	border-style: solid;
+	border-width: 0 7px 7px;
+	top: -8px;
+	right: 28px;
+}
+
+.menu-items::after {
+	content: "";
+	position: absolute;
+	background-color: transparent;
+	width: 70px;
+	height: 20px;
+	top: -20px;
+    right: 0;
+}
+
+.signout {
+	cursor: pointer;
+	border-top: 1px solid hsla(0,0%,100%,.25);
+	padding: 15px 10px;
+	text-align: center;
+
+	&:hover {
+		text-decoration: underline;
+	}
 }

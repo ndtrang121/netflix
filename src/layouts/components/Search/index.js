@@ -1,20 +1,24 @@
-import { useRef, useLayoutEffect, useContext } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useRef, useLayoutEffect, useContext, useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass, faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
-import styles from './Search.module.scss'
 import classNames from 'classnames/bind'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import styles from './Search.module.scss'
 import { SearchContext } from '~/components/SearchContextProvider'
+import { useDebounce } from '~/hooks'
+import axios from 'axios'
 
 const cx = classNames.bind(styles)
 
 function Search() {
-    const { searchInput, setSearchInput, showInput, setShowInput } = useContext(SearchContext)
+    const { searchInput, setSearchInput, showInput, setShowInput, setResult } = useContext(SearchContext)
 
     const location = useLocation()
     const navigate = useNavigate()
     const inputRef = useRef()
+    const [loading, setLoading] = useState(false)
 
     const handleShow = () => {
         setShowInput(true)
@@ -24,6 +28,7 @@ function Search() {
     const handleBlur = () => {
         if (location.pathname !== '/search') {
             setShowInput(false)
+            setResult([])
             setSearchInput('')
         }
     }
@@ -35,10 +40,37 @@ function Search() {
         }
     }
 
+    const handleClear = () => {
+        navigate(-1)
+    }
+
+    const debounced = useDebounce(searchInput, 1000)
+    const api_key = process.env.REACT_APP_API_KEY
+    useEffect(() => {
+        if (!debounced.trim()) {
+            setResult([])
+            return
+        }
+
+        const fecthApi = async () => {
+            setLoading(true)
+            try {
+                const data = await axios
+                    .get(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${debounced}`)
+                    .then((res) => res.data)
+                setResult(data.results)
+                setLoading(false)
+            } catch (error) {
+                setLoading(false)
+            }
+        }
+
+        fecthApi()
+    }, [debounced])
+
     useLayoutEffect(() => {
         if (searchInput && location.pathname !== '/search') {
             navigate('/search')
-            inputRef.current.focus()
         }
     })
 
@@ -48,8 +80,8 @@ function Search() {
         }
 
         handleBlur()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
     return (
         <div className={cx('search-wrapper')}>
             <div className={cx('search-text', { show: showInput })}>
@@ -63,6 +95,13 @@ function Search() {
                     onChange={handleInput}
                     onBlur={handleBlur}
                 />
+                {!!searchInput && !loading && (
+                    <button className={cx('clear')} onClick={handleClear}>
+                        <FontAwesomeIcon className={cx('clear-icon')} icon={faXmark} />
+                    </button>
+                )}
+
+                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
             </div>
         </div>
     )
