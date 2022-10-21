@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,12 +11,11 @@ import { images, Logo } from '~/assets/media'
 import { loginRoutes } from '~/routes'
 import Avatar from '~/components/Avatar'
 import Search from '../Search'
-import { useContext } from 'react'
 import { AuthContext } from '~/components/Auth'
 
 const cx = classNames.bind(styles)
 
-function Header() {
+function Header({ className }) {
     const { setAuth } = useContext(AuthContext)
     const location = useLocation()
 
@@ -25,7 +25,7 @@ function Header() {
     }
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', { [className]: className })}>
             <nav className={cx('primary-nav')}>
                 <Link className={cx('logo-link')} to="/browse">
                     <Logo className={cx('logo')} />

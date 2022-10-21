@@ -56,7 +56,7 @@ function Search() {
             setLoading(true)
             try {
                 const data = await axios
-                    .get(`https://api.themoviedb.org/3/search/movie?api_key=${api_key}&query=${debounced}`)
+                    .get(`https://api.themoviedb.org/3/search/multi?api_key=${api_key}&query=${debounced}`)
                     .then((res) => res.data)
                 setResult(data.results)
                 setLoading(false)

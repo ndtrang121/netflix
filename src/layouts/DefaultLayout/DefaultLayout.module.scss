@@ -1,0 +1,85 @@
+.wrapper {
+	overflow: hidden;
+}
+
+.header {
+	background: var(--black);
+	transition: background .5s ease-out;
+}
+
+.background-wrapper {
+	height: 1080px;
+	width: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.background {
+	opacity: 1;
+	width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+	pointer-events: none;
+	position: absolute;
+	z-index: 1;
+}
+
+.trailer {
+	position: absolute;
+	z-index: -1;
+	right: 0;
+	left: 0;
+	pointer-events: none;
+	margin-top: -100px;
+    scale: 118%;
+}
+
+.opacity {
+	opacity: 0;
+	transition: opacity 0.5s linear;
+}
+
+.control-btn {
+	display: flex;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background-color: transparent;
+	cursor: pointer;
+
+	&:active {
+		background-color: rgba($color: #fff, $alpha: .6);
+	}
+}
+
+.control-layer {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	bottom: 300px;
+}
+
+.icon-ctl {
+	padding: 10px;
+	width: 20px;
+	background-color: transparent;
+	color: var(--white);
+}
+
+.maturity-rating {
+    background-color: rgba(51,51,51,.6);
+    border-left: 3px solid #dcdcdc;
+    font-size: 1.3rem;
+    height: 30px;
+	width: 84px;
+	margin-left: 15px;
+	padding-left: 10px;
+}
+
+.maturity-number {
+	line-height: 30px;
+}

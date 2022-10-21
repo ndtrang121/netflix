@@ -1,23 +1,14 @@
-import { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import Button from '~/components/Button'
-import { AuthContext } from '~/components/Auth'
+import classNames from 'classnames/bind'
+
+import styles from './Home.module.scss'
+
+const cx = classNames.bind(styles)
 
 function Home() {
-    const { setAuth } = useContext(AuthContext)
-
-    const handleLogout = () => {
-        setAuth(false)
-        window.localStorage.setItem('MY_APP_STATE', false)
-    }
     return (
-        <>
-            <h1>Home page</h1>
-            <Link to="/favorite" className="link-home">
-                Go favorite
-            </Link>
-            <Button onClick={handleLogout}>Log Out</Button>
-        </>
+        <div className={cx('wrapper')}>
+            <div className={cx('background-top')}></div>
+        </div>
     )
 }
 
