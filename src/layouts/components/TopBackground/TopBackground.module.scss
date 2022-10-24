@@ -1,0 +1,153 @@
+
+.background-wrapper {
+	height: 1080px;
+	width: 100%;
+	overflow: hidden;
+	user-select: none;
+	position: relative;
+
+	&::before {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 300px;
+		bottom: 0;
+		background-image: linear-gradient(to top, black, transparent 100%);
+		z-index: 2;
+	}
+}
+
+.background {
+	pointer-events: none;
+	opacity: 1;
+	width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+	pointer-events: none;
+	position: absolute;
+	z-index: 1;
+}
+
+.trailer {
+	position: absolute;
+	z-index: -1;
+	right: 0;
+	left: 0;
+	pointer-events: none;
+	margin-top: -100px;
+    scale: 118%;
+}
+
+.opacity {
+	opacity: 0;
+	transition: opacity 0.5s linear;
+}
+
+.control-btn {
+	display: flex;
+	align-items: center;
+	width: 40px;
+	height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background-color: transparent;
+	cursor: pointer;
+
+	&:active {
+		background-color: rgba($color: #fff, $alpha: .6);
+	}
+}
+
+// Title - descriptions 
+.more-info {
+	user-select: none;
+	z-index: 1;
+	position: absolute;
+	bottom: 400px;
+	margin-left: 60px;
+
+	.title {
+		font-size: 5rem;
+	}
+
+	.overview {
+		margin-top: 15px;
+		font-size: 2.2rem;
+		width: 700px;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;  
+		overflow: hidden;
+	}
+}
+
+.button {
+	display: flex;
+	align-items: center;
+	margin-top: 28px;
+}
+
+.play-btn:hover, 
+.info-btn:hover {
+	opacity: .85;
+} 
+
+.play-btn, 
+.info-btn {
+	height: 55px;
+	font-size: 2.2rem !important;
+	font-weight: 700;
+	border-radius: 4px !important;
+}
+
+.play-btn {
+	width: 155px;
+	background-color: var(--white) !important;
+	color: var(--black) !important;
+}
+
+.play-icon {
+	color: var(--black) !important;
+	height: 35px;
+}
+
+.info-icon {
+	height: 35px;
+}
+
+.info-btn {
+	background-color: rgba(109, 109, 110, 0.7) !important;
+	width: 200px;
+}
+
+// Control button
+.control-layer {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	bottom: 300px;
+}
+
+.icon-ctl {
+	padding: 10px;
+	width: 20px;
+	background-color: transparent;
+	color: var(--white);
+}
+
+.maturity-rating {
+    background-color: rgba(51,51,51,.6);
+    border-left: 3px solid #dcdcdc;
+    font-size: 1.3rem;
+    height: 30px;
+	width: 84px;
+	margin-left: 15px;
+	padding-left: 10px;
+}
+
+.maturity-number {
+	line-height: 30px;
+}

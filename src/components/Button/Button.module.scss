@@ -7,6 +7,9 @@
 	padding: 6px 17px;
 	border-radius: 2px;
 	min-height: 34px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 
 	+.wrapper {
 		margin-left: 35px;
@@ -21,10 +24,14 @@
 .icon {
 	color: var(--text-color);
 	font-size: 25px;
-    padding-left: 12px;
+	display: flex;
+	justify-content: center;
+    // padding-left: 12px;
 }
 
-
+.icon-left {
+	margin-right: 14px;
+}
 
 .faq {
 	font-size: 26px;

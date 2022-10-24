@@ -40,7 +40,7 @@ function Button({
 
     return (
         <Comp className={classes} {...props}>
-            {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+            {leftIcon && <span className={cx('icon', { 'icon-left': leftIcon })}>{leftIcon}</span>}
             {children}
             {rightIcon && <span className={cx('icon', { [rotateIcon]: rotateIcon })}>{rightIcon}</span>}
         </Comp>
