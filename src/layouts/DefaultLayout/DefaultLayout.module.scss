@@ -7,21 +7,7 @@
 	transition: background .5s ease-out;
 }
 
+// Container
 .container {
 	min-height: 1000px;
-}
-
-.trending-items {
-	background: rgba(20, 20, 20, 1.5);
-	display: flex;
-	overflow-x: scroll;
-	padding: 0 60px;
-}
-
-.trending-bg {
-	width: 280px;
-	height: 158px;
-	margin-right: 8px;
-	border-radius: 4px;
-	// overflow: hidden;
 }

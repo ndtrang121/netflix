@@ -1,0 +1,63 @@
+
+.wrapper {
+	--width-win: 100%;
+	position: relative;
+	margin: 20px 0;
+}
+
+.trending-items {
+	background: rgba(20, 20, 20, 1.5);
+	display: flex;
+	// overflow-x: scroll;
+	padding: 0 60px;
+	transition: transform 500ms ease;
+}
+
+.trending-item {
+	margin-right: calc((var(--width-win) - 280px * 6 ) / 6);
+}
+
+.trending-bg {
+	width: 280px;
+	height: 158px;
+	border-radius: 4px;
+}
+
+.next-btn,
+.prev-btn {
+	position: absolute;
+	height: 100%;
+	width: 60px;
+	top: 0;
+	background-color: rgba(0, 0, 0, .2);
+	color: wheat;
+}
+
+.next-btn {
+	right: 0;
+	z-index: 1;
+}
+
+.prev-btn {
+	left: 0;
+}
+
+.slide-indecator {
+	position: absolute;
+	right: 60px;
+	top: -15px;
+	z-index: 2;
+	display: flex;
+}
+
+.dot-indecator {
+	width: 4px;
+	height: 4px;
+	background-color: rgba($color: #fff, $alpha: 0.4);
+	margin-left: 4px;
+}
+
+.dot-indecator.active {
+	background-color: rgba($color: #fff, $alpha: 1);
+
+}
