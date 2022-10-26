@@ -1,4 +1,10 @@
-import { faVolumeHigh, faVolumeMute, faArrowRotateRight, faPlay, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import {
+    faVolumeHigh,
+    faVolumeMute,
+    faArrowRotateRight,
+    faPlay,
+    faCircleInfo,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -9,6 +15,7 @@ import Backdrop from '~/components/Backdrop'
 import request from '~/utils/request'
 import styles from './TopBackground.module.scss'
 import Button from '~/components/Button'
+import Slider from '../Slider'
 
 const cx = classNames.bind(styles)
 
@@ -19,6 +26,7 @@ function TopBackground() {
     const [autoPlay, setAutoPlay] = useState(true)
     const [muted, setMuted] = useState(true)
     const [opacity, setOpacity] = useState(false)
+    const [path, setPath] = useState('all')
     const videoRef = useRef()
 
     // Handle get id trailer
@@ -29,7 +37,9 @@ function TopBackground() {
                     await request(`/movie/${dataBg.id}/videos`).then((res) => {
                         if (res !== []) {
                             const trailer = res.find(
-                                (trailer) => trailer.type === 'Trailer' || trailer.type === 'Teaser',
+                                (trailer) =>
+                                    trailer.type === 'Trailer' ||
+                                    trailer.type === 'Teaser',
                             )
                             setTrailer(trailer.key)
                         }
@@ -45,27 +55,29 @@ function TopBackground() {
 
     // Handle get background id
     useLayoutEffect(() => {
-        let path = 'all'
-        if (location.pathname === '/browse') {
-            path = 'all'
-        } else if (location.pathname === '/genre') {
-            path = 'tv'
-        } else if (location.pathname === '/movies') {
-            path = 'movie'
-        }
-
         const fecthImage = async () => {
             await request(`/trending/${path}/week`).then((res) => {
                 setDataBg(res[0])
             })
         }
         fecthImage()
+    }, [path])
+
+    useLayoutEffect(() => {
+        if (location.pathname === '/browse') {
+            setPath('all')
+        } else if (location.pathname === '/genre') {
+            setPath('tv')
+        } else if (location.pathname === '/movies') {
+            setPath('movie')
+        }
 
         const timerOpacity = setTimeout(() => {
             setOpacity(true)
         }, 4000)
 
         return () => clearTimeout(timerOpacity)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.pathname])
 
     const onProgress = () => {
@@ -96,7 +108,9 @@ function TopBackground() {
             )}
 
             <Backdrop
-                className={cx('background', { opacity: trailer ? opacity : false })}
+                className={cx('background', {
+                    opacity: trailer ? opacity : false,
+                })}
                 large
                 path={dataBg.backdrop_path}
             ></Backdrop>
@@ -107,13 +121,23 @@ function TopBackground() {
                 <div className={cx('button')}>
                     <Button
                         className={cx('play-btn')}
-                        leftIcon={<FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />}
+                        leftIcon={
+                            <FontAwesomeIcon
+                                className={cx('play-icon')}
+                                icon={faPlay}
+                            />
+                        }
                     >
                         Play
                     </Button>
                     <Button
                         className={cx('info-btn')}
-                        leftIcon={<FontAwesomeIcon className={cx('info-icon')} icon={faCircleInfo} />}
+                        leftIcon={
+                            <FontAwesomeIcon
+                                className={cx('info-icon')}
+                                icon={faCircleInfo}
+                            />
+                        }
                     >
                         More Info
                     </Button>
@@ -124,8 +148,14 @@ function TopBackground() {
                 {opacity
                     ? trailer && (
                           // Volume button
-                          <button className={cx('control-btn')} onClick={() => setMuted(!muted)}>
-                              <FontAwesomeIcon className={cx('icon-ctl')} icon={!muted ? faVolumeHigh : faVolumeMute} />
+                          <button
+                              className={cx('control-btn')}
+                              onClick={() => setMuted(!muted)}
+                          >
+                              <FontAwesomeIcon
+                                  className={cx('icon-ctl')}
+                                  icon={!muted ? faVolumeHigh : faVolumeMute}
+                              />
                           </button>
                       )
                     : !autoPlay && (
@@ -138,12 +168,22 @@ function TopBackground() {
                                   setAutoPlay(true)
                               }}
                           >
-                              <FontAwesomeIcon className={cx('icon-ctl')} icon={faArrowRotateRight} />
+                              <FontAwesomeIcon
+                                  className={cx('icon-ctl')}
+                                  icon={faArrowRotateRight}
+                              />
                           </button>
                       )}
                 <span className={cx('maturity-rating')}>
                     <span className={cx('maturity-number')}>16+</span>
                 </span>
+            </div>
+
+            <div className={cx('trending')}>
+                <Slider
+                    path={`/trending/${path}/week`}
+                    title={'Trending On Netflix'}
+                />
             </div>
         </div>
     )

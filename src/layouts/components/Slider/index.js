@@ -1,4 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+    faChevronLeft,
+    faChevronRight,
+} from '@fortawesome/free-solid-svg-icons'
+
 import classNames from 'classnames/bind'
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import Backdrop from '~/components/Backdrop'
@@ -8,7 +14,7 @@ import styles from './Slider.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Slider({ path, page = '1' }) {
+function Slider({ path, page = '1', title }) {
     const [containerWidth, setContainerWidth] = useState(0)
     const [distance, setDistance] = useState(0)
     const [itemWidth, setItemWidth] = useState(0)
@@ -17,6 +23,7 @@ function Slider({ path, page = '1' }) {
     const [numberMovies, setNumberMovies] = useState(0)
     const [end, setEnd] = useState(false)
     const [currentPage, setCurrentPage] = useState(0)
+    const [showIndecator, setShowIndecator] = useState(false)
     const ref = useRef()
     const itemsToShow = 6
     const pageNumber = Math.ceil(numberMovies / itemsToShow)
@@ -68,6 +75,8 @@ function Slider({ path, page = '1' }) {
 
     // Handle get data
     useLayoutEffect(() => {
+        setDistance(0)
+        setCurrentPage(0)
         const fecthDta = async () => {
             try {
                 await request(path, page).then((res) => {
@@ -79,37 +88,72 @@ function Slider({ path, page = '1' }) {
             }
         }
         fecthDta()
-    }, [])
+    }, [path])
+
     return (
         <div ref={ref} className={cx('wrapper')}>
-            <button className={cx('next-btn')} onClick={handleNext}>
-                Next
-            </button>
+            <div className={cx('header')}>
+                <h1 className={cx('title')}>{title}</h1>
+                <div className={cx('explore')}>
+                    <span className={cx('title-explore')}>Explore All</span>
+                    <FontAwesomeIcon
+                        className={cx('icon-explore', { show: showIndecator })}
+                        icon={faChevronRight}
+                    />
+                </div>
+            </div>
+
+            <div
+                onMouseOver={() => {
+                    setShowIndecator(true)
+                }}
+                onMouseOut={() => {
+                    setShowIndecator(false)
+                }}
+                className={cx('items-control')}
+            >
+                <div style={slideProps.style} className={cx('trending-items')}>
+                    {dataTrending.map((data, index) => (
+                        <div key={index} className={cx('trending-item')}>
+                            <Backdrop
+                                className={cx('trending-bg')}
+                                path={data.backdrop_path || data.poster_path}
+                            />
+                        </div>
+                    ))}
+                </div>
+                {distance !== 0 && (
+                    <button className={cx('prev-btn')} onClick={handlePrev}>
+                        <FontAwesomeIcon
+                            className={cx('icon-control')}
+                            icon={faChevronLeft}
+                        />
+                    </button>
+                )}
+                <button className={cx('next-btn')} onClick={handleNext}>
+                    <FontAwesomeIcon
+                        className={cx('icon-control')}
+                        icon={faChevronRight}
+                    />
+                </button>
+            </div>
+
             <div className={cx('slide-indecator')}>
                 {dataTrending.map((slide, index) => {
                     if (index === 0 || index % 6 === 0) {
                         return (
                             <div
                                 key={index}
-                                className={cx('dot-indecator', { active: Math.floor(index / 6) === currentPage })}
+                                className={cx('dot-indecator', {
+                                    active:
+                                        Math.floor(index / 6) === currentPage,
+                                })}
                             />
                         )
                     }
                     return null
                 })}
             </div>
-            <ul style={slideProps.style} className={cx('trending-items')}>
-                {dataTrending.map((data, index) => (
-                    <li key={index} className={cx('trending-item')}>
-                        <Backdrop className={cx('trending-bg')} path={data.backdrop_path || data.poster_path} />
-                    </li>
-                ))}
-            </ul>
-            {distance !== 0 && (
-                <button className={cx('prev-btn')} onClick={handlePrev}>
-                    Prev
-                </button>
-            )}
         </div>
     )
 }

@@ -2,18 +2,90 @@
 .wrapper {
 	--width-win: 100%;
 	position: relative;
-	margin: 20px 0;
+	margin-top: 55px;
+	z-index: 3;
+}
+
+.header {
+	user-select: none;
+	margin-left: 60px;
+	margin-bottom: 20px;
+	display: inline-flex;
+	cursor: pointer;
+	align-items: flex-end;
+
+	&:hover {
+		.icon-explore {
+			opacity: 1;
+			transition: transform .3s ease-in;
+			transform: translateX(0);
+		}
+		.title-explore {
+			opacity: 1;
+			transition: right .2s ease-out;
+			right: 0;
+		}
+
+	}
+}
+
+.title {
+	font-size: 2.6rem;	
+	line-height: 26px;
+}
+
+.title-explore,
+.icon-explore {
+	line-height: 16px;
+	color: #54b9c5;
+	font-weight: 700;
+}
+
+.title-explore {
+	position: relative;
+	right: 15px;
+	margin-left: 16px;
+	opacity: 0;
+}
+
+.icon-explore {
+	opacity: 0;
+	margin-left: 2px;
+	transform: translateX(-95px);
+
+}
+.icon-explore.show {
+	display: unset;
+	opacity: 1;
+}
+
+
+.items-control {
+	position: relative;
+
+	&:hover {
+		.prev-btn,
+		.next-btn  {
+			display: block;
+		}
+		~ .slide-indecator {
+			display: flex;
+		}
+
+	}
 }
 
 .trending-items {
-	background: rgba(20, 20, 20, 1.5);
+	background-color: transparent;
 	display: flex;
-	// overflow-x: scroll;
+	transition: transform 1s ease;
 	padding: 0 60px;
-	transition: transform 500ms ease;
+
 }
 
 .trending-item {
+	display: flex;
+	align-items: center;
 	margin-right: calc((var(--width-win) - 280px * 6 ) / 6);
 }
 
@@ -25,12 +97,23 @@
 
 .next-btn,
 .prev-btn {
+	display: none;
+	cursor: pointer;
 	position: absolute;
 	height: 100%;
 	width: 60px;
 	top: 0;
-	background-color: rgba(0, 0, 0, .2);
-	color: wheat;
+	background-color: rgba(0, 0, 0, .3);
+	color: var(--text-color);
+
+	&:hover {
+		background-color: rgba(0, 0, 0, .5);
+
+		.icon-control {
+			scale: 1.2;
+			transition: scale 0.2s ease;
+		}
+	}
 }
 
 .next-btn {
@@ -42,22 +125,26 @@
 	left: 0;
 }
 
+.icon-control {
+	color: var(--text-color);
+	height: 30px;
+}
+
 .slide-indecator {
 	position: absolute;
 	right: 60px;
-	top: -15px;
+	top: 32px;
 	z-index: 2;
-	display: flex;
+	display: none;
 }
 
 .dot-indecator {
-	width: 4px;
-	height: 4px;
-	background-color: rgba($color: #fff, $alpha: 0.4);
-	margin-left: 4px;
+	width: 12px;
+	height: 2px;
+	background-color:  #4d4d4d;
+	margin-left: 1px;
 }
 
 .dot-indecator.active {
-	background-color: rgba($color: #fff, $alpha: 1);
-
+	background-color:  #aaa;
 }

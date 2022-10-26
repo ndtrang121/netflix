@@ -41,7 +41,7 @@
 .nav-item-link {
 	user-select: none;
 	font-size: 1.4rem;
-	color: #e5e5e5;
+	color: var(--text-color);
 
 	&:hover {
 		opacity: .8;

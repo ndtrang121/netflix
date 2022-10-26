@@ -2,7 +2,6 @@ import classNames from 'classnames/bind'
 import { useLayoutEffect, useState } from 'react'
 
 import Header from '../components/Header'
-import Slider from '../components/Slider'
 import TopBackground from '../components/TopBackground'
 import styles from './DefaultLayout.module.scss'
 
@@ -31,13 +30,7 @@ function DefaultLayout({ children }) {
         <div className={cx('wrapper')}>
             <Header className={cx({ header: visibleHeader })} />
             <TopBackground />
-            <div className={cx('container')}>
-                <Slider path="/trending/all/week" />
-                <Slider path="/trending/all/week" page="2" />
-                <Slider path="/trending/all/week" page="3" />
-                <Slider path="/movie/popular" />
-                {children}
-            </div>
+            <div className={cx('container')}>{children}</div>
         </div>
     )
 }
