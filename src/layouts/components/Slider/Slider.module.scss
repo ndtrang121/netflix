@@ -1,9 +1,8 @@
 
 .wrapper {
-	--width-win: 100%;
+	// --width-win: 100%;
 	position: relative;
 	margin-top: 55px;
-	z-index: 3;
 }
 
 .header {
@@ -76,6 +75,7 @@
 }
 
 .trending-items {
+	// overflow-x: scroll;
 	background-color: transparent;
 	display: flex;
 	transition: transform 1s ease;
@@ -83,15 +83,17 @@
 
 }
 
+.trending-items::-webkit-scrollbar {
+	display: none;
+  }
+
 .trending-item {
 	display: flex;
 	align-items: center;
-	margin-right: calc((var(--width-win) - 280px * 6 ) / 6);
+	padding-right: 8px;
 }
 
 .trending-bg {
-	width: 280px;
-	height: 158px;
 	border-radius: 4px;
 }
 

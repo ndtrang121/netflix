@@ -6,7 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import classNames from 'classnames/bind'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import Backdrop from '~/components/Backdrop'
 import request from '~/utils/request'
 
@@ -15,44 +15,66 @@ import styles from './Slider.module.scss'
 const cx = classNames.bind(styles)
 
 function Slider({ path, page = '1', title }) {
-    const [containerWidth, setContainerWidth] = useState(0)
     const [distance, setDistance] = useState(0)
-    const [itemWidth, setItemWidth] = useState(0)
-    const [viewed, setViewed] = useState(0)
     const [dataTrending, setDataTreding] = useState([])
     const [numberMovies, setNumberMovies] = useState(0)
     const [end, setEnd] = useState(false)
     const [currentPage, setCurrentPage] = useState(0)
     const [showIndecator, setShowIndecator] = useState(false)
+    const [itemStyle, setItemStyle] = useState({})
     const ref = useRef()
+    const itemRef = useRef()
+
     const itemsToShow = 6
     const pageNumber = Math.ceil(numberMovies / itemsToShow)
     const mod = numberMovies % itemsToShow
 
-    useEffect(() => {
-        setContainerWidth(ref.current.offsetWidth - 120)
-        setItemWidth(containerWidth / itemsToShow)
+    const [width, setWidth] = useState(window.innerWidth)
+
+    // 8px scroll bar
+    const [itemWidth, setItemWidth] = useState(
+        (width - 120 - 8 - 8 * itemsToShow) / itemsToShow,
+    )
+    useLayoutEffect(() => {
+        const handleWindowResize = () => {
+            setWidth(window.innerWidth)
+            setItemWidth(
+                (window.innerWidth - 120 - 8 - 8 * itemsToShow) / itemsToShow,
+            )
+        }
+
+        window.addEventListener('resize', handleWindowResize)
+        return () => window.removeEventListener('resize', handleWindowResize)
+    }, [])
+
+    useLayoutEffect(() => {
+        setItemStyle({
+            width: `${itemWidth}px`,
+            height: `${itemWidth / 1.777}px`,
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ref.current])
+    }, [width])
 
     const handlePrev = () => {
         if (mod !== 0) {
             if (end) {
                 setEnd(false)
-                setDistance(distance + itemWidth * mod)
+                setDistance(distance + (itemWidth + 8) * mod)
                 setCurrentPage(currentPage - 1)
                 return
             }
         }
-        setViewed(viewed - itemWidth)
-        setDistance(distance + itemWidth * itemsToShow)
+        setDistance(distance + (itemWidth + 8) * itemsToShow)
         setCurrentPage(currentPage - 1)
     }
 
     const handleNext = () => {
         if (mod !== 0) {
-            if (Math.abs(distance) === containerWidth * (pageNumber - 2)) {
-                setDistance(distance - itemWidth * mod)
+            if (
+                Math.abs(distance) ===
+                (itemWidth + 8) * itemsToShow * (pageNumber - 2)
+            ) {
+                setDistance(distance - (itemWidth + 8) * mod)
                 setCurrentPage(currentPage + 1)
                 setEnd(true)
                 return
@@ -64,8 +86,7 @@ function Slider({ path, page = '1', title }) {
             setCurrentPage(0)
             return
         }
-        setViewed(viewed + itemWidth)
-        setDistance(distance - itemWidth * itemsToShow)
+        setDistance(distance - (itemWidth + 8) * itemsToShow)
         setCurrentPage(currentPage + 1)
     }
 
@@ -116,6 +137,8 @@ function Slider({ path, page = '1', title }) {
                     {dataTrending.map((data, index) => (
                         <div key={index} className={cx('trending-item')}>
                             <Backdrop
+                                ref={itemRef}
+                                style={itemStyle}
                                 className={cx('trending-bg')}
                                 path={data.backdrop_path || data.poster_path}
                             />
@@ -140,13 +163,14 @@ function Slider({ path, page = '1', title }) {
 
             <div className={cx('slide-indecator')}>
                 {dataTrending.map((slide, index) => {
-                    if (index === 0 || index % 6 === 0) {
+                    if (index === 0 || index % itemsToShow === 0) {
                         return (
                             <div
                                 key={index}
                                 className={cx('dot-indecator', {
                                     active:
-                                        Math.floor(index / 6) === currentPage,
+                                        Math.floor(index / itemsToShow) ===
+                                        currentPage,
                                 })}
                             />
                         )

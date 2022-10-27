@@ -39,7 +39,9 @@ function App() {
                     )
                 })}
             </Route>
-            <Route element={<LogoutRequire isAuthenticated={isAuthenticated} />}>
+            <Route
+                element={<LogoutRequire isAuthenticated={isAuthenticated} />}
+            >
                 <Route
                     path="/"
                     element={
@@ -52,7 +54,10 @@ function App() {
                     path="/login"
                     element={
                         <TitlePage title="Netflix">
-                            <Login setAuth={setAuth} isAuthenticated={isAuthenticated} />
+                            <Login
+                                setAuth={setAuth}
+                                isAuthenticated={isAuthenticated}
+                            />
                         </TitlePage>
                     }
                 />

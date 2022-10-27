@@ -12,6 +12,11 @@
 	background: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
 }
 
+.visible {
+	background: var(--background-color);
+	transition: background .5s ease;
+}
+
 .primary-nav {
 	display: flex;
 }
