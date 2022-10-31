@@ -81,7 +81,7 @@ function TopBackground() {
     }, [location.pathname])
 
     const onProgress = () => {
-        if (videoRef.current.getCurrentTime() >= 25) {
+        if (videoRef.current.getCurrentTime() >= 20) {
             setOpacity(false)
             setAutoPlay(false)
         }
@@ -117,7 +117,9 @@ function TopBackground() {
 
             <div className={cx('more-info')}>
                 <h1 className={cx('title')}>{dataBg.name || dataBg.title}</h1>
+
                 <p className={cx('overview')}>{dataBg.overview}</p>
+
                 <div className={cx('button')}>
                     <Button
                         className={cx('play-btn')}

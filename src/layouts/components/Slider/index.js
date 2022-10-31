@@ -6,75 +6,50 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import classNames from 'classnames/bind'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 import Backdrop from '~/components/Backdrop'
 import request from '~/utils/request'
 
 import styles from './Slider.module.scss'
+import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 
 const cx = classNames.bind(styles)
 
 function Slider({ path, page = '1', title }) {
-    const [distance, setDistance] = useState(0)
+    const { itemWidth, itemsToShow, marginRight, padding } =
+        useContext(ResponsiveContext)
+
     const [dataTrending, setDataTreding] = useState([])
+    const [distance, setDistance] = useState(0)
     const [numberMovies, setNumberMovies] = useState(0)
     const [end, setEnd] = useState(false)
     const [currentPage, setCurrentPage] = useState(0)
     const [showIndecator, setShowIndecator] = useState(false)
-    const [itemStyle, setItemStyle] = useState({})
-    const ref = useRef()
-    const itemRef = useRef()
 
-    const itemsToShow = 6
-    const pageNumber = Math.ceil(numberMovies / itemsToShow)
-    const mod = numberMovies % itemsToShow
-
-    const [width, setWidth] = useState(window.innerWidth)
-
-    // 8px scroll bar
-    const [itemWidth, setItemWidth] = useState(
-        (width - 120 - 8 - 8 * itemsToShow) / itemsToShow,
-    )
-    useLayoutEffect(() => {
-        const handleWindowResize = () => {
-            setWidth(window.innerWidth)
-            setItemWidth(
-                (window.innerWidth - 120 - 8 - 8 * itemsToShow) / itemsToShow,
-            )
-        }
-
-        window.addEventListener('resize', handleWindowResize)
-        return () => window.removeEventListener('resize', handleWindowResize)
-    }, [])
-
-    useLayoutEffect(() => {
-        setItemStyle({
-            width: `${itemWidth}px`,
-            height: `${itemWidth / 1.777}px`,
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [width])
+    let pageNumber = Math.ceil(numberMovies / itemsToShow)
 
     const handlePrev = () => {
+        const mod = numberMovies % itemsToShow
         if (mod !== 0) {
             if (end) {
                 setEnd(false)
-                setDistance(distance + (itemWidth + 8) * mod)
+                setDistance(distance + (itemWidth + marginRight) * mod)
                 setCurrentPage(currentPage - 1)
                 return
             }
         }
-        setDistance(distance + (itemWidth + 8) * itemsToShow)
+        setDistance(distance + (itemWidth + marginRight) * itemsToShow)
         setCurrentPage(currentPage - 1)
     }
 
     const handleNext = () => {
+        const mod = numberMovies % itemsToShow
         if (mod !== 0) {
             if (
                 Math.abs(distance) ===
-                (itemWidth + 8) * itemsToShow * (pageNumber - 2)
+                (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)
             ) {
-                setDistance(distance - (itemWidth + 8) * mod)
+                setDistance(distance - (itemWidth + marginRight) * mod)
                 setCurrentPage(currentPage + 1)
                 setEnd(true)
                 return
@@ -86,12 +61,8 @@ function Slider({ path, page = '1', title }) {
             setCurrentPage(0)
             return
         }
-        setDistance(distance - (itemWidth + 8) * itemsToShow)
+        setDistance(distance - (itemWidth + marginRight) * itemsToShow)
         setCurrentPage(currentPage + 1)
-    }
-
-    const slideProps = {
-        style: { transform: `translateX(${distance}px)` },
     }
 
     // Handle get data
@@ -111,8 +82,34 @@ function Slider({ path, page = '1', title }) {
         fecthDta()
     }, [path])
 
+    // Handle on Touch device
+    const [touchStart, setTouchStart] = useState(null)
+    const [touchEnd, setTouchEnd] = useState(null)
+
+    // the required distance between touchStart and touchEnd to be detected as a swipe
+    const minSwipeDistance = 50
+
+    const onTouchStart = (e) => {
+        setTouchEnd(null) // otherwise the swipe is fired even with usual touch events
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
+
+    const onTouchEnd = () => {
+        if (!touchStart || !touchEnd) return
+        const touchDistance = touchStart - touchEnd
+        const isLeftSwipe = touchDistance > minSwipeDistance
+        const isRightSwipe = touchDistance < -minSwipeDistance
+        if (isLeftSwipe) {
+            handleNext()
+        } else if (isRightSwipe && distance < 0) {
+            handlePrev()
+        }
+    }
+
     return (
-        <div ref={ref} className={cx('wrapper')}>
+        <div className={cx('wrapper')}>
             <div className={cx('header')}>
                 <h1 className={cx('title')}>{title}</h1>
                 <div className={cx('explore')}>
@@ -125,20 +122,36 @@ function Slider({ path, page = '1', title }) {
             </div>
 
             <div
+                className={cx('items-control')}
+                // onTouchMove={handleNext}
                 onMouseOver={() => {
                     setShowIndecator(true)
                 }}
                 onMouseOut={() => {
                     setShowIndecator(false)
                 }}
-                className={cx('items-control')}
             >
-                <div style={slideProps.style} className={cx('trending-items')}>
+                <div
+                    onTouchStart={onTouchStart}
+                    onTouchMove={onTouchMove}
+                    onTouchEnd={onTouchEnd}
+                    style={{
+                        transform: `translateX(${distance}px)`,
+                        padding: `0 ${padding}px`,
+                    }}
+                    className={cx('trending-items')}
+                >
                     {dataTrending.map((data, index) => (
-                        <div key={index} className={cx('trending-item')}>
+                        <div
+                            key={index}
+                            className={cx('trending-item')}
+                            style={{ marginRight: `${marginRight}px` }}
+                        >
                             <Backdrop
-                                ref={itemRef}
-                                style={itemStyle}
+                                style={{
+                                    width: `${itemWidth}px`,
+                                    height: `${itemWidth / 1.777}px`,
+                                }}
                                 className={cx('trending-bg')}
                                 path={data.backdrop_path || data.poster_path}
                             />
@@ -146,14 +159,24 @@ function Slider({ path, page = '1', title }) {
                     ))}
                 </div>
                 {distance !== 0 && (
-                    <button className={cx('prev-btn')} onClick={handlePrev}>
+                    <button
+                        className={cx('prev-btn')}
+                        style={{
+                            width: `calc(${padding}px - ${marginRight}px)`,
+                        }}
+                        onClick={handlePrev}
+                    >
                         <FontAwesomeIcon
                             className={cx('icon-control')}
                             icon={faChevronLeft}
                         />
                     </button>
                 )}
-                <button className={cx('next-btn')} onClick={handleNext}>
+                <button
+                    className={cx('next-btn')}
+                    style={{ width: `${padding}px` }}
+                    onClick={handleNext}
+                >
                     <FontAwesomeIcon
                         className={cx('icon-control')}
                         icon={faChevronRight}
