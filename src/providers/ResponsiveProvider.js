@@ -10,26 +10,26 @@ const ResponsiveProvider = ({ children }) => {
     const [marginRight, setMarginRight] = useState(obj.marginRight)
     const [padding, setPadding] = useState(obj.padding)
     const SCROLLWIDTH = 8
-
+    let paddingGloble = document.querySelector(':root')
     const [device, setDevice] = useState(obj.device)
     useLayoutEffect(() => {
         const handleWindowResize = () => {
-            if (window.innerWidth > 1601) {
+            if (window.innerWidth >= 1400) {
                 setDevice('desktop')
                 setItemsToShow(6)
                 setMarginRight(8)
                 setPadding(60)
-            } else if (window.innerWidth <= 1600 && window.innerWidth > 1280) {
+            } else if (window.innerWidth < 1399 && window.innerWidth >= 1100) {
                 setDevice('laptop')
                 setItemsToShow(5)
                 setMarginRight(6)
                 setPadding(50)
-            } else if (window.innerWidth <= 1280 && window.innerWidth > 840) {
+            } else if (window.innerWidth < 1100 && window.innerWidth >= 800) {
                 setDevice('tablet')
                 setItemsToShow(4)
                 setMarginRight(4)
                 setPadding(40)
-            } else if (window.innerWidth <= 840) {
+            } else if (window.innerWidth < 800) {
                 setDevice('mobile')
                 setItemsToShow(3)
                 setMarginRight(2)
@@ -57,6 +57,8 @@ const ResponsiveProvider = ({ children }) => {
                 marginRight * itemsToShow) /
                 itemsToShow,
         )
+        paddingGloble.style.setProperty('--PADDING', `${padding}px`)
+        paddingGloble.style.setProperty('--WIDTH-WINDOW', `${widthWin}px`)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [widthWin])
 

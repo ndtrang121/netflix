@@ -4,14 +4,14 @@ import {
     faChevronLeft,
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
-
 import classNames from 'classnames/bind'
 import { useContext, useLayoutEffect, useState } from 'react'
+
 import Backdrop from '~/components/Backdrop'
 import request from '~/utils/request'
-
 import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
+import Movie from '~/components/Movie'
 
 const cx = classNames.bind(styles)
 
@@ -44,17 +44,26 @@ function Slider({ path, page = '1', title }) {
 
     const handleNext = () => {
         const mod = numberMovies % itemsToShow
-        if (mod !== 0) {
-            if (
-                Math.abs(distance) ===
+        if (
+            mod !== 0 &&
+            Math.abs(distance) ===
                 (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)
-            ) {
-                setDistance(distance - (itemWidth + marginRight) * mod)
-                setCurrentPage(currentPage + 1)
-                setEnd(true)
-                return
-            }
+        ) {
+            setDistance(distance - (itemWidth + marginRight) * mod)
+            setCurrentPage(currentPage + 1)
+            setEnd(true)
+            return
+        } else if (
+            mod === 0 &&
+            Math.abs(distance) ===
+                (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)
+        ) {
+            setDistance(distance - (itemWidth + marginRight) * itemsToShow)
+            setCurrentPage(currentPage + 1)
+            setEnd(true)
+            return
         }
+
         if (end) {
             setDistance(0)
             setEnd(false)
@@ -110,7 +119,10 @@ function Slider({ path, page = '1', title }) {
 
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('header')}>
+            <div
+                className={cx('header')}
+                style={{ paddingLeft: 'var(--PADDING)' }}
+            >
                 <h1 className={cx('title')}>{title}</h1>
                 <div className={cx('explore')}>
                     <span className={cx('title-explore')}>Explore All</span>
@@ -120,10 +132,8 @@ function Slider({ path, page = '1', title }) {
                     />
                 </div>
             </div>
-
             <div
                 className={cx('items-control')}
-                // onTouchMove={handleNext}
                 onMouseOver={() => {
                     setShowIndecator(true)
                 }}
@@ -147,7 +157,7 @@ function Slider({ path, page = '1', title }) {
                             className={cx('trending-item')}
                             style={{ marginRight: `${marginRight}px` }}
                         >
-                            <Backdrop
+                            <Movie
                                 style={{
                                     width: `${itemWidth}px`,
                                     height: `${itemWidth / 1.777}px`,
@@ -174,7 +184,7 @@ function Slider({ path, page = '1', title }) {
                 )}
                 <button
                     className={cx('next-btn')}
-                    style={{ width: `${padding}px` }}
+                    style={{ width: `calc(${padding}px + ${marginRight}px` }}
                     onClick={handleNext}
                 >
                     <FontAwesomeIcon
@@ -183,7 +193,6 @@ function Slider({ path, page = '1', title }) {
                     />
                 </button>
             </div>
-
             <div className={cx('slide-indecator')}>
                 {dataTrending.map((slide, index) => {
                     if (index === 0 || index % itemsToShow === 0) {

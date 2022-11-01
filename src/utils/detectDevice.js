@@ -5,17 +5,17 @@ export default function detectDevice() {
     let padding = 60
     const width = window.innerWidth
 
-    if (width > 1601) {
+    if (width >= 1400) {
         device = 'desktop'
         itemsToShow = 6
         marginRight = 8
         padding = 60
-    } else if (width <= 1600 && width > 1280) {
+    } else if (width < 1400 && width >= 1100) {
         device = 'laptop'
         itemsToShow = 5
         marginRight = 6
         padding = 50
-    } else if (width <= 1280 && width > 840) {
+    } else if (width < 1100 && width >= 800) {
         device = 'tablet'
         itemsToShow = 4
         marginRight = 4

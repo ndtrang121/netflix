@@ -1,0 +1,28 @@
+.wrapper {
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		cursor: pointer;
+
+		.more {
+			position: absolute;
+			display: flex;
+			flex-direction: column;
+			z-index: 3;
+		}
+	}
+}
+
+.more {
+	display: none;
+	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.info {
+	width: inherit;
+	min-height: 200px;
+	background-color: rgb(24, 24, 24);
+}

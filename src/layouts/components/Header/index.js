@@ -55,6 +55,7 @@ function Header({ className }) {
                 [className]: className,
                 visible: visibleHeader,
             })}
+            style={{ padding: '0 var(--PADDING)' }}
         >
             <nav className={cx('primary-nav')}>
                 <Link className={cx('logo-link')} to="/browse">

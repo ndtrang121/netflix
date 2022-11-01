@@ -71,7 +71,9 @@ function TopBackground() {
         } else if (location.pathname === '/movies') {
             setPath('movie')
         }
-
+        setOpacity(false)
+        setAutoPlay(true)
+        if (videoRef.current) videoRef.current.seekTo(0, 'seconds')
         const timerOpacity = setTimeout(() => {
             setOpacity(true)
         }, 4000)
@@ -90,14 +92,23 @@ function TopBackground() {
     const onReady = (e) => {
         videoRef.current.seekTo(0, 'seconds')
     }
+
+    const onPause = () => {}
     return (
-        <div className={cx('background-wrapper')}>
+        <div
+            className={cx('background-wrapper')}
+            style={{
+                width: `var(--WIDTH-WINDOW)`,
+                height: `calc(var(--WIDTH-WINDOW) / 1.8)`,
+            }}
+        >
             {trailer && (
                 <ReactPlayer
                     ref={videoRef}
                     className={cx('trailer')}
                     onProgress={onProgress}
                     onReady={onReady}
+                    onPause={onPause}
                     playing={autoPlay}
                     volume={0.5}
                     muted={muted}
@@ -115,7 +126,10 @@ function TopBackground() {
                 path={dataBg.backdrop_path}
             ></Backdrop>
 
-            <div className={cx('more-info')}>
+            <div
+                className={cx('more-info')}
+                style={{ paddingLeft: 'var(--PADDING)' }}
+            >
                 <h1 className={cx('title')}>{dataBg.name || dataBg.title}</h1>
 
                 <p className={cx('overview')}>{dataBg.overview}</p>
