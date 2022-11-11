@@ -127,13 +127,11 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
     const [infoMovie, setInfoMovie] = useState({})
     const [timer, setTimer] = useState(null)
     const [leftItem, setLeftItem] = useState(0)
-    const [bottomItem, setBottomItem] = useState(0)
 
     const refMovie = useRef()
 
     const handleOnPopup = (data) => {
         const clientX = window.event.clientX
-        const clientY = window.event.clientY
         if (
             clientX >= padding - 1 &&
             clientX < widthWin - padding - SCROLLWIDTH - 1
@@ -165,7 +163,6 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                 marginRight
 
             if (clientX >= leftItem && clientX < rightItem) {
-                console.log(leftItem)
                 if (i === 1) {
                     setLeftItem(leftItem + marginRight)
                 } else if (i === itemsToShow) {
@@ -178,10 +175,6 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                     )
             }
         }
-
-        const bottomItem = refMovie.current.getBoundingClientRect().top
-        console.log(bottomItem)
-        setBottomItem(bottomItem)
     }
 
     const handleClearTimer = () => {
@@ -303,9 +296,9 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                     onMouseLeave={handleOffPopup}
                     style={{
                         left: `${leftItem}px`,
-                        transform: `translateY(calc((${
+                        bottom: `calc((${itemWidth / 1.777}px - ${
                             (itemWidth / 1.777) * 1.5 * 1.85
-                        }px - ${itemWidth / 1.777}px) / 2 ))`,
+                        }px) / 2 )`,
                     }}
                 >
                     <Backdrop

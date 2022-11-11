@@ -157,10 +157,9 @@
 	cursor: pointer;
 	position: absolute;
 	z-index: 3;
-	bottom: 0px;
 	display: flex;
     flex-direction: column;
-	// box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
+	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
 	border-radius: 4px;
 	overflow: hidden;
 }
