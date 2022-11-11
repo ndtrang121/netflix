@@ -59,12 +59,9 @@ const ResponsiveProvider = ({ children }) => {
         )
         paddingGloble.style.setProperty('--PADDING', `${padding}px`)
         paddingGloble.style.setProperty('--WIDTH-WINDOW', `${widthWin}px`)
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [widthWin])
-
-    // Handle show popup for movie
-    const [showPopup, setShowPopup] = useState(false)
-    const [infoMovie, setInfoMovie] = useState({})
 
     return (
         <ResponsiveContext.Provider
@@ -76,10 +73,6 @@ const ResponsiveProvider = ({ children }) => {
                 marginRight,
                 padding,
                 SCROLLWIDTH,
-                showPopup,
-                setShowPopup,
-                infoMovie,
-                setInfoMovie,
             }}
         >
             {children}

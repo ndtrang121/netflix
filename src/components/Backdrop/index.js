@@ -6,7 +6,6 @@ const Backdrop = ({ path, className, large = false, style, ...passProps }) => {
         <img
             {...passProps}
             style={style}
-            // ref={ref}
             className={className}
             src={
                 path

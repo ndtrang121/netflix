@@ -199,6 +199,7 @@ function TopBackground() {
                 <Slider
                     path={`/trending/${path}/week`}
                     title={'Trending On Netflix'}
+                    nextBtn={true}
                 />
             </div>
         </div>

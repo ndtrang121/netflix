@@ -5,7 +5,7 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import { useContext, useLayoutEffect, useState } from 'react'
+import { useContext, useLayoutEffect, useRef, useState } from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
@@ -14,14 +14,14 @@ import Backdrop from '~/components/Backdrop'
 
 const cx = classNames.bind(styles)
 
-function Slider({ path, page = '1', title }) {
+function Slider({ path, page = '1', title, nextBtn = false }) {
     const {
         widthWin,
+        SCROLLWIDTH,
         itemWidth,
         itemsToShow,
         marginRight,
         padding,
-        SCROLLWIDTH,
     } = useContext(ResponsiveContext)
 
     const [dataTrending, setDataTreding] = useState([])
@@ -126,11 +126,17 @@ function Slider({ path, page = '1', title }) {
     const [showPopup, setShowPopup] = useState(false)
     const [infoMovie, setInfoMovie] = useState({})
     const [timer, setTimer] = useState(null)
+    const [leftItem, setLeftItem] = useState(0)
+    const [bottomItem, setBottomItem] = useState(0)
+
+    const refMovie = useRef()
 
     const handleOnPopup = (data) => {
+        const clientX = window.event.clientX
+        const clientY = window.event.clientY
         if (
-            window.event.clientX >= padding - 1 &&
-            window.event.clientX < widthWin - padding - SCROLLWIDTH - 1
+            clientX >= padding - 1 &&
+            clientX < widthWin - padding - SCROLLWIDTH - 1
         ) {
             if (!timer && !showPopup) {
                 setTimer(
@@ -145,6 +151,37 @@ function Slider({ path, page = '1', title }) {
                 setInfoMovie(data)
             }
         }
+
+        for (let i = 1; i <= itemsToShow; i++) {
+            const leftItem =
+                padding +
+                (itemWidth + marginRight) * itemsToShow -
+                (itemWidth + marginRight) * (itemsToShow - (i - 1)) -
+                marginRight
+            const rightItem =
+                padding +
+                (itemWidth + marginRight) * itemsToShow -
+                (itemWidth + marginRight) * (itemsToShow - i) -
+                marginRight
+
+            if (clientX >= leftItem && clientX < rightItem) {
+                console.log(leftItem)
+                if (i === 1) {
+                    setLeftItem(leftItem + marginRight)
+                } else if (i === itemsToShow) {
+                    setLeftItem(leftItem + marginRight - itemWidth / 2)
+                } else
+                    setLeftItem(
+                        leftItem +
+                            marginRight -
+                            (itemWidth * 1.5 - itemWidth) / 2,
+                    )
+            }
+        }
+
+        const bottomItem = refMovie.current.getBoundingClientRect().top
+        console.log(bottomItem)
+        setBottomItem(bottomItem)
     }
 
     const handleClearTimer = () => {
@@ -176,10 +213,10 @@ function Slider({ path, page = '1', title }) {
             </div>
             <div
                 className={cx('items-control')}
-                onMouseEnter={() => {
+                onMouseOver={() => {
                     setShowIndecator(true)
                 }}
-                onMouseLeave={() => {
+                onMouseOut={() => {
                     setShowIndecator(false)
                 }}
             >
@@ -195,11 +232,13 @@ function Slider({ path, page = '1', title }) {
                 >
                     {dataTrending.map((data, index) => (
                         <div
+                            ref={refMovie}
                             key={index}
                             className={cx('trending-item')}
                             style={{ marginRight: `${marginRight}px` }}
                             onMouseOver={() => handleOnPopup(data)}
                             onMouseOut={handleClearTimer}
+                            onClick={() => handleOnPopup(data)}
                         >
                             <Backdrop
                                 style={{
@@ -228,7 +267,11 @@ function Slider({ path, page = '1', title }) {
                 )}
                 <button
                     className={cx('next-btn')}
-                    style={{ width: `calc(${padding}px + ${marginRight}px` }}
+                    style={
+                        nextBtn
+                            ? { width: `calc(${padding}px + ${SCROLLWIDTH}px)` }
+                            : { width: `${padding}px` }
+                    }
                     onClick={handleNext}
                 >
                     <FontAwesomeIcon
@@ -258,6 +301,12 @@ function Slider({ path, page = '1', title }) {
                 <div
                     className={cx('popup-movie')}
                     onMouseLeave={handleOffPopup}
+                    style={{
+                        left: `${leftItem}px`,
+                        transform: `translateY(calc((${
+                            (itemWidth / 1.777) * 1.5 * 1.85
+                        }px - ${itemWidth / 1.777}px) / 2 ))`,
+                    }}
                 >
                     <Backdrop
                         style={{
@@ -266,7 +315,14 @@ function Slider({ path, page = '1', title }) {
                         }}
                         path={infoMovie.backdrop_path}
                     />
-                    <div className={cx('info')}>Infor</div>
+                    <div
+                        style={{
+                            minHeight: `${(itemWidth / 1.777) * 1.5 * 0.8}px`,
+                        }}
+                        className={cx('info')}
+                    >
+                        Infor
+                    </div>
                 </div>
             )}
         </div>
