@@ -7,17 +7,22 @@ import {
 import classNames from 'classnames/bind'
 import { useContext, useLayoutEffect, useState } from 'react'
 
-import Backdrop from '~/components/Backdrop'
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
-import Movie from '~/components/Movie'
+import Backdrop from '~/components/Backdrop'
 
 const cx = classNames.bind(styles)
 
 function Slider({ path, page = '1', title }) {
-    const { itemWidth, itemsToShow, marginRight, padding } =
-        useContext(ResponsiveContext)
+    const {
+        widthWin,
+        itemWidth,
+        itemsToShow,
+        marginRight,
+        padding,
+        SCROLLWIDTH,
+    } = useContext(ResponsiveContext)
 
     const [dataTrending, setDataTreding] = useState([])
     const [distance, setDistance] = useState(0)
@@ -117,11 +122,48 @@ function Slider({ path, page = '1', title }) {
         }
     }
 
+    // Handle show popup for movie
+    const [showPopup, setShowPopup] = useState(false)
+    const [infoMovie, setInfoMovie] = useState({})
+    const [timer, setTimer] = useState(null)
+
+    const handleOnPopup = (data) => {
+        if (
+            window.event.clientX >= padding - 1 &&
+            window.event.clientX < widthWin - padding - SCROLLWIDTH - 1
+        ) {
+            if (!timer && !showPopup) {
+                setTimer(
+                    setTimeout(() => {
+                        setShowPopup(true)
+                        setInfoMovie(data)
+                        setTimer()
+                    }, 800),
+                )
+            } else if (showPopup) {
+                setShowPopup(true)
+                setInfoMovie(data)
+            }
+        }
+    }
+
+    const handleClearTimer = () => {
+        if (timer) {
+            clearTimeout(timer)
+            setTimer(null)
+        }
+    }
+
+    const handleOffPopup = () => {
+        setShowPopup(false)
+        setInfoMovie({})
+    }
+
     return (
         <div className={cx('wrapper')}>
             <div
                 className={cx('header')}
-                style={{ paddingLeft: 'var(--PADDING)' }}
+                style={{ marginLeft: 'var(--PADDING)' }}
             >
                 <h1 className={cx('title')}>{title}</h1>
                 <div className={cx('explore')}>
@@ -134,10 +176,10 @@ function Slider({ path, page = '1', title }) {
             </div>
             <div
                 className={cx('items-control')}
-                onMouseOver={() => {
+                onMouseEnter={() => {
                     setShowIndecator(true)
                 }}
-                onMouseOut={() => {
+                onMouseLeave={() => {
                     setShowIndecator(false)
                 }}
             >
@@ -147,7 +189,7 @@ function Slider({ path, page = '1', title }) {
                     onTouchEnd={onTouchEnd}
                     style={{
                         transform: `translateX(${distance}px)`,
-                        padding: `0 ${padding}px`,
+                        margin: `0 ${padding}px`,
                     }}
                     className={cx('trending-items')}
                 >
@@ -156,8 +198,10 @@ function Slider({ path, page = '1', title }) {
                             key={index}
                             className={cx('trending-item')}
                             style={{ marginRight: `${marginRight}px` }}
+                            onMouseOver={() => handleOnPopup(data)}
+                            onMouseOut={handleClearTimer}
                         >
-                            <Movie
+                            <Backdrop
                                 style={{
                                     width: `${itemWidth}px`,
                                     height: `${itemWidth / 1.777}px`,
@@ -210,6 +254,21 @@ function Slider({ path, page = '1', title }) {
                     return null
                 })}
             </div>
+            {showPopup && (
+                <div
+                    className={cx('popup-movie')}
+                    onMouseLeave={handleOffPopup}
+                >
+                    <Backdrop
+                        style={{
+                            width: `${itemWidth * 1.5}px`,
+                            height: `${(itemWidth / 1.777) * 1.5}px`,
+                        }}
+                        path={infoMovie.backdrop_path}
+                    />
+                    <div className={cx('info')}>Infor</div>
+                </div>
+            )}
         </div>
     )
 }

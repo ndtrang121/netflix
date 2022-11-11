@@ -112,8 +112,8 @@ function TopBackground() {
                     playing={autoPlay}
                     volume={0.5}
                     muted={muted}
-                    width={'auto'}
-                    height={'1280px'}
+                    width={'var(--WIDTH-WINDOW)'}
+                    height={'calc(var(--WIDTH-WINDOW) / 1.8)'}
                     url={`http://www.youtube.com/embed/${trailer}`}
                 />
             )}

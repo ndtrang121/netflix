@@ -62,6 +62,10 @@ const ResponsiveProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [widthWin])
 
+    // Handle show popup for movie
+    const [showPopup, setShowPopup] = useState(false)
+    const [infoMovie, setInfoMovie] = useState({})
+
     return (
         <ResponsiveContext.Provider
             value={{
@@ -72,6 +76,10 @@ const ResponsiveProvider = ({ children }) => {
                 marginRight,
                 padding,
                 SCROLLWIDTH,
+                showPopup,
+                setShowPopup,
+                infoMovie,
+                setInfoMovie,
             }}
         >
             {children}

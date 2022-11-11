@@ -5,10 +5,9 @@ import Backdrop from '../Backdrop'
 
 const cx = classNames.bind(styles)
 
-function Movie({ style, className, path }) {
+function PopupMovie({ style, path, ...passProps }) {
     return (
-        <div className={cx('wrapper')}>
-            <Backdrop style={style} className={className} path={path} />
+        <div className={cx('wrapper')} {...passProps}>
             <div className={cx('more')}>
                 <Backdrop
                     style={{
@@ -17,10 +16,10 @@ function Movie({ style, className, path }) {
                     }}
                     path={path}
                 />
-                <div className={cx('info')}></div>
+                <div className={cx('info')}>Infor</div>
             </div>
         </div>
     )
 }
 
-export default Movie
+export default PopupMovie

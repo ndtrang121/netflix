@@ -1,9 +1,20 @@
 
 .wrapper {
-	// --width-win: 100%;
 	position: relative;
 	margin-top: 55px;
+	// z-index: 7;
 }
+
+// .wrapper::after {
+// 	content: "";
+// 	position: absolute;
+// 	z-index: 3;
+// 	width: var(--PADDING);
+// 	height: 100%;
+// 	right: 0;
+// 	top: 0;
+// 	background-color: red;
+// }
 
 .header {
 	user-select: none;
@@ -58,22 +69,6 @@
 	opacity: 1;
 }
 
-
-.items-control {
-	position: relative;
-
-	&:hover {
-		.prev-btn,
-		.next-btn  {
-			display: block;
-		}
-		~ .slide-indecator {
-			display: flex;
-		}
-
-	}
-}
-
 .trending-items {
 	// overflow-x: scroll;
 	background-color: transparent;
@@ -95,9 +90,25 @@
 	border-radius: 4px;
 }
 
+.items-control {
+	position: relative;
+
+	&:hover {
+		.prev-btn,
+		.next-btn  {
+			display: block;
+		}
+		~ .slide-indecator {
+			display: flex;
+		}
+
+	}
+}
+
+// Button slide
 .next-btn,
 .prev-btn {
-	display: none;
+	display: block;
 	cursor: pointer;
 	position: absolute;
 	height: 100%;
@@ -151,4 +162,23 @@
 
 .dot-indecator.active {
 	background-color:  #aaa;
+}
+
+//Handle popup movie info
+.popup-movie {
+	position: absolute;
+	z-index: 3;
+	bottom: -50px;
+	left: 60px;
+	display: flex;
+    flex-direction: column;
+	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.info {
+	min-height: 200px;
+	width: 100%;
+	background-color: rgb(24, 24, 24);
 }

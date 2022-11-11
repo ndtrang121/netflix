@@ -1,11 +1,12 @@
-import { forwardRef } from 'react'
 import { images } from '~/assets/media'
 
-const Backdrop = ({ path, className, large = false, style }, ref) => {
+const Backdrop = ({ path, className, large = false, style, ...passProps }) => {
+    console.log('re-render')
     return (
         <img
+            {...passProps}
             style={style}
-            ref={ref}
+            // ref={ref}
             className={className}
             src={
                 path
@@ -19,4 +20,4 @@ const Backdrop = ({ path, className, large = false, style }, ref) => {
     )
 }
 
-export default forwardRef(Backdrop)
+export default Backdrop
