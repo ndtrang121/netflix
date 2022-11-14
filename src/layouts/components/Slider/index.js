@@ -11,6 +11,7 @@ import request from '~/utils/request'
 import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 import Backdrop from '~/components/Backdrop'
+import MiniModalMovie from '~/components/MiniModalMovie'
 
 const cx = classNames.bind(styles)
 
@@ -142,7 +143,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                         setShowPopup(true)
                         setInfoMovie(data)
                         setTimer()
-                    }, 800),
+                    }, 500),
                 )
             } else if (showPopup) {
                 setShowPopup(true)
@@ -290,34 +291,14 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                     return null
                 })}
             </div>
-            {showPopup && (
-                <div
-                    className={cx('popup-movie')}
-                    onMouseLeave={handleOffPopup}
-                    style={{
-                        left: `${leftItem}px`,
-                        bottom: `calc((${itemWidth / 1.777}px - ${
-                            (itemWidth / 1.777) * 1.5 * 1.85
-                        }px) / 2 )`,
-                    }}
-                >
-                    <Backdrop
-                        style={{
-                            width: `${itemWidth * 1.5}px`,
-                            height: `${(itemWidth / 1.777) * 1.5}px`,
-                        }}
-                        path={infoMovie.backdrop_path}
-                    />
-                    <div
-                        style={{
-                            minHeight: `${(itemWidth / 1.777) * 1.5 * 0.8}px`,
-                        }}
-                        className={cx('info')}
-                    >
-                        Infor
-                    </div>
-                </div>
-            )}
+
+            <MiniModalMovie
+                itemWidth={itemWidth}
+                infoMovie={infoMovie}
+                leftItem={leftItem}
+                show={showPopup}
+                onMouseLeave={handleOffPopup}
+            />
         </div>
     )
 }

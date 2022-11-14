@@ -1,0 +1,77 @@
+//Handle popup movie info
+.popup-movie {
+	cursor: pointer;
+	position: absolute;
+	z-index: 2;
+	display: flex;
+    flex-direction: column;
+	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
+	border-radius: 6px;
+	overflow: hidden;
+}
+
+.popup-movie.show {
+    display: flex;
+    animation: zoomin .3s ease-in-out;
+
+}
+
+@keyframes zoomin {
+    from {
+        transform: scale(0.5);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.info {
+	width: 100%;
+	background-color: rgb(24, 24, 24);
+    padding: 16px;
+    font-size: 1.6rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-controls {
+    display: flex;
+    flex-grow: 3;
+    margin-bottom: 8px;
+}
+
+.btn-control {    
+    max-width: 42px;
+    max-height: 42px;
+    height: 42px;
+    width: 42px;
+    border: 2px solid #dcdcdc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-control:not(:first-child) {
+    margin-left: 8px;
+}
+
+.btn-play {
+    background-color: var(--white);
+    color: var(--black);
+    border: unset;
+}
+
+.btn-control.btn-more {
+    margin-left: auto;
+
+}
+
+.meta-data {
+    height: 27px;
+}
+
+.genre {
+    display: flex;
+
+}

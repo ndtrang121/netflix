@@ -151,20 +151,3 @@
 .dot-indecator.active {
 	background-color:  #aaa;
 }
-
-//Handle popup movie info
-.popup-movie {
-	cursor: pointer;
-	position: absolute;
-	z-index: 3;
-	display: flex;
-    flex-direction: column;
-	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
-	border-radius: 4px;
-	overflow: hidden;
-}
-
-.info {
-	width: 100%;
-	background-color: rgb(24, 24, 24);
-}
