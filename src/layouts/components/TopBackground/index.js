@@ -22,7 +22,7 @@ const cx = classNames.bind(styles)
 function TopBackground() {
     const location = useLocation()
     const [dataBg, setDataBg] = useState([])
-    const [trailer, setTrailer] = useState([])
+    const [trailer, setTrailer] = useState('')
     const [autoPlay, setAutoPlay] = useState(true)
     const [muted, setMuted] = useState(true)
     const [opacity, setOpacity] = useState(false)
@@ -102,7 +102,7 @@ function TopBackground() {
                 height: `calc(var(--WIDTH-WINDOW) / 1.8)`,
             }}
         >
-            {trailer && (
+            {trailer !== '' && (
                 <ReactPlayer
                     ref={videoRef}
                     className={cx('trailer')}

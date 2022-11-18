@@ -5,7 +5,13 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import { useContext, useLayoutEffect, useRef, useState } from 'react'
+import {
+    useCallback,
+    useContext,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
@@ -131,7 +137,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
 
     const refMovie = useRef()
 
-    const handleOnPopup = (data) => {
+    const handleOnPopup = useCallback((data) => {
         const clientX = window.event.clientX
         if (
             clientX >= padding - 1 &&
@@ -176,7 +182,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                     )
             }
         }
-    }
+    }, [])
 
     const handleClearTimer = () => {
         if (timer) {
@@ -185,10 +191,10 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
         }
     }
 
-    const handleOffPopup = () => {
+    const handleOffPopup = useCallback(() => {
         setShowPopup(false)
         setInfoMovie({})
-    }
+    }, [])
 
     return (
         <div className={cx('wrapper')}>

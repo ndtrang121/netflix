@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { images } from '~/assets/media'
 
 const Backdrop = ({ path, className, large = false, style, ...passProps }) => {
@@ -19,4 +20,4 @@ const Backdrop = ({ path, className, large = false, style, ...passProps }) => {
     )
 }
 
-export default Backdrop
+export default memo(Backdrop)
