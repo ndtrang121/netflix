@@ -11,7 +11,6 @@ const Home = lazy(() => import('./pages/Home'))
 const Shows = lazy(() => import('./pages/Shows'))
 const Movies = lazy(() => import('./pages/Movies'))
 const Trending = lazy(() => import('./pages/Trending'))
-// const Search = lazy(() => import('./pages/Search'))
 
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))

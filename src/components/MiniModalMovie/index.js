@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faPlay,
     faPlus,
+    // eslint-disable-next-line no-unused-vars
     faHeart as faHeartSo,
     faAngleDown,
 } from '@fortawesome/free-solid-svg-icons'
@@ -11,11 +12,13 @@ import { faHeart as faHeartRe } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './MiniModalMovie.module.scss'
 import Backdrop from '../Backdrop'
+import getGenre from '~/utils/getGenre'
 
 const cx = classNames.bind(styles)
 
 function MiniModalMovie({
     style,
+    position,
     infoMovie,
     itemWidth,
     leftItem,
@@ -24,23 +27,41 @@ function MiniModalMovie({
 }) {
     const refInfo = useRef()
     const [heightInfo, setHeightInfo] = useState(0)
-
+    const [dataGenre, setDataGenre] = useState([])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useLayoutEffect(() => {
         if (refInfo.current) {
-            console.log(refInfo.current.clientHeight)
             setHeightInfo(refInfo.current.clientHeight)
         }
-    }, [itemWidth])
+    })
+
+    useLayoutEffect(() => {
+        try {
+            const fetchGenre = async () => {
+                if (show) {
+                    await getGenre(
+                        infoMovie.genre_ids,
+                        infoMovie.media_type,
+                    ).then((res) => setDataGenre(res))
+                } else setDataGenre([])
+            }
+
+            fetchGenre()
+        } catch (error) {}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [show])
 
     return (
         <div
             className={cx('popup-movie', { show })}
             {...passProps}
             style={{
+                width: `${itemWidth * 1.5}px`,
                 left: `${leftItem}px`,
                 bottom: `calc((${itemWidth / 1.777}px - ${
                     (itemWidth / 1.777) * 1.5 + heightInfo
                 }px) / 2 )`,
+                transformOrigin: `${position}% 50%`,
             }}
         >
             <Backdrop
@@ -68,9 +89,11 @@ function MiniModalMovie({
                 </div>
                 <div className={cx('meta-data')}>Match</div>
                 <div className={cx('genre')}>
-                    <p>Action</p>
-                    <p>Action</p>
-                    <p>Action</p>
+                    {dataGenre.map((genre, index) => (
+                        <div className={cx('genre-item')} key={index}>
+                            {genre}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

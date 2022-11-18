@@ -31,7 +31,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
         padding,
     } = useContext(ResponsiveContext)
 
-    const [dataTrending, setDataTreding] = useState([])
+    const [dataTrending, setDataTrending] = useState([])
     const [distance, setDistance] = useState(0)
     const [numberMovies, setNumberMovies] = useState(0)
     const [end, setEnd] = useState(false)
@@ -93,8 +93,8 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
         const fecthDta = async () => {
             try {
                 await request(path, page).then((res) => {
-                    setDataTreding(res)
-                    setNumberMovies(res.length)
+                    setDataTrending(res.results)
+                    setNumberMovies(res.results.length)
                 })
             } catch (error) {
                 // throw new Error()
@@ -134,6 +134,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
     const [infoMovie, setInfoMovie] = useState({})
     const [timer, setTimer] = useState(null)
     const [leftItem, setLeftItem] = useState(0)
+    const [position, setPosition] = useState(0)
 
     const refMovie = useRef()
 
@@ -171,15 +172,21 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
 
             if (clientX >= leftItem && clientX < rightItem) {
                 if (i === 1) {
+                    // first item
+                    setPosition(0)
                     setLeftItem(leftItem + marginRight)
                 } else if (i === itemsToShow) {
+                    // last item
+                    setPosition(100)
                     setLeftItem(leftItem + marginRight - itemWidth / 2)
-                } else
+                } else {
+                    setPosition(50)
                     setLeftItem(
                         leftItem +
                             marginRight -
                             (itemWidth * 1.5 - itemWidth) / 2,
                     )
+                }
             }
         }
     }, [])
@@ -299,6 +306,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
             </div>
 
             <MiniModalMovie
+                position={position}
                 itemWidth={itemWidth}
                 infoMovie={infoMovie}
                 leftItem={leftItem}

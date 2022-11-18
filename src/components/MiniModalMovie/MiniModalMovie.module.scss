@@ -3,7 +3,7 @@
 	cursor: pointer;
 	position: absolute;
 	z-index: 2;
-	display: flex;
+	display: none;
     flex-direction: column;
 	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
 	border-radius: 6px;
@@ -12,13 +12,13 @@
 
 .popup-movie.show {
     display: flex;
-    animation: zoomin .3s ease-in-out;
+    animation: zoomin .3s linear;
 
 }
 
 @keyframes zoomin {
     from {
-        transform: scale(0.5);
+        transform: scale(0.7);
     }
     to {
         transform: scale(1);
@@ -73,6 +73,26 @@
 
 .genre {
     display: flex;
-
+    flex-wrap: wrap;
 }
 
+.genre-item {
+    margin-right: 10px;
+}
+
+.genre-item:not(:first-child) {
+    margin-left: 10px;
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        left: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: #4e4e4e;
+    }
+}

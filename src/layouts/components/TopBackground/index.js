@@ -6,7 +6,7 @@ import {
     faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import ReactPlayer from 'react-player/youtube'
@@ -30,13 +30,13 @@ function TopBackground() {
     const videoRef = useRef()
 
     // Handle get id trailer
-    useEffect(() => {
-        const fecthTrailer = async () => {
+    useLayoutEffect(() => {
+        const fetchTrailer = async () => {
             if (dataBg.id) {
                 try {
                     await request(`/movie/${dataBg.id}/videos`).then((res) => {
-                        if (res !== []) {
-                            const trailer = res.find(
+                        if (res.results !== []) {
+                            const trailer = res.results.find(
                                 (trailer) =>
                                     trailer.type === 'Trailer' ||
                                     trailer.type === 'Teaser',
@@ -50,17 +50,17 @@ function TopBackground() {
                 }
             }
         }
-        fecthTrailer()
+        fetchTrailer()
     }, [dataBg])
 
     // Handle get background id
     useLayoutEffect(() => {
-        const fecthImage = async () => {
+        const fetchImage = async () => {
             await request(`/trending/${path}/week`).then((res) => {
-                setDataBg(res[0])
+                setDataBg(res.results[0])
             })
         }
-        fecthImage()
+        fetchImage()
     }, [path])
 
     useLayoutEffect(() => {
@@ -131,9 +131,7 @@ function TopBackground() {
                 style={{ paddingLeft: 'var(--PADDING)' }}
             >
                 <h1 className={cx('title')}>{dataBg.name || dataBg.title}</h1>
-
                 <p className={cx('overview')}>{dataBg.overview}</p>
-
                 <div className={cx('button')}>
                     <Button
                         className={cx('play-btn')}
