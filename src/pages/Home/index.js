@@ -20,7 +20,11 @@ function Home() {
                 page="3"
                 title={'Popular On Netflix'}
             />
-            <Slider path="/movie/popular" title={'New Release'} />
+            <Slider
+                path="/trending/movie/week"
+                page="2"
+                title={'Popular On Netflix'}
+            />
         </Fragment>
     )
 }

@@ -87,7 +87,10 @@ function MiniModalMovie({
                         <FontAwesomeIcon icon={faAngleDown} />
                     </div>
                 </div>
-                <div className={cx('meta-data')}>Match</div>
+                <div className={cx('meta-data')}>
+                    <div className={cx('match')}>97% Match</div>
+                    <div className={cx('runtime')}>1h58m</div>
+                </div>
                 <div className={cx('genre')}>
                     {dataGenre.map((genre, index) => (
                         <div className={cx('genre-item')} key={index}>

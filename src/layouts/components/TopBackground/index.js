@@ -34,7 +34,9 @@ function TopBackground() {
         const fetchTrailer = async () => {
             if (dataBg.id) {
                 try {
-                    await request(`/movie/${dataBg.id}/videos`).then((res) => {
+                    await request(
+                        `/${dataBg.media_type}/${dataBg.id}/videos`,
+                    ).then((res) => {
                         if (res.results !== []) {
                             const trailer = res.results.find(
                                 (trailer) =>

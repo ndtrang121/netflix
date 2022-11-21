@@ -10,7 +10,7 @@ const ResponsiveProvider = ({ children }) => {
     const [marginRight, setMarginRight] = useState(obj.marginRight)
     const [padding, setPadding] = useState(obj.padding)
     const SCROLLWIDTH = 8
-    let paddingGloble = document.querySelector(':root')
+    let paddingGlobal = document.querySelector(':root')
     const [device, setDevice] = useState(obj.device)
     useLayoutEffect(() => {
         const handleWindowResize = () => {
@@ -57,8 +57,8 @@ const ResponsiveProvider = ({ children }) => {
                 marginRight * itemsToShow) /
                 itemsToShow,
         )
-        paddingGloble.style.setProperty('--PADDING', `${padding}px`)
-        paddingGloble.style.setProperty('--WIDTH-WINDOW', `${widthWin}px`)
+        paddingGlobal.style.setProperty('--PADDING', `${padding}px`)
+        paddingGlobal.style.setProperty('--WIDTH-WINDOW', `${widthWin}px`)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [widthWin])

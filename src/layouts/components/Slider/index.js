@@ -90,7 +90,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
     useLayoutEffect(() => {
         setDistance(0)
         setCurrentPage(0)
-        const fecthDta = async () => {
+        const fetchDta = async () => {
             try {
                 await request(path, page).then((res) => {
                     setDataTrending(res.results)
@@ -100,7 +100,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                 // throw new Error()
             }
         }
-        fecthDta()
+        fetchDta()
     }, [path])
 
     // Handle on Touch device
@@ -117,7 +117,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
 
     const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
 
-    const onTouchEnd = () => {
+    const onTouchEnd = useCallback(() => {
         if (!touchStart || !touchEnd) return
         const touchDistance = touchStart - touchEnd
         const isLeftSwipe = touchDistance > minSwipeDistance
@@ -127,7 +127,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
         } else if (isRightSwipe && distance < 0) {
             handlePrev()
         }
-    }
+    }, [])
 
     // Handle show popup for movie
     const [showPopup, setShowPopup] = useState(false)
@@ -136,67 +136,68 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
     const [leftItem, setLeftItem] = useState(0)
     const [position, setPosition] = useState(0)
 
-    const refMovie = useRef()
-
-    const handleOnPopup = useCallback((data) => {
-        const clientX = window.event.clientX
-        if (
-            clientX >= padding - 1 &&
-            clientX < widthWin - padding - SCROLLWIDTH - 1
-        ) {
-            if (!timer && !showPopup) {
-                setTimer(
-                    setTimeout(() => {
-                        setShowPopup(true)
-                        setInfoMovie(data)
-                        setTimer()
-                    }, 500),
-                )
-            } else if (showPopup) {
-                setShowPopup(true)
-                setInfoMovie(data)
-            }
-        }
-
-        for (let i = 1; i <= itemsToShow; i++) {
-            const leftItem =
-                padding +
-                (itemWidth + marginRight) * itemsToShow -
-                (itemWidth + marginRight) * (itemsToShow - (i - 1)) -
-                marginRight
-            const rightItem =
-                padding +
-                (itemWidth + marginRight) * itemsToShow -
-                (itemWidth + marginRight) * (itemsToShow - i) -
-                marginRight
-
-            if (clientX >= leftItem && clientX < rightItem) {
-                if (i === 1) {
-                    // first item
-                    setPosition(0)
-                    setLeftItem(leftItem + marginRight)
-                } else if (i === itemsToShow) {
-                    // last item
-                    setPosition(100)
-                    setLeftItem(leftItem + marginRight - itemWidth / 2)
-                } else {
-                    setPosition(50)
-                    setLeftItem(
-                        leftItem +
-                            marginRight -
-                            (itemWidth * 1.5 - itemWidth) / 2,
+    const handleOnPopup = useCallback(
+        (data) => {
+            const clientX = window.event.clientX
+            if (
+                clientX >= padding - 1 &&
+                clientX < widthWin - padding - SCROLLWIDTH - 1
+            ) {
+                if (!timer && !showPopup) {
+                    setTimer(
+                        setTimeout(() => {
+                            setShowPopup(true)
+                            setInfoMovie(data)
+                            setTimer()
+                        }, 500),
                     )
+                } else if (showPopup) {
+                    setShowPopup(true)
+                    setInfoMovie(data)
                 }
             }
-        }
-    }, [])
 
-    const handleClearTimer = () => {
+            for (let i = 1; i <= itemsToShow; i++) {
+                const leftItem =
+                    padding +
+                    (itemWidth + marginRight) * itemsToShow -
+                    (itemWidth + marginRight) * (itemsToShow - (i - 1)) -
+                    marginRight
+                const rightItem =
+                    padding +
+                    (itemWidth + marginRight) * itemsToShow -
+                    (itemWidth + marginRight) * (itemsToShow - i) -
+                    marginRight
+
+                if (clientX >= leftItem && clientX < rightItem) {
+                    if (i === 1) {
+                        // first item
+                        setPosition(0)
+                        setLeftItem(leftItem + marginRight)
+                    } else if (i === itemsToShow) {
+                        // last item
+                        setPosition(100)
+                        setLeftItem(leftItem + marginRight - itemWidth / 2)
+                    } else {
+                        setPosition(50)
+                        setLeftItem(
+                            leftItem +
+                                marginRight -
+                                (itemWidth * 1.5 - itemWidth) / 2,
+                        )
+                    }
+                }
+            }
+        },
+        [itemWidth],
+    )
+
+    const handleClearTimer = useCallback(() => {
         if (timer) {
             clearTimeout(timer)
             setTimer(null)
         }
-    }
+    }, [timer])
 
     const handleOffPopup = useCallback(() => {
         setShowPopup(false)
@@ -239,7 +240,6 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                 >
                     {dataTrending.map((data, index) => (
                         <div
-                            ref={refMovie}
                             key={index}
                             className={cx('trending-item')}
                             style={{ marginRight: `${marginRight}px` }}

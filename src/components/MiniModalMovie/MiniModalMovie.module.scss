@@ -69,11 +69,19 @@
 
 .meta-data {
     height: 27px;
+    display: inline-block;
+}
+
+.match,
+.runtime {
+    display: inline-block;
+
 }
 
 .genre {
     display: flex;
     flex-wrap: wrap;
+    color: var(--text-color);
 }
 
 .genre-item {
@@ -93,6 +101,6 @@
         left: -10px;
         top: 50%;
         transform: translateY(-50%);
-        background-color: #4e4e4e;
+        background-color: #646464;
     }
 }
