@@ -1,4 +1,6 @@
 import classNames from 'classnames/bind'
+import MiniModalMovie from '~/components/MiniModalMovie'
+import Footer from '../components/Footer'
 
 import Header from '../components/Header'
 import TopBackground from '../components/TopBackground'
@@ -12,6 +14,8 @@ function DefaultLayout({ children }) {
             <Header />
             <TopBackground />
             <div className={cx('container')}>{children}</div>
+            <MiniModalMovie />
+            <Footer />
         </div>
     )
 }

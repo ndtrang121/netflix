@@ -8,6 +8,7 @@ import GlobalStyles from './components/GlobalStyles'
 import { AuthContextProvider } from './components/Auth'
 import SearchContextProvider from './components/SearchContextProvider'
 import ResponsiveProvider from './providers/ResponsiveProvider'
+import MiniModalProvider from './providers/MiniModalProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
@@ -15,11 +16,13 @@ root.render(
     <GlobalStyles>
         <AuthContextProvider>
             <ResponsiveProvider>
-                <SearchContextProvider>
-                    <Router>
-                        <App />
-                    </Router>
-                </SearchContextProvider>
+                <MiniModalProvider>
+                    <SearchContextProvider>
+                        <Router>
+                            <App />
+                        </Router>
+                    </SearchContextProvider>
+                </MiniModalProvider>
             </ResponsiveProvider>
         </AuthContextProvider>
     </GlobalStyles>,

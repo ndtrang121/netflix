@@ -5,31 +5,18 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import {
-    useCallback,
-    useContext,
-    useLayoutEffect,
-    useRef,
-    useState,
-} from 'react'
+import { useCallback, useContext, useLayoutEffect, useState } from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
-import Backdrop from '~/components/Backdrop'
-import MiniModalMovie from '~/components/MiniModalMovie'
+import Movie from '~/components/Movie'
 
 const cx = classNames.bind(styles)
 
 function Slider({ path, page = '1', title, nextBtn = false }) {
-    const {
-        widthWin,
-        SCROLLWIDTH,
-        itemWidth,
-        itemsToShow,
-        marginRight,
-        padding,
-    } = useContext(ResponsiveContext)
+    const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } =
+        useContext(ResponsiveContext)
 
     const [dataTrending, setDataTrending] = useState([])
     const [distance, setDistance] = useState(0)
@@ -129,81 +116,6 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
         }
     }, [])
 
-    // Handle show popup for movie
-    const [showPopup, setShowPopup] = useState(false)
-    const [infoMovie, setInfoMovie] = useState({})
-    const [timer, setTimer] = useState(null)
-    const [leftItem, setLeftItem] = useState(0)
-    const [position, setPosition] = useState(0)
-
-    const handleOnPopup = useCallback(
-        (data) => {
-            const clientX = window.event.clientX
-            if (
-                clientX >= padding - 1 &&
-                clientX < widthWin - padding - SCROLLWIDTH - 1
-            ) {
-                if (!timer && !showPopup) {
-                    setTimer(
-                        setTimeout(() => {
-                            setShowPopup(true)
-                            setInfoMovie(data)
-                            setTimer()
-                        }, 500),
-                    )
-                } else if (showPopup) {
-                    setShowPopup(true)
-                    setInfoMovie(data)
-                }
-            }
-
-            for (let i = 1; i <= itemsToShow; i++) {
-                const leftItem =
-                    padding +
-                    (itemWidth + marginRight) * itemsToShow -
-                    (itemWidth + marginRight) * (itemsToShow - (i - 1)) -
-                    marginRight
-                const rightItem =
-                    padding +
-                    (itemWidth + marginRight) * itemsToShow -
-                    (itemWidth + marginRight) * (itemsToShow - i) -
-                    marginRight
-
-                if (clientX >= leftItem && clientX < rightItem) {
-                    if (i === 1) {
-                        // first item
-                        setPosition(0)
-                        setLeftItem(leftItem + marginRight)
-                    } else if (i === itemsToShow) {
-                        // last item
-                        setPosition(100)
-                        setLeftItem(leftItem + marginRight - itemWidth / 2)
-                    } else {
-                        setPosition(50)
-                        setLeftItem(
-                            leftItem +
-                                marginRight -
-                                (itemWidth * 1.5 - itemWidth) / 2,
-                        )
-                    }
-                }
-            }
-        },
-        [itemWidth],
-    )
-
-    const handleClearTimer = useCallback(() => {
-        if (timer) {
-            clearTimeout(timer)
-            setTimer(null)
-        }
-    }, [timer])
-
-    const handleOffPopup = useCallback(() => {
-        setShowPopup(false)
-        setInfoMovie({})
-    }, [])
-
     return (
         <div className={cx('wrapper')}>
             <div
@@ -239,23 +151,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                     className={cx('trending-items')}
                 >
                     {dataTrending.map((data, index) => (
-                        <div
-                            key={index}
-                            className={cx('trending-item')}
-                            style={{ marginRight: `${marginRight}px` }}
-                            onMouseOver={() => handleOnPopup(data)}
-                            onMouseOut={handleClearTimer}
-                            onClick={() => handleOnPopup(data)}
-                        >
-                            <Backdrop
-                                style={{
-                                    width: `${itemWidth}px`,
-                                    height: `${itemWidth / 1.777}px`,
-                                }}
-                                className={cx('trending-bg')}
-                                path={data.backdrop_path || data.poster_path}
-                            />
-                        </div>
+                        <Movie key={index} data={data}></Movie>
                     ))}
                 </div>
                 {distance !== 0 && (
@@ -304,15 +200,6 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
                     return null
                 })}
             </div>
-
-            <MiniModalMovie
-                position={position}
-                itemWidth={itemWidth}
-                infoMovie={infoMovie}
-                leftItem={leftItem}
-                show={showPopup}
-                onMouseLeave={handleOffPopup}
-            />
         </div>
     )
 }

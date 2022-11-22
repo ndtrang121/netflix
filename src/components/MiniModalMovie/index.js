@@ -1,34 +1,39 @@
-import { memo, useLayoutEffect, useRef, useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+    useCallback,
+    useContext,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faPlay,
-    faPlus,
-    // eslint-disable-next-line no-unused-vars
-    faHeart as faHeartSo,
-    faAngleDown,
-} from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faPlus, faAngleDown } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRe } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './MiniModalMovie.module.scss'
 import Backdrop from '../Backdrop'
 import getGenre from '~/utils/getGenre'
+import { MiniModalContext } from '~/providers/MiniModalProvider'
+import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 
 const cx = classNames.bind(styles)
 
-function MiniModalMovie({
-    style,
-    position,
-    infoMovie,
-    itemWidth,
-    leftItem,
-    show = false,
-    ...passProps
-}) {
+function MiniModalMovie() {
+    const {
+        infoMovie,
+        setInfoMovie,
+        showModal,
+        setShowModal,
+        leftItem,
+        topItem,
+        position,
+    } = useContext(MiniModalContext)
+
+    const { itemWidth } = useContext(ResponsiveContext)
     const refInfo = useRef()
     const [heightInfo, setHeightInfo] = useState(0)
     const [dataGenre, setDataGenre] = useState([])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useLayoutEffect(() => {
         if (refInfo.current) {
             setHeightInfo(refInfo.current.clientHeight)
@@ -38,7 +43,7 @@ function MiniModalMovie({
     useLayoutEffect(() => {
         try {
             const fetchGenre = async () => {
-                if (show) {
+                if (showModal) {
                     await getGenre(
                         infoMovie.genre_ids,
                         infoMovie.media_type,
@@ -48,21 +53,29 @@ function MiniModalMovie({
 
             fetchGenre()
         } catch (error) {}
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [show])
+    }, [showModal])
 
+    const handleOffPopup = useCallback(() => {
+        setShowModal(false)
+        setInfoMovie({})
+    }, [])
     return (
         <div
-            className={cx('popup-movie', { show })}
-            {...passProps}
+            className={cx('popup-movie', { show: showModal })}
             style={{
                 width: `${itemWidth * 1.5}px`,
                 left: `${leftItem}px`,
-                bottom: `calc((${itemWidth / 1.777}px - ${
-                    (itemWidth / 1.777) * 1.5 + heightInfo
-                }px) / 2 )`,
+                top: `${
+                    topItem -
+                    ((itemWidth / 1.777) * 1.5 +
+                        heightInfo -
+                        itemWidth / 1.777) /
+                        2
+                }px`,
                 transformOrigin: `${position}% 50%`,
             }}
+            onMouseLeave={handleOffPopup}
+            // onBlur={handleOffPopup}
         >
             <Backdrop
                 style={{
@@ -81,7 +94,6 @@ function MiniModalMovie({
                     </div>
                     <div className={cx('btn', { 'btn-control': true })}>
                         <FontAwesomeIcon icon={faHeartRe} />
-                        {/* <FontAwesomeIcon icon={faHeartSo} /> */}
                     </div>
                     <div className={cx('btn-more', { 'btn-control': true })}>
                         <FontAwesomeIcon icon={faAngleDown} />
@@ -103,4 +115,4 @@ function MiniModalMovie({
     )
 }
 
-export default memo(MiniModalMovie)
+export default MiniModalMovie

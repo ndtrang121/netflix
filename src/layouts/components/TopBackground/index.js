@@ -76,6 +76,7 @@ function TopBackground() {
         setOpacity(false)
         setAutoPlay(true)
         if (videoRef.current) videoRef.current.seekTo(0, 'seconds')
+
         const timerOpacity = setTimeout(() => {
             setOpacity(true)
         }, 4000)
@@ -85,23 +86,26 @@ function TopBackground() {
     }, [location.pathname])
 
     const onProgress = () => {
-        if (videoRef.current.getCurrentTime() >= 20) {
+        if (
+            trailer === '' ||
+            (videoRef.current && videoRef.current.getCurrentTime() >= 20)
+        ) {
             setOpacity(false)
             setAutoPlay(false)
         }
     }
 
     const onReady = (e) => {
-        videoRef.current.seekTo(0, 'seconds')
+        if (trailer !== '' && videoRef.current)
+            videoRef.current.seekTo(0, 'seconds')
     }
 
-    const onPause = () => {}
     return (
         <div
             className={cx('background-wrapper')}
             style={{
                 width: `var(--WIDTH-WINDOW)`,
-                height: `calc(var(--WIDTH-WINDOW) / 1.8)`,
+                height: `calc(var(--WIDTH-WINDOW) / 1.777)`,
             }}
         >
             {trailer !== '' && (
@@ -110,12 +114,11 @@ function TopBackground() {
                     className={cx('trailer')}
                     onProgress={onProgress}
                     onReady={onReady}
-                    onPause={onPause}
                     playing={autoPlay}
                     volume={0.5}
                     muted={muted}
                     width={'var(--WIDTH-WINDOW)'}
-                    height={'calc(var(--WIDTH-WINDOW) / 1.8)'}
+                    height={'calc(var(--WIDTH-WINDOW) / 1.777)'}
                     url={`http://www.youtube.com/embed/${trailer}`}
                 />
             )}

@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useLayoutEffect, useContext, useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass, faSpinner, faXmark } from '@fortawesome/free-solid-svg-icons'
+import {
+    faMagnifyingGlass,
+    faSpinner,
+    faXmark,
+} from '@fortawesome/free-solid-svg-icons'
 import { useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames/bind'
 
@@ -13,7 +17,8 @@ import axios from 'axios'
 const cx = classNames.bind(styles)
 
 function Search() {
-    const { searchInput, setSearchInput, showInput, setShowInput, setResult } = useContext(SearchContext)
+    const { searchInput, setSearchInput, showInput, setShowInput, setResult } =
+        useContext(SearchContext)
 
     const location = useLocation()
     const navigate = useNavigate()
@@ -52,11 +57,13 @@ function Search() {
             return
         }
 
-        const fecthApi = async () => {
+        const fetchApi = async () => {
             setLoading(true)
             try {
                 const data = await axios
-                    .get(`https://api.themoviedb.org/3/search/multi?api_key=${api_key}&query=${debounced}`)
+                    .get(
+                        `https://api.themoviedb.org/3/search/multi?api_key=${api_key}&query=${debounced}`,
+                    )
                     .then((res) => res.data)
                 setResult(data.results)
                 setLoading(false)
@@ -65,7 +72,7 @@ function Search() {
             }
         }
 
-        fecthApi()
+        fetchApi()
     }, [debounced])
 
     useLayoutEffect(() => {
@@ -85,7 +92,11 @@ function Search() {
     return (
         <div className={cx('search-wrapper')}>
             <div className={cx('search-text', { show: showInput })}>
-                <FontAwesomeIcon onClick={handleShow} className={cx('search-icon')} icon={faMagnifyingGlass} />
+                <FontAwesomeIcon
+                    onClick={handleShow}
+                    className={cx('search-icon')}
+                    icon={faMagnifyingGlass}
+                />
                 <input
                     value={searchInput}
                     ref={inputRef}
@@ -97,11 +108,19 @@ function Search() {
                 />
                 {!!searchInput && !loading && (
                     <button className={cx('clear')} onClick={handleClear}>
-                        <FontAwesomeIcon className={cx('clear-icon')} icon={faXmark} />
+                        <FontAwesomeIcon
+                            className={cx('clear-icon')}
+                            icon={faXmark}
+                        />
                     </button>
                 )}
 
-                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                {loading && (
+                    <FontAwesomeIcon
+                        className={cx('loading')}
+                        icon={faSpinner}
+                    />
+                )}
             </div>
         </div>
     )
