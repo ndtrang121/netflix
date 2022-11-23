@@ -1,8 +1,8 @@
 import { useContext, Fragment } from 'react'
-import MiniModalMovie from '~/components/MiniModalMovie'
-import Movie from '~/components/Movie'
 import { SearchContext } from '~/components/SearchContextProvider'
 import Header from '~/layouts/components/Header'
+import MiniModalMovie from '~/layouts/components/MiniModalMovie'
+import Movie from '~/layouts/components/Movie'
 
 function Search() {
     const { result } = useContext(SearchContext)

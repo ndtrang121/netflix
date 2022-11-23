@@ -21,13 +21,14 @@ function Movie({ data }) {
 
     const {
         setInfoMovie,
-        showModal,
-        setShowModal,
+        showPopup,
+        setShowPopup,
         setLeftItem,
         setTopItem,
         setPosition,
     } = useContext(MiniModalContext)
 
+    const itemHeight = itemWidth / 1.777
     const [timer, setTimer] = useState(null)
     const refMovie = useRef()
 
@@ -42,16 +43,16 @@ function Movie({ data }) {
                 clientX >= padding - 1 &&
                 clientX < widthWin - padding - SCROLLWIDTH - 1
             ) {
-                if (!timer && !showModal) {
+                if (!timer && !showPopup) {
                     setTimer(
                         setTimeout(() => {
-                            setShowModal(true)
+                            setShowPopup(true)
                             setInfoMovie(data)
                             setTimer()
                         }, 700),
                     )
-                } else if (showModal) {
-                    setShowModal(true)
+                } else if (showPopup) {
+                    setShowPopup(true)
                     setInfoMovie(data)
                 }
             }
@@ -107,12 +108,12 @@ function Movie({ data }) {
                 style={{ marginRight: `${marginRight}px` }}
                 onMouseOver={() => handleOnPopup(data)}
                 onMouseOut={handleClearTimer}
-                onClick={() => handleOnPopup(data)}
+                // onClick={() => handleOnPopup(data)}
             >
                 <Backdrop
                     style={{
                         width: `${itemWidth}px`,
-                        height: `${itemWidth / 1.777}px`,
+                        height: `${itemHeight}px`,
                     }}
                     className={cx('trending-bg')}
                     path={data.backdrop_path || data.poster_path}

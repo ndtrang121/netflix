@@ -4,7 +4,7 @@ export const MiniModalContext = createContext()
 
 const MiniModalProvider = ({ children }) => {
     const [infoMovie, setInfoMovie] = useState({})
-    const [showModal, setShowModal] = useState(false)
+    const [showPopup, setShowPopup] = useState(false)
     const [leftItem, setLeftItem] = useState(0)
     const [topItem, setTopItem] = useState(0)
     const [position, setPosition] = useState(0)
@@ -14,8 +14,8 @@ const MiniModalProvider = ({ children }) => {
             value={{
                 infoMovie,
                 setInfoMovie,
-                showModal,
-                setShowModal,
+                showPopup,
+                setShowPopup,
                 leftItem,
                 setLeftItem,
                 topItem,

@@ -5,16 +5,16 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import { useCallback, useContext, useLayoutEffect, useState } from 'react'
+import { useContext, useLayoutEffect, useState } from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
-import Movie from '~/components/Movie'
+import Movie from '../Movie'
 
 const cx = classNames.bind(styles)
 
-function Slider({ path, page = '1', title, nextBtn = false }) {
+function Slider({ path, page = '1', title, nextBtn = false, marginTop = 55 }) {
     const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } =
         useContext(ResponsiveContext)
 
@@ -104,7 +104,7 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
 
     const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX)
 
-    const onTouchEnd = useCallback(() => {
+    const onTouchEnd = () => {
         if (!touchStart || !touchEnd) return
         const touchDistance = touchStart - touchEnd
         const isLeftSwipe = touchDistance > minSwipeDistance
@@ -114,10 +114,10 @@ function Slider({ path, page = '1', title, nextBtn = false }) {
         } else if (isRightSwipe && distance < 0) {
             handlePrev()
         }
-    }, [])
+    }
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper')} style={{ marginTop: `${marginTop}px` }}>
             <div
                 className={cx('header')}
                 style={{ marginLeft: 'var(--PADDING)' }}

@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind'
-import MiniModalMovie from '~/components/MiniModalMovie'
 import Footer from '../components/Footer'
 
 import Header from '../components/Header'
+import MiniModalMovie from '../components/MiniModalMovie'
 import TopBackground from '../components/TopBackground'
 import styles from './DefaultLayout.module.scss'
 
