@@ -7,10 +7,12 @@ import { LogoutRequire, LoginRequire, AuthContext } from './components/Auth'
 import TitlePage from './components/TitlePage'
 
 import Search from './pages/Search'
+import Loading from './components/Loading'
 const Home = lazy(() => import('./pages/Home'))
 const Shows = lazy(() => import('./pages/Shows'))
 const Movies = lazy(() => import('./pages/Movies'))
 const Trending = lazy(() => import('./pages/Trending'))
+const Favorite = lazy(() => import('./pages/Favorite'))
 
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))
@@ -20,7 +22,7 @@ function App() {
     const { isAuthenticated, setAuth } = useContext(AuthContext)
 
     return (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
             <Routes>
                 {/* Require Login */}
                 <Route
@@ -50,6 +52,9 @@ function App() {
                                                 )) ||
                                                 (page === 'Trending' && (
                                                     <Trending />
+                                                )) ||
+                                                (page === 'Favorite' && (
+                                                    <Favorite />
                                                 )) ||
                                                 (page === 'Search' && (
                                                     <Search />

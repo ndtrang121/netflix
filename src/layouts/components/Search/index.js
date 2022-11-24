@@ -26,7 +26,7 @@ function Search() {
     const [loading, setLoading] = useState(false)
 
     const handleShow = () => {
-        setShowInput(!showInput)
+        setShowInput(true)
         inputRef.current.focus()
     }
 

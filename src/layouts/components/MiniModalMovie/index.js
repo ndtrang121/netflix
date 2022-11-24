@@ -79,22 +79,12 @@ function MiniModalMovie() {
                     height: `${itemHeight * 1.5}px`,
                 }}
             >
-                {/* {showPopup ? ( */}
                 <Trailer
                     widthTrailer={itemWidth * 1.5}
                     heightTrailer={itemHeight * 1.5}
                     infoMovie={infoMovie}
                     delay={2000}
                 />
-                {/* ) : (
-                    <Backdrop
-                        style={{
-                            width: `${itemWidth * 1.5}px`,
-                            height: `${itemHeight * 1.5}px`,
-                        }}
-                        path={infoMovie.backdrop_path}
-                    />
-                )} */}
             </div>
             <div ref={refInfo} className={cx('info')}>
                 <div className={cx('btn-controls')}>
