@@ -1,16 +1,15 @@
 .wrapper {
 	background-color: red;
 	font-family: var(--font-family);
-	font-size: 1.6rem;
-	line-height: 1.5;
+	font-size: 1.2vw;
 	color: var(--white);
-	padding: 6px 17px;
+	padding: 0.6vw 1.1vw;
 	border-radius: 2px;
-	min-height: 34px;
+	// min-height: 34px;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-
+    white-space: nowrap;
 	+.wrapper {
 		margin-left: 35px;
 	}
@@ -23,14 +22,14 @@
 
 .icon {
 	color: var(--text-color);
-	font-size: 25px;
+	font-size: 1.2vw;
 	display: flex;
 	justify-content: center;
     // padding-left: 12px;
 }
 
 .icon-left {
-	margin-right: 14px;
+	margin-right: 0.4vw;
 }
 
 .faq {

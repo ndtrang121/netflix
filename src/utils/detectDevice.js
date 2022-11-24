@@ -16,15 +16,20 @@ export default function detectDevice() {
         marginRight = 6
         padding = 50
     } else if (width < 1100 && width >= 800) {
-        device = 'tablet'
+        device = 'smallScreen'
         itemsToShow = 4
         marginRight = 4
         padding = 40
-    } else {
-        device = 'mobile'
+    } else if (width < 800 && width >= 500) {
+        device = 'tablet'
         itemsToShow = 3
-        marginRight = 2
+        marginRight = 4
         padding = 30
+    } else if (width < 500) {
+        device = 'mobile'
+        itemsToShow = 2
+        marginRight = 4
+        padding = 20
     }
 
     return { device, itemsToShow, marginRight, padding }

@@ -49,12 +49,14 @@ function Movie({ data }) {
                             setShowPopup(true)
                             setInfoMovie(data)
                             setTimer()
-                        }, 700),
+                        }, 800),
                     )
-                } else if (showPopup) {
-                    setShowPopup(true)
-                    setInfoMovie(data)
                 }
+
+                // else if (showPopup) {
+                //     setShowPopup(true)
+                //     setInfoMovie(data)
+                // }
             }
 
             for (let i = 1; i <= itemsToShow; i++) {
@@ -90,15 +92,15 @@ function Movie({ data }) {
             }
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [itemWidth, refMovie],
+        [itemWidth, refMovie.current],
     )
 
-    const handleClearTimer = useCallback(() => {
+    const handleClearTimer = () => {
         if (timer) {
             clearTimeout(timer)
             setTimer(null)
         }
-    }, [timer])
+    }
 
     return (
         <Fragment>

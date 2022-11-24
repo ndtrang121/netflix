@@ -73,6 +73,8 @@
 	align-items: center;
     display: flex;
     height: 100%;
+    position: absolute;
+    right: var(--PADDING);
 }
 
 .notify-btn {

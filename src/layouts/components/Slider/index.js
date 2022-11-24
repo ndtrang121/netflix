@@ -5,7 +5,7 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import { useContext, useLayoutEffect, useState } from 'react'
+import { useContext, useLayoutEffect, useRef, useState } from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
@@ -14,9 +14,11 @@ import Movie from '../Movie'
 
 const cx = classNames.bind(styles)
 
-function Slider({ path, page = '1', title, nextBtn = false, marginTop = 55 }) {
+function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
     const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } =
         useContext(ResponsiveContext)
+
+    const itemHeight = itemWidth / 1.777
 
     const [dataTrending, setDataTrending] = useState([])
     const [distance, setDistance] = useState(0)
@@ -116,20 +118,35 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 55 }) {
         }
     }
 
+    const refTitle = useRef()
+    const [widthTitle, setWidthTitle] = useState(0)
+
     return (
-        <div className={cx('wrapper')} style={{ marginTop: `${marginTop}px` }}>
+        <div className={cx('wrapper')} style={{ marginTop: `${marginTop}vw` }}>
             <div
                 className={cx('header')}
                 style={{ marginLeft: 'var(--PADDING)' }}
+                onMouseEnter={() => {
+                    setWidthTitle(refTitle.current.offsetWidth)
+                }}
+                onMouseLeave={() => setWidthTitle(0)}
             >
                 <h1 className={cx('title')}>{title}</h1>
-                <div className={cx('explore')}>
-                    <span className={cx('title-explore')}>Explore All</span>
-                    <FontAwesomeIcon
-                        className={cx('icon-explore', { show: showIndecator })}
-                        icon={faChevronRight}
-                    />
-                </div>
+                <h3 ref={refTitle} className={cx('title-explore')}>
+                    Explore All
+                </h3>
+                <FontAwesomeIcon
+                    className={cx('icon-explore', {
+                        show: showIndecator,
+                    })}
+                    icon={faChevronRight}
+                    style={
+                        widthTitle && {
+                            left: '105%',
+                            transform: `translateX(${widthTitle}px)`,
+                        }
+                    }
+                />
             </div>
             <div
                 className={cx('items-control')}
@@ -183,7 +200,13 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 55 }) {
                     />
                 </button>
             </div>
-            <div className={cx('slide-indecator')}>
+            <div
+                className={cx('slide-indecator')}
+                style={{
+                    right: `${padding}px`,
+                    bottom: `${itemHeight}px`,
+                }}
+            >
                 {dataTrending.map((slide, index) => {
                     if (index === 0 || index % itemsToShow === 0) {
                         return (

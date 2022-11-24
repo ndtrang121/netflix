@@ -19,23 +19,29 @@ const ResponsiveProvider = ({ children }) => {
                 setItemsToShow(6)
                 setMarginRight(8)
                 setPadding(60)
-            } else if (window.innerWidth < 1399 && window.innerWidth >= 1100) {
+            } else if (window.innerWidth < 1400 && window.innerWidth >= 1100) {
                 setDevice('laptop')
                 setItemsToShow(5)
                 setMarginRight(6)
                 setPadding(50)
             } else if (window.innerWidth < 1100 && window.innerWidth >= 800) {
-                setDevice('tablet')
+                setDevice('smallScreen')
                 setItemsToShow(4)
                 setMarginRight(4)
                 setPadding(40)
-            } else if (window.innerWidth < 800) {
-                setDevice('mobile')
+            } else if (window.innerWidth < 800 && window.innerWidth >= 500) {
+                setDevice('tablet')
                 setItemsToShow(3)
-                setMarginRight(2)
+                setMarginRight(4)
                 setPadding(30)
+            } else if (window.innerWidth < 500) {
+                setDevice('mobile')
+                setItemsToShow(2)
+                setMarginRight(4)
+                setPadding(20)
             }
             setWidthWin(window.innerWidth)
+            console.log(window.innerWidth)
         }
         window.addEventListener('resize', handleWindowResize)
         return () => window.removeEventListener('resize', handleWindowResize)

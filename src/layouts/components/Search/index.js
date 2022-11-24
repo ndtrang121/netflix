@@ -26,7 +26,7 @@ function Search() {
     const [loading, setLoading] = useState(false)
 
     const handleShow = () => {
-        setShowInput(true)
+        setShowInput(!showInput)
         inputRef.current.focus()
     }
 
@@ -90,7 +90,10 @@ function Search() {
     }, [])
 
     return (
-        <div className={cx('search-wrapper')}>
+        <div
+            className={cx('search-wrapper')}
+            style={showInput ? { backgroundColor: '#000' } : {}}
+        >
             <div className={cx('search-text', { show: showInput })}>
                 <FontAwesomeIcon
                     onClick={handleShow}
