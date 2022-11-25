@@ -15,6 +15,7 @@ import request from '~/utils/request'
 import styles from './Trailer.module.scss'
 import Button from '~/components/Button'
 import { MiniModalContext } from '~/providers/MiniModalProvider'
+import AddList from '~/components/AddList'
 
 const cx = classNames.bind(styles)
 
@@ -142,6 +143,7 @@ function Trailer({
                         >
                             Play
                         </Button>
+                        {preview && <AddList id={infoMovie.id} />}
                         <Button
                             className={cx('info-btn', { disable: preview })}
                             leftIcon={

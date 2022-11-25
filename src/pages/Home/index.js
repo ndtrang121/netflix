@@ -4,6 +4,7 @@ import Slider from '~/layouts/components/Slider'
 
 import styles from './Home.module.scss'
 
+// eslint-disable-next-line no-unused-vars
 const cx = classNames.bind(styles)
 
 function Home() {

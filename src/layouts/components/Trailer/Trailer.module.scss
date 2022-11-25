@@ -80,6 +80,10 @@
         height: 1.8vw;
         margin-right: 10px;
     }
+
+    :nth-child(2) {
+        margin: 6px;
+    }
 }
 
 .play-btn:hover, 

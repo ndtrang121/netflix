@@ -2,7 +2,6 @@ import request from './request'
 
 async function getDetail(idMedia, type) {
     const dataDetail = await request(`/${type}/${idMedia}`).then((res) => {
-        console.log(res)
         return res
     })
 
