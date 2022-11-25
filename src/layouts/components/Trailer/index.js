@@ -24,6 +24,7 @@ function Trailer({
     widthTrailer,
     delay = 3000,
     large = false,
+    preview = false,
 }) {
     const [trailer, setTrailer] = useState('')
     const [autoPlay, setAutoPlay] = useState(true)
@@ -99,6 +100,10 @@ function Trailer({
                     className={cx('trailer')}
                     onProgress={onProgress}
                     onReady={onReady}
+                    onEnded={() => {
+                        setOpacity(false)
+                        setAutoPlay(false)
+                    }}
                     playing={autoPlay}
                     volume={0.5}
                     muted={muted}
@@ -117,16 +122,15 @@ function Trailer({
             ></Backdrop>
 
             {large ? (
-                <div
-                    className={cx('more-info')}
-                    style={{ paddingLeft: 'var(--PADDING)' }}
-                >
+                <div className={cx('more-info', { preview })}>
                     <h1 className={cx('title')}>
                         {infoMovie.name || infoMovie.title}
                     </h1>
 
-                    <p className={cx('overview')}>{infoMovie.overview}</p>
-                    <div className={cx('button')}>
+                    <p className={cx('overview', { disable: preview })}>
+                        {infoMovie.overview}
+                    </p>
+                    <div className={cx('button', { preview })}>
                         <Button
                             className={cx('play-btn')}
                             leftIcon={
@@ -139,7 +143,7 @@ function Trailer({
                             Play
                         </Button>
                         <Button
-                            className={cx('info-btn')}
+                            className={cx('info-btn', { disable: preview })}
                             leftIcon={
                                 <FontAwesomeIcon
                                     className={cx('info-icon')}
@@ -157,7 +161,12 @@ function Trailer({
                 </h1>
             )}
 
-            <div className={cx('control-layer', { 'mini-modal': !large })}>
+            <div
+                className={cx('control-layer', {
+                    'mini-modal': !large,
+                    preview,
+                })}
+            >
                 {opacity
                     ? trailer && (
                           // Volume button
@@ -188,7 +197,9 @@ function Trailer({
                           </button>
                       )}
                 {large && (
-                    <span className={cx('maturity-rating')}>
+                    <span
+                        className={cx('maturity-rating', { disable: preview })}
+                    >
                         <span className={cx('maturity-number')}>16+</span>
                     </span>
                 )}

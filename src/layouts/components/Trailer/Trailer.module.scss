@@ -1,3 +1,7 @@
+.disable {
+    display: none !important;
+}
+
 .trailer {
 	position: absolute;
 	z-index: -1;
@@ -23,23 +27,21 @@
 	transition: opacity 0.5s linear;
 }
 
-
-
 // Title - descriptions 
 .more-info {
+    padding-left: var(--PADDING);
 	user-select: none;
 	z-index: 3;
 	position: absolute;
 	bottom: 50%;
-    width: 35%;
-
 
 	.title {
 		font-size: 6vw;
-        white-space: nowrap;
+        // white-space: nowrap;
 	}
 
 	.overview {
+        width: 35%;
 		margin-top: 1.2vw;
         font-size: 1.2vw;
 		display: -webkit-box;
@@ -49,11 +51,35 @@
 	}
 }
 
+.more-info.preview {
+    padding-left: 42px;
+    bottom: 20%;
+	.title {
+		font-size: 40px;
+        // white-space: nowrap;
+	}
+}
+
 .button {
     position: absolute;
 	display: flex;
 	align-items: center;
 	margin-top: 1.5vw;
+}
+
+.button.preview {
+	margin-top: 20px;
+    position: unset;
+
+    .play-btn {
+        padding: 6px 24px;
+        font-size: 1.2vw !important;
+    }
+
+    .play-icon {
+        height: 1.8vw;
+        margin-right: 10px;
+    }
 }
 
 .play-btn:hover, 
@@ -75,7 +101,7 @@
 
 .play-icon {
 	color: var(--black) !important;
-	height: 1.5vw !important;
+	height: 1.5vw;
 }
 
 .info-icon {
@@ -106,6 +132,22 @@
 	z-index: 3;
 	right: 0;
 	bottom: 40%;
+}
+
+.control-layer.preview {
+	bottom: 20%;
+    opacity: 0.6;
+
+    &:hover {
+        opacity: 1;
+    }
+
+    .control-btn {
+        width: 2.3vw;
+        height: 2.3vw;
+        margin-right: 42px;
+
+    }
 }
 
 .control-layer.mini-modal {

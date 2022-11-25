@@ -6,6 +6,8 @@ import styles from './Movie.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 import Backdrop from '~/components/Backdrop'
 import { MiniModalContext } from '~/providers/MiniModalProvider'
+import useModal from '~/hooks/useModal'
+import PreviewModal from '../PreviewModal'
 
 const cx = classNames.bind(styles)
 
@@ -98,6 +100,7 @@ function Movie({ data }) {
         }
     }
 
+    const { isShowing, toggle } = useModal()
     return (
         <Fragment>
             <div
@@ -106,7 +109,7 @@ function Movie({ data }) {
                 style={{ marginRight: `${marginRight}px` }}
                 onMouseOver={() => handleOnPopup(data)}
                 onMouseOut={handleClearTimer}
-                // onClick={() => handleOnPopup(data)}
+                onClick={toggle}
             >
                 <Backdrop
                     style={{
@@ -117,6 +120,11 @@ function Movie({ data }) {
                     path={data.backdrop_path || data.poster_path}
                 />
             </div>
+            <PreviewModal
+                isShowing={isShowing}
+                hide={toggle}
+                infoMovie={data}
+            />
         </Fragment>
     )
 }
