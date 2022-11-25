@@ -8,6 +8,7 @@ function Favorite() {
         <Fragment>
             <Header />
             <Loading />
+            <a href="/favorite?v=a;lsfjalsfjasfl">test</a>
             <Footer />
         </Fragment>
     )

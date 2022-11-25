@@ -49,14 +49,9 @@ function Movie({ data }) {
                             setShowPopup(true)
                             setInfoMovie(data)
                             setTimer()
-                        }, 800),
+                        }, 1000),
                     )
                 }
-
-                // else if (showPopup) {
-                //     setShowPopup(true)
-                //     setInfoMovie(data)
-                // }
             }
 
             for (let i = 1; i <= itemsToShow; i++) {
@@ -97,6 +92,7 @@ function Movie({ data }) {
 
     const handleClearTimer = () => {
         if (timer) {
+            console.log(timer)
             clearTimeout(timer)
             setTimer(null)
         }

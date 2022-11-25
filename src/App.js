@@ -6,14 +6,7 @@ import { loginRoutes } from './routes'
 import { LogoutRequire, LoginRequire, AuthContext } from './components/Auth'
 import TitlePage from './components/TitlePage'
 
-import Search from './pages/Search'
 import Loading from './components/Loading'
-const Home = lazy(() => import('./pages/Home'))
-const Shows = lazy(() => import('./pages/Shows'))
-const Movies = lazy(() => import('./pages/Movies'))
-const Trending = lazy(() => import('./pages/Trending'))
-const Favorite = lazy(() => import('./pages/Favorite'))
-
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))
 const Start = lazy(() => import('./pages/Start'))
@@ -35,7 +28,7 @@ function App() {
                         } else if (route.layout === null) {
                             Layout = Fragment
                         }
-                        const page = route.component
+                        const Page = route.component
                         return (
                             <Route
                                 key={index}
@@ -43,22 +36,7 @@ function App() {
                                 element={
                                     <Layout>
                                         <TitlePage title={route.title}>
-                                            {(page === 'Home' && <Home />) ||
-                                                (page === 'Shows' && (
-                                                    <Shows />
-                                                )) ||
-                                                (page === 'Movies' && (
-                                                    <Movies />
-                                                )) ||
-                                                (page === 'Trending' && (
-                                                    <Trending />
-                                                )) ||
-                                                (page === 'Favorite' && (
-                                                    <Favorite />
-                                                )) ||
-                                                (page === 'Search' && (
-                                                    <Search />
-                                                ))}
+                                            <Page />
                                         </TitlePage>
                                     </Layout>
                                 }
