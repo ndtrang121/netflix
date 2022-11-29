@@ -8,6 +8,7 @@
 	box-shadow: rgb(0 0 0 / 75%) 0px 3px 10px;
 	border-radius: 6px;
 	overflow: hidden;
+    background-color: #141414;
 }
 
 .popup-movie.show {
@@ -47,8 +48,8 @@
 .btn-control {    
     max-width: 42px;
     max-height: 42px;
-    height: 42px;
-    width: 42px;
+    width: 2.3vw;
+    height: 2.3vw;
     border: 2px solid #dcdcdc;
     border-radius: 50%;
     display: flex;
@@ -56,7 +57,7 @@
     align-items: center;
 }
 
-.btn-control:not(:first-child) {
+.btn-controls>*:not(:first-child) {
     margin-left: 8px;
 }
 

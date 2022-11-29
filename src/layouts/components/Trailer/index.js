@@ -26,6 +26,7 @@ function Trailer({
     delay = 3000,
     large = false,
     preview = false,
+    hidePreview,
 }) {
     const [trailer, setTrailer] = useState('')
     const [autoPlay, setAutoPlay] = useState(true)
@@ -43,7 +44,7 @@ function Trailer({
                     await request(
                         `/${infoMovie.media_type}/${infoMovie.id}/videos`,
                     ).then((res) => {
-                        if (res.results !== []) {
+                        if (res.results.length !== 0) {
                             const trailer = res.results.find(
                                 (trailer) =>
                                     trailer.type === 'Trailer' ||
@@ -143,7 +144,15 @@ function Trailer({
                         >
                             Play
                         </Button>
-                        {preview && <AddList id={infoMovie.id} />}
+                        {preview && (
+                            <Fragment>
+                                <AddList
+                                    id={infoMovie.id}
+                                    hidePreview={hidePreview}
+                                />
+                                <AddList id={infoMovie.id} favorite />
+                            </Fragment>
+                        )}
                         <Button
                             className={cx('info-btn', { disable: preview })}
                             leftIcon={

@@ -3,11 +3,11 @@
 
 	height: var(--height-header);
 	width: 100%;
-	// padding: 0 60px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	position: fixed;
+    top: 0;
 	z-index: 10;
 	background: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
 }

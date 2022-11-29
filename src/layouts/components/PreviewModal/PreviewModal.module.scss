@@ -28,7 +28,7 @@
     margin: 1.75rem auto;
     border-radius: 3px;
     width: 850px;
-    overflow: hidden;
+    overflow-x: hidden;
     height: 3000px;
     overflow-y: auto;
 
@@ -67,4 +67,8 @@
     border-radius: 50%;
     background-color: rgba($color: #181818, $alpha: .6);
     color: var(--white);
+
+    &:active {
+		background-color: rgba($color: #fff, $alpha: 0.5);
+	}
 }

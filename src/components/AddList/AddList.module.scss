@@ -5,15 +5,17 @@
     width: 2.3vw;
     height: 2.3vw;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255, 255, 255, 1);
     background-color: transparent;
     cursor: pointer;
+
+    &:active {
+		background-color: rgba($color: #fff, $alpha: .6);
+	}
 }
 
-.btn-add {
-    
-}
 
+.icon-check,
 .icon-add {
     width: 1.2vw;
     height: 1.2vw;

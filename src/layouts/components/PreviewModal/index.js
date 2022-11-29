@@ -35,6 +35,7 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
                                 delay={2000}
                                 large
                                 preview
+                                hidePreview={hide}
                             />
                         </div>
                         <button

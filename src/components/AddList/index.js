@@ -1,68 +1,90 @@
+import { useCallback, useEffect, useState } from 'react'
+import axios from 'axios'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faCheck, faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faHeartRe } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './AddList.module.scss'
-import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
 import checkFavorite from '~/utils/checkFavorite'
+import { useLocation } from 'react-router-dom'
 
 const cx = classNames.bind(styles)
 
 const session_id = process.env.REACT_APP_SESSION_ID
 const api_key = process.env.REACT_APP_API_KEY
 const list_id = process.env.REACT_APP_LIST_ID
+const favorite_id = process.env.REACT_APP_FAVORITE_ID
 
-function AddList({ id }) {
-    const [state, setState] = useState('')
-    const firstRender = useRef('first')
+function AddList({ id, favorite = false, hidePreview }) {
+    const [add, setAdd] = useState(false)
+    const [checked, setChecked] = useState(false)
+    const location = useLocation()
     useEffect(() => {
-        async function isFavorite() {
-            await checkFavorite(id).then((res) => {
-                setState(!res ? 'remove_iem' : 'add_item')
-            })
-            firstRender.current = 'second'
-        }
-
-        async function addItem() {
+        const check = async () => {
             try {
-                await axios.post(
-                    `https://api.themoviedb.org/3/list/${list_id}/${state}?api_key=${api_key}&session_id=${session_id}`,
-                    { media_id: id },
-                )
+                await checkFavorite(id, favorite).then((res) => {
+                    setAdd(!res)
+                })
             } catch (error) {
-                console.log(error)
+            } finally {
+                setChecked(true)
+                console.log('checked')
             }
         }
-        if (firstRender.current === 'first') {
-            isFavorite()
-        } else if (firstRender.current === 'second') {
-            firstRender.current = 'third'
-        } else if (firstRender.current === 'third') {
-            addItem()
+        check()
+    }, [id, favorite])
+    const handleAddList = useCallback(async () => {
+        if (!favorite && location.pathname === '/favorite') hidePreview()
+        let state
+        if (!add) {
+            setAdd(true)
+            state = 'remove_item'
+        } else {
+            setAdd(false)
+            state = 'add_item'
         }
-    }, [state])
-
-    const handleAddList = () => {
-        if (state === 'add_item') setState('remove_item')
-        else setState('add_item')
-    }
+        try {
+            await axios.post(
+                `https://api.themoviedb.org/3/list/${
+                    !favorite ? list_id : favorite_id
+                }/${state}?api_key=${api_key}&session_id=${session_id}`,
+                { media_id: id },
+            )
+        } catch (error) {
+            // console.log(error)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, add, favorite])
 
     return (
-        <div className={cx('wrapper')} onClick={handleAddList}>
-            {state !== 'add_item' ? (
-                <div className={cx('btn-add')}>
-                    <FontAwesomeIcon className={cx('icon-add')} icon={faPlus} />
-                </div>
-            ) : (
-                <div className={cx('btn-add')}>
+        checked && (
+            <div className={cx('wrapper')} onClick={handleAddList}>
+                {!favorite ? (
+                    add ? (
+                        <FontAwesomeIcon
+                            className={cx('icon-add')}
+                            icon={faPlus}
+                        />
+                    ) : (
+                        <FontAwesomeIcon
+                            className={cx('icon-check')}
+                            icon={faCheck}
+                        />
+                    )
+                ) : add ? (
                     <FontAwesomeIcon
                         className={cx('icon-add')}
-                        icon={faCheck}
+                        icon={faHeart}
                     />
-                </div>
-            )}
-        </div>
+                ) : (
+                    <FontAwesomeIcon
+                        className={cx('icon-check')}
+                        icon={faHeartRe}
+                    />
+                )}
+            </div>
+        )
     )
 }
 

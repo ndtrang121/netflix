@@ -3,9 +3,9 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './Loading.module.scss'
 
-function Loading() {
+function Loading({ height }) {
     return (
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} style={{ height: `${height}px` }}>
             <FontAwesomeIcon className={styles.loading} icon={faSpinner} />
         </div>
     )

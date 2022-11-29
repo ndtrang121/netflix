@@ -8,6 +8,7 @@ export const images = {
     backgroudLogin: require('./background-login.jpg'),
     fakeAvatar: require('./fakeAvatar.jpg'),
     noImage: require('./no-image.png'),
+    spinner: require('./Spinner-1s-800px.gif'),
 }
 
 export const videos = {
