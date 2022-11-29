@@ -37,21 +37,21 @@ function MiniModalMovie() {
     })
 
     useLayoutEffect(() => {
-        try {
-            const fetchDetail = async () => {
-                if (showPopup) {
+        const fetchDetail = async () => {
+            if (showPopup) {
+                try {
                     await getDetail(infoMovie.id, infoMovie.media_type).then(
                         (res) => {
                             setDetail(res)
                         },
                     )
-                } else setDetail([])
-            }
-
-            fetchDetail()
-        } catch (error) {
-            setDetail([])
+                } catch (error) {
+                    setDetail([])
+                }
+            } else setDetail([])
         }
+
+        fetchDetail()
     }, [infoMovie])
 
     const handleOffPopup = () => {

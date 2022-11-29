@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { Fragment, useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,6 +8,7 @@ import { faHeart as faHeartRe } from '@fortawesome/free-regular-svg-icons'
 import styles from './AddList.module.scss'
 import checkFavorite from '~/utils/checkFavorite'
 import { useLocation } from 'react-router-dom'
+import ReactTooltip from 'react-tooltip'
 
 const cx = classNames.bind(styles)
 
@@ -59,31 +60,47 @@ function AddList({ id, favorite = false, hidePreview }) {
 
     return (
         checked && (
-            <div className={cx('wrapper')} onClick={handleAddList}>
-                {!favorite ? (
-                    add ? (
+            <Fragment>
+                <div
+                    data-tip={
+                        !favorite
+                            ? add
+                                ? 'Add to My List'
+                                : 'Remove from My List'
+                            : 'I like this'
+                    }
+                    data-place="top, center"
+                    data-type="light"
+                    data-effect="solid"
+                    className={cx('wrapper')}
+                    onClick={handleAddList}
+                >
+                    {!favorite ? (
+                        add ? (
+                            <FontAwesomeIcon
+                                className={cx('icon-add')}
+                                icon={faPlus}
+                            />
+                        ) : (
+                            <FontAwesomeIcon
+                                className={cx('icon-check')}
+                                icon={faCheck}
+                            />
+                        )
+                    ) : add ? (
                         <FontAwesomeIcon
                             className={cx('icon-add')}
-                            icon={faPlus}
+                            icon={faHeart}
                         />
                     ) : (
                         <FontAwesomeIcon
                             className={cx('icon-check')}
-                            icon={faCheck}
+                            icon={faHeartRe}
                         />
-                    )
-                ) : add ? (
-                    <FontAwesomeIcon
-                        className={cx('icon-add')}
-                        icon={faHeart}
-                    />
-                ) : (
-                    <FontAwesomeIcon
-                        className={cx('icon-check')}
-                        icon={faHeartRe}
-                    />
-                )}
-            </div>
+                    )}
+                </div>
+                <ReactTooltip />
+            </Fragment>
         )
     )
 }

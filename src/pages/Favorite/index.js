@@ -24,6 +24,7 @@ function Favorite() {
     return (
         <Fragment>
             <Header />
+            <h1 className={cx('title')}>My List</h1>
             <div className={cx('container')} style={{ margin: '60px' }}>
                 {myList.length !== 0 ? (
                     myList

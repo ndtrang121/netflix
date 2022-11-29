@@ -68,7 +68,79 @@
     background-color: rgba($color: #181818, $alpha: .6);
     color: var(--white);
 
-    &:active {
-		background-color: rgba($color: #fff, $alpha: 0.5);
-	}
+}
+
+.more {
+    margin: 0 42px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.more-left{
+    flex-basis: 60%;
+}
+
+.more-right{
+    flex-basis: 35%;
+}
+
+.meta-data {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+
+    >div:not(:first-child) {
+        margin-left: 8px;
+    
+    }
+    
+}
+
+.match {
+    color: #46d369;
+}
+
+.adult {
+    border: 1px solid hsla(0,0%,100%,.4);
+    padding: 0 6px;
+}
+
+.feature {
+    font-size: 1.1rem;
+    border: 1px solid hsla(0,0%,100%,.4);
+    border-radius: 2px;
+    padding: 0 5px;
+}
+
+.cast,
+.genre {
+    margin: 12px 0;
+}
+
+.cast-title,
+.genre-title {
+    color: #777777;
+    font-size: 1.4rem;
+
+}
+
+.cast-item:not(:last-child)::after,
+.genre-item:not(:last-child)::after {
+    content: ', ';
+
+}
+
+.cast-item,
+.genre-item {
+    font-size: 1.4rem;
+    color: #fff;
+
+    &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.cast-more {
+    font-style: italic;
 }
