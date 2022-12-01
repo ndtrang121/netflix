@@ -25,12 +25,11 @@
     z-index: 13;
     background: #181818;
     position: relative;
-    margin: 1.75rem auto;
+    margin: 2.75rem auto;
     border-radius: 3px;
     width: 850px;
-    overflow-x: hidden;
-    height: 3000px;
-    overflow-y: auto;
+    overflow: hidden;
+    // height: 3000px;
 
 }
   
@@ -71,6 +70,7 @@
 }
 
 .more {
+    user-select: none;
     margin: 0 42px;
     display: flex;
     justify-content: space-between;

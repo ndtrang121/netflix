@@ -43,7 +43,7 @@
 	.overview {
         width: 35%;
 		margin-top: 1.2vw;
-        font-size: 1.2vw;
+        font-size: max(8px, 1.2vw);
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;  
@@ -73,7 +73,6 @@
 
     .play-btn {
         padding: 6px 24px;
-        font-size: 1.2vw !important;
     }
 
     .play-icon {
@@ -93,7 +92,6 @@
 
 .play-btn, 
 .info-btn {
-	font-size: 1.2vw !important;
 	font-weight: 700;
 	border-radius: 4px !important;
 }
@@ -106,10 +104,13 @@
 .play-icon {
 	color: var(--black) !important;
 	height: 1.5vw;
+    min-height: 12px;
 }
 
 .info-icon {
 	height: 1.5vw !important;
+    min-height: 12px;
+
 
 }
 

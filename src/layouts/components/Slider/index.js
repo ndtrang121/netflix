@@ -5,7 +5,7 @@ import {
     faChevronRight,
 } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import { useContext, useLayoutEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
@@ -74,6 +74,18 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
         setDistance(distance - (itemWidth + marginRight) * itemsToShow)
         setCurrentPage(currentPage + 1)
     }
+
+    // set distance = 0 when resize window
+    useEffect(() => {
+        const handleResize = () => {
+            setDistance(0)
+            setEnd(false)
+            setCurrentPage(0)
+        }
+
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     // Handle get data
     useLayoutEffect(() => {

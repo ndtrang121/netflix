@@ -1,9 +1,9 @@
 .wrapper {
 	background-color: red;
 	font-family: var(--font-family);
-	font-size: 1.2vw;
+	font-size: max(12px, 1.2vw);
 	color: var(--white);
-	padding: 0.6vw 1.1vw;
+	padding: max(5px,0.6vw) max(12px,1.1vw);
 	border-radius: 2px;
 	display: inline-flex;
 	align-items: center;
@@ -21,7 +21,7 @@
 
 .icon {
 	color: var(--text-color);
-	font-size: 1.2vw;
+	// font-size: 1.2vw;
 	display: flex;  
 	justify-content: center;
     // padding-left: 12px;

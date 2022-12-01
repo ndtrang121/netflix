@@ -109,7 +109,13 @@ function Movie({ data }) {
                 style={{ marginRight: `${marginRight}px` }}
                 onMouseOver={() => handleOnPopup(data)}
                 onMouseOut={handleClearTimer}
-                onClick={toggle}
+                onClick={(e) => {
+                    refMovie.current.removeEventListener(
+                        'onmouseover',
+                        e.onMouseOver,
+                    )
+                    toggle()
+                }}
             >
                 <Backdrop
                     style={{

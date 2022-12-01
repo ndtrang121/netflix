@@ -2,21 +2,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 42px;
+    max-height: 42px;
+    min-width: 32px;
+    min-height: 32px;
     width: 2.3vw;
     height: 2.3vw;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 1);
+    border: 2px solid rgba(255, 255, 255, .6);
     background-color: transparent;
     cursor: pointer;
 
     &:active {
 		background-color: rgba($color: #fff, $alpha: .6);
 	}
+
+    &:hover {
+        border: 2px solid rgba(255, 255, 255, 1);
+    }
 }
 
-
-.icon-check,
-.icon-add {
-    width: 1.2vw;
-    height: 1.2vw;
+.tool-tip {
+    border-radius: 6px !important;
+    font-weight: 700 !important;
 }

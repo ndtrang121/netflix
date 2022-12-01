@@ -95,7 +95,7 @@ function MiniModalMovie() {
                         >
                             <FontAwesomeIcon icon={faPlay} />
                         </div>
-                        <AddList id={infoMovie.id} />
+                        <AddList id={infoMovie.id} hidePreview={setShowPopup} />
                         <AddList id={infoMovie.id} favorite />
                         <div
                             className={cx('btn-more', { 'btn-control': true })}

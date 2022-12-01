@@ -12,7 +12,8 @@
     position: relative;
 
     .title {
-        font-size: 1.4vw;	
+        font-size: max(12px, 1.4vw);
+        
     }
 
     .title-explore,

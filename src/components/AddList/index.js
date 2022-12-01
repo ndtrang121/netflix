@@ -30,13 +30,12 @@ function AddList({ id, favorite = false, hidePreview }) {
             } catch (error) {
             } finally {
                 setChecked(true)
-                console.log('checked')
             }
         }
         check()
     }, [id, favorite])
     const handleAddList = useCallback(async () => {
-        if (!favorite && location.pathname === '/favorite') hidePreview()
+        if (hidePreview && !favorite && location.pathname === '/favorite') hidePreview()
         let state
         if (!add) {
             setAdd(true)
@@ -62,13 +61,7 @@ function AddList({ id, favorite = false, hidePreview }) {
         checked && (
             <Fragment>
                 <div
-                    data-tip={
-                        !favorite
-                            ? add
-                                ? 'Add to My List'
-                                : 'Remove from My List'
-                            : 'I like this'
-                    }
+                    data-tip={!favorite ? (add ? 'Add to My List' : 'Remove from My List') : 'I like this'}
                     data-place="top, center"
                     data-type="light"
                     data-effect="solid"
@@ -77,29 +70,17 @@ function AddList({ id, favorite = false, hidePreview }) {
                 >
                     {!favorite ? (
                         add ? (
-                            <FontAwesomeIcon
-                                className={cx('icon-add')}
-                                icon={faPlus}
-                            />
+                            <FontAwesomeIcon className={cx('icon-add')} icon={faPlus} />
                         ) : (
-                            <FontAwesomeIcon
-                                className={cx('icon-check')}
-                                icon={faCheck}
-                            />
+                            <FontAwesomeIcon className={cx('icon-check')} icon={faCheck} />
                         )
                     ) : add ? (
-                        <FontAwesomeIcon
-                            className={cx('icon-add')}
-                            icon={faHeart}
-                        />
+                        <FontAwesomeIcon className={cx('icon-add')} icon={faHeart} />
                     ) : (
-                        <FontAwesomeIcon
-                            className={cx('icon-check')}
-                            icon={faHeartRe}
-                        />
+                        <FontAwesomeIcon className={cx('icon-check')} icon={faHeartRe} />
                     )}
                 </div>
-                <ReactTooltip />
+                <ReactTooltip clickable={true} delayShow={300} className={cx('tool-tip')} />
             </Fragment>
         )
     )

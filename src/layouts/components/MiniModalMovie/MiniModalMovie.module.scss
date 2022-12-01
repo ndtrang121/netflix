@@ -48,6 +48,8 @@
 .btn-control {    
     max-width: 42px;
     max-height: 42px;
+    min-width: 32px;
+    min-height: 32px;
     width: 2.3vw;
     height: 2.3vw;
     border: 2px solid #dcdcdc;
@@ -74,6 +76,7 @@
 
 .meta-data {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin: 12px 0;
 
