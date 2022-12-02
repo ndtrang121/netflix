@@ -29,8 +29,17 @@
     border-radius: 3px;
     width: 850px;
     overflow: hidden;
-    // height: 3000px;
+    animation: zoomin .3s ease-in;
 
+}
+
+@keyframes zoomin {
+    from {
+        transform: scale(.5);
+    }
+    to {
+        transform: scale(1);
+    }
 }
   
 .trailer{ 
@@ -112,11 +121,13 @@
     padding: 0 5px;
 }
 
+.maturity,
 .cast,
 .genre {
     margin: 12px 0;
 }
 
+.maturity-title,
 .cast-title,
 .genre-title {
     color: #777777;
@@ -129,6 +140,7 @@
     content: ', ';
 
 }
+
 
 .cast-item,
 .genre-item {
@@ -143,4 +155,18 @@
 
 .cast-more {
     font-style: italic;
+}
+
+.about {
+    margin: 0 42px 32px;
+    user-select: none;
+    
+    .maturity {
+        display: flex;
+    }
+
+    .maturity>*:not(:first-child) {
+        margin-left: 5px;
+        font-size: 14px;
+    }
 }

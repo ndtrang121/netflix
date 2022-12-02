@@ -12,23 +12,9 @@ import PreviewModal from '../PreviewModal'
 const cx = classNames.bind(styles)
 
 function Movie({ data }) {
-    const {
-        widthWin,
-        SCROLLWIDTH,
-        itemWidth,
-        itemsToShow,
-        marginRight,
-        padding,
-    } = useContext(ResponsiveContext)
+    const { widthWin, SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } = useContext(ResponsiveContext)
 
-    const {
-        setInfoMovie,
-        showPopup,
-        setShowPopup,
-        setLeftItem,
-        setTopItem,
-        setPosition,
-    } = useContext(MiniModalContext)
+    const { setInfoMovie, showPopup, setShowPopup, setLeftItem, setTopItem, setPosition } = useContext(MiniModalContext)
 
     const itemHeight = itemWidth / 1.777
     const [timer, setTimer] = useState(null)
@@ -36,15 +22,9 @@ function Movie({ data }) {
 
     const handleOnPopup = useCallback(
         (data) => {
-            setTopItem(
-                refMovie.current.getBoundingClientRect().top +
-                    document.documentElement.scrollTop,
-            )
+            setTopItem(refMovie.current.getBoundingClientRect().top + document.documentElement.scrollTop)
             const clientX = window.event.clientX
-            if (
-                clientX >= padding - 1 &&
-                clientX < widthWin - padding - SCROLLWIDTH - 1
-            ) {
+            if (clientX >= padding - 1 && clientX < widthWin - padding - SCROLLWIDTH - 1) {
                 if (!timer && !showPopup) {
                     setTimer(
                         setTimeout(() => {
@@ -79,11 +59,7 @@ function Movie({ data }) {
                         setLeftItem(leftItem + marginRight - itemWidth / 2)
                     } else {
                         setPosition(50)
-                        setLeftItem(
-                            leftItem +
-                                marginRight -
-                                (itemWidth * 1.5 - itemWidth) / 2,
-                        )
+                        setLeftItem(leftItem + marginRight - (itemWidth * 1.5 - itemWidth) / 2)
                     }
                 }
             }
@@ -94,7 +70,6 @@ function Movie({ data }) {
 
     const handleClearTimer = () => {
         if (timer) {
-            console.log(timer)
             clearTimeout(timer)
             setTimer(null)
         }
@@ -110,10 +85,7 @@ function Movie({ data }) {
                 onMouseOver={() => handleOnPopup(data)}
                 onMouseOut={handleClearTimer}
                 onClick={(e) => {
-                    refMovie.current.removeEventListener(
-                        'onmouseover',
-                        e.onMouseOver,
-                    )
+                    refMovie.current.removeEventListener('onmouseover', e.onMouseOver)
                     toggle()
                 }}
             >
@@ -126,11 +98,7 @@ function Movie({ data }) {
                     path={data.backdrop_path || data.poster_path}
                 />
             </div>
-            <PreviewModal
-                isShowing={isShowing}
-                hide={toggle}
-                infoMovie={data}
-            />
+            <PreviewModal isShowing={isShowing} hide={toggle} infoMovie={data} />
         </Fragment>
     )
 }

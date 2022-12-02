@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames/bind'
 
@@ -29,18 +29,20 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
         return dataDetail
     }, [infoMovie])
 
-    useEffect(() => {
-        Promise.all([fetchCast(), fetchDetail()]).then((res) => {
-            setCast(res[0].cast)
-            setDetail(res[1])
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isShowing])
-
     useLayoutEffect(() => {
         if (isShowing) document.body.style.overflow = 'hidden'
         else if (!isShowing) document.body.style.overflow = 'unset'
+
+        isShowing &&
+            Promise.all([fetchCast(), fetchDetail()])
+                .then((res) => {
+                    setCast(res[0].cast)
+                    setDetail(res[1])
+                })
+                .catch((e) => {})
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isShowing])
+
     return (
         isShowing &&
         ReactDOM.createPortal(
@@ -107,7 +109,7 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
                                         className={cx('cast-more', {
                                             'cast-item': true,
                                         })}
-                                        href={'#a'}
+                                        href="#full-cast"
                                     >
                                         more
                                     </a>
@@ -125,7 +127,32 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
                         </div>
                         <SimilarMovie infoMovie={infoMovie} />
                         <div className={cx('about')}>
-                            <h2>About: {infoMovie.name || infoMovie.title}</h2>
+                            <h2>
+                                <span style={{ fontWeight: '400' }}>About: </span> {infoMovie.name || infoMovie.title}
+                            </h2>
+                            <div className={cx('cast')} id="full-cast">
+                                <span className={cx('cast-title')}>Cast: </span>
+                                {cast &&
+                                    cast.map((cast, index) => (
+                                        <span key={index} className={cx('cast-item')}>
+                                            {cast.name}
+                                        </span>
+                                    ))}
+                            </div>
+                            <div className={cx('genre')}>
+                                <span className={cx('genre-title')}>Genres: </span>
+                                {detail.genres &&
+                                    detail.genres.map((genre, index) => (
+                                        <span key={index} className={cx('genre-item')}>
+                                            {genre.name}
+                                        </span>
+                                    ))}
+                            </div>
+                            <div className={cx('maturity')}>
+                                <span className={cx('maturity-title')}>Maturity rating: </span>
+                                <div className={cx('adult')}>16+</div>
+                                <p className={cx('maturity-description')}>Recommended for ages 16 and up</p>
+                            </div>
                         </div>
                     </div>
                 </div>

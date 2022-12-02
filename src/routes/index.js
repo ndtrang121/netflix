@@ -7,6 +7,7 @@ const Shows = lazy(() => import('~/pages/Shows'))
 const Movies = lazy(() => import('~/pages/Movies'))
 const Trending = lazy(() => import('~/pages/Trending'))
 const Favorite = lazy(() => import('~/pages/Favorite'))
+const Watch = lazy(() => import('~/pages/Watch'))
 
 export const loginRoutes = [
     { path: '/browse', title: 'Home', component: Home },
@@ -25,4 +26,5 @@ export const loginRoutes = [
         layout: null,
     },
     { path: '/search', title: 'Search', component: Search, layout: null },
+    { path: '/watch/:movieType/:movieId', title: 'Watch', component: Watch, layout: null },
 ]

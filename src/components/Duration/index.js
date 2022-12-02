@@ -6,7 +6,6 @@ function Duration({ type, id, className }) {
     const [detail, setDetail] = useState([])
     const fetchDetail = useCallback(async () => {
         const dataDetail = await request(`/${type}/${id}`).then((res) => {
-            console.log(res)
             return res
         })
         setDetail(dataDetail)
