@@ -25,7 +25,6 @@ function Watch() {
                         )
                         trailer ? setTrailer(trailer.key) : setTrailer(res.results[0].key)
                         setSearchParams({ v: `${trailer.key}` })
-                        console.log('fetch')
                     }
                 })
             } catch (error) {
@@ -40,18 +39,16 @@ function Watch() {
             <button className={cx('back-btn')} onClick={() => (trailer ? navigate(-2) : navigate(-1))}>
                 <FontAwesomeIcon className={cx('back-icon')} icon={faArrowLeftLong} />
             </button>
-            {
-                <ReactPlayer
-                    className={cx('movie')}
-                    playing={false}
-                    volume={1}
-                    muted={true}
-                    width={'100%'}
-                    height={'100vh'}
-                    url={`http://www.youtube.com/embed/${searchParams.get('v') || trailer}`}
-                    controls={true}
-                />
-            }
+            <ReactPlayer
+                className={cx('movie')}
+                playing={true}
+                volume={1}
+                muted={true}
+                width={'100%'}
+                height={'100vh'}
+                url={`http://www.youtube.com/embed/${searchParams.get('v') || trailer}`}
+                controls={true}
+            />
         </div>
     )
 }

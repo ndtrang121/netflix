@@ -15,7 +15,6 @@ function SimilarMovie({ infoMovie }) {
 
     const fetchMoreLike = useCallback(async () => {
         const data = await request(`/${infoMovie.media_type}/${infoMovie.id}/similar`).then((res) => {
-            console.log(res.results)
             setRecommend(res.results)
         })
         return data

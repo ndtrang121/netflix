@@ -35,36 +35,32 @@ function MiniModalMovie() {
     })
 
     const fetchDetail = useCallback(async () => {
-        if (showPopup) {
-            try {
-                await getDetail(infoMovie.id, infoMovie.media_type).then((res) => {
-                    setDetail(res)
-                })
-            } catch (error) {
-                setDetail([])
-            }
-        } else setDetail([])
+        const data = await getDetail(infoMovie.id, infoMovie.media_type).then((res) => {
+            return res
+        })
+        return data
     }, [infoMovie])
+
     const fetchTrailer = useCallback(async () => {
-        try {
-            await request(`/${infoMovie.media_type}/${infoMovie.id}/videos`).then((res) => {
-                if (res.results.length !== 0) {
-                    const trailer = res.results.find(
-                        (trailer) => trailer.type === 'Trailer' || trailer.type === 'Teaser',
-                    )
-                    trailer ? setTrailer(trailer.key) : setTrailer(res.results[0].key)
-                }
-            })
-        } catch (error) {
-            setTrailer('')
-        }
+        const data = await request(`/${infoMovie.media_type}/${infoMovie.id}/videos`).then((res) => {
+            if (res.results.length !== 0) {
+                const trailer = res.results.find((trailer) => trailer.type === 'Trailer' || trailer.type === 'Teaser')
+                if (trailer) return trailer.key
+                else return res.results[0].key
+            }
+        })
+        return data
     }, [infoMovie])
 
     useLayoutEffect(() => {
-        // Promise.all([])
-        fetchDetail()
-        fetchTrailer()
-    }, [infoMovie])
+        showPopup &&
+            Promise.all([fetchDetail(), fetchTrailer()])
+                .then((res) => {
+                    setDetail(res[0])
+                    setTrailer(res[1])
+                })
+                .catch((e) => {})
+    }, [showPopup])
 
     const handleOffPopup = () => {
         setShowPopup(false)
