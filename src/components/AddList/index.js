@@ -73,7 +73,7 @@ function AddList({ id, favorite = false, hidePreview }) {
                         ) : (
                             <FontAwesomeIcon className={cx('icon-check')} icon={faCheck} />
                         )
-                    ) : add ? (
+                    ) : !add ? (
                         <FontAwesomeIcon className={cx('icon-add')} icon={faHeart} />
                     ) : (
                         <FontAwesomeIcon className={cx('icon-check')} icon={faHeartRe} />

@@ -30,8 +30,8 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
     }, [infoMovie])
 
     useLayoutEffect(() => {
-        if (isShowing) document.body.style.overflow = 'hidden'
-        else if (!isShowing) document.body.style.overflow = 'unset'
+        if (isShowing) document.body.style.overflowY = 'hidden'
+        else if (!isShowing) document.body.style.overflowY = 'scroll'
 
         isShowing &&
             Promise.all([fetchCast(), fetchDetail()])
@@ -40,6 +40,7 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
                     setDetail(res[1])
                 })
                 .catch((e) => {})
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isShowing])
 

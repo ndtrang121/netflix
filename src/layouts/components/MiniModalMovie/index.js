@@ -70,84 +70,86 @@ function MiniModalMovie() {
     const { toggle, isShowing } = useModal()
 
     return (
-        <div
-            className={cx('popup-movie', { show: showPopup })}
-            style={{
-                width: `${itemWidth * 1.5}px`,
-                left: `${leftItem}px`,
-                top: `${topItem - (itemHeight * 1.5 + heightInfo - itemHeight) / 2}px`,
-                transformOrigin: `${position}% 50%`,
-            }}
-            onMouseLeave={handleOffPopup}
-            onBlur={handleOffPopup}
-        >
+        !('ontouchstart' in document.documentElement) && (
             <div
-                className={cx('trailer')}
+                className={cx('popup-movie', { show: showPopup })}
                 style={{
                     width: `${itemWidth * 1.5}px`,
-                    height: `${itemHeight * 1.5}px`,
+                    left: `${leftItem}px`,
+                    top: `${topItem - (itemHeight * 1.5 + heightInfo - itemHeight) / 2}px`,
+                    transformOrigin: `${position}% 50%`,
                 }}
+                onMouseLeave={handleOffPopup}
+                onBlur={handleOffPopup}
             >
-                <Trailer
-                    widthTrailer={itemWidth * 1.5}
-                    heightTrailer={itemHeight * 1.5}
-                    infoMovie={infoMovie}
-                    delay={2000}
-                />
-            </div>
-            <div ref={refInfo} className={cx('info')}>
-                <div className={cx('btn-controls')}>
-                    <Link
-                        className={cx('btn-play', { 'btn-control': true })}
-                        to={`/watch/${infoMovie.media_type}/${infoMovie.id}?v=${trailer}`}
-                    >
-                        <FontAwesomeIcon icon={faPlay} />
-                    </Link>
-                    <AddList id={infoMovie.id} hidePreview={setShowPopup} />
-                    <AddList id={infoMovie.id} favorite />
-                    <div
-                        onClick={() => {
-                            toggle()
-                            setShowPopup(false)
-                        }}
-                        className={cx('btn-more', { 'btn-control': true })}
-                    >
-                        <FontAwesomeIcon icon={faAngleDown} />
-                    </div>
+                <div
+                    className={cx('trailer')}
+                    style={{
+                        width: `${itemWidth * 1.5}px`,
+                        height: `${itemHeight * 1.5}px`,
+                    }}
+                >
+                    <Trailer
+                        widthTrailer={itemWidth * 1.5}
+                        heightTrailer={itemHeight * 1.5}
+                        infoMovie={infoMovie}
+                        delay={2000}
+                    />
                 </div>
-                <div className={cx('meta-data')}>
-                    <div className={cx('match')}>
-                        {detail.vote_average && (detail.vote_average * 10).toFixed(0)}
-                        {'% '}
-                        Match
+                <div ref={refInfo} className={cx('info')}>
+                    <div className={cx('btn-controls')}>
+                        <Link
+                            className={cx('btn-play', { 'btn-control': true })}
+                            to={`/watch/${infoMovie.media_type}/${infoMovie.id}?v=${trailer}`}
+                        >
+                            <FontAwesomeIcon icon={faPlay} />
+                        </Link>
+                        <AddList id={infoMovie.id} hidePreview={setShowPopup} />
+                        <AddList id={infoMovie.id} favorite />
+                        <div
+                            onClick={() => {
+                                toggle()
+                                setShowPopup(false)
+                            }}
+                            className={cx('btn-more', { 'btn-control': true })}
+                        >
+                            <FontAwesomeIcon icon={faAngleDown} />
+                        </div>
                     </div>
-                    <div className={cx('adult')}>16+</div>
+                    <div className={cx('meta-data')}>
+                        <div className={cx('match')}>
+                            {detail.vote_average && (detail.vote_average * 10).toFixed(0)}
+                            {'% '}
+                            Match
+                        </div>
+                        <div className={cx('adult')}>16+</div>
 
-                    <div className={cx('runtime')}>
-                        {infoMovie.media_type === 'movie' ? (
-                            <>
-                                {Math.floor(detail.runtime / 60)}h{' '}
-                                {detail.runtime - Math.floor(detail.runtime / 60) * 60}m
-                            </>
-                        ) : detail.number_of_seasons > 1 ? (
-                            <>{detail.number_of_seasons} Parts</>
-                        ) : (
-                            <>{detail.number_of_episodes} Episodes</>
-                        )}
+                        <div className={cx('runtime')}>
+                            {infoMovie.media_type === 'movie' ? (
+                                <>
+                                    {Math.floor(detail.runtime / 60)}h{' '}
+                                    {detail.runtime - Math.floor(detail.runtime / 60) * 60}m
+                                </>
+                            ) : detail.number_of_seasons > 1 ? (
+                                <>{detail.number_of_seasons} Parts</>
+                            ) : (
+                                <>{detail.number_of_episodes} Episodes</>
+                            )}
+                        </div>
+                        <div className={cx('feature')}>HD</div>
                     </div>
-                    <div className={cx('feature')}>HD</div>
+                    <div className={cx('genre')}>
+                        {detail.genres &&
+                            detail.genres.map((genre, index) => (
+                                <div className={cx('genre-item')} key={index}>
+                                    {genre.name}
+                                </div>
+                            ))}
+                    </div>
                 </div>
-                <div className={cx('genre')}>
-                    {detail.genres &&
-                        detail.genres.map((genre, index) => (
-                            <div className={cx('genre-item')} key={index}>
-                                {genre.name}
-                            </div>
-                        ))}
-                </div>
+                <PreviewModal isShowing={isShowing} hide={toggle} infoMovie={infoMovie} />
             </div>
-            <PreviewModal isShowing={isShowing} hide={toggle} infoMovie={infoMovie} />
-        </div>
+        )
     )
 }
 

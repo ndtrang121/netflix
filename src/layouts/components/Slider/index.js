@@ -188,7 +188,13 @@ function Slider({ path, page = '1', genres, title, nextBtn = false, marginTop = 
                 )}
                 <button
                     className={cx('next-btn')}
-                    style={nextBtn ? { width: `calc(${padding}px + ${SCROLLWIDTH}px)` } : { width: `${padding}px` }}
+                    style={
+                        'ontouchstart' in document.documentElement
+                            ? { width: `${padding + SCROLLWIDTH}px` }
+                            : nextBtn
+                            ? { width: `${padding + SCROLLWIDTH}px` }
+                            : { width: `${padding}px` }
+                    }
                     onClick={handleNext}
                 >
                     <FontAwesomeIcon className={cx('icon-control')} icon={faChevronRight} />
