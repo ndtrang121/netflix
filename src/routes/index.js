@@ -6,23 +6,23 @@ const Home = lazy(() => import('~/pages/Home'))
 const Shows = lazy(() => import('~/pages/Shows'))
 const Movies = lazy(() => import('~/pages/Movies'))
 const Trending = lazy(() => import('~/pages/Trending'))
-const Favorite = lazy(() => import('~/pages/Favorite'))
+const MyList = lazy(() => import('~/pages/MyList'))
 const Watch = lazy(() => import('~/pages/Watch'))
 
 export const loginRoutes = [
     { path: '/browse', title: 'Home', component: Home },
-    { path: '/genre', title: 'TV Shows', component: Shows },
-    { path: '/movies', title: 'Movies', component: Movies },
+    { path: '/tv', title: 'TV Shows', component: Shows },
+    { path: '/movie', title: 'Movies', component: Movies },
     {
         path: '/latest',
-        title: 'Trending',
+        title: 'New & Popular',
         component: Trending,
         layout: NotTrailer,
     },
     {
         path: '/favorite',
-        title: 'Favorite',
-        component: Favorite,
+        title: 'My List',
+        component: MyList,
         layout: null,
     },
     { path: '/search', title: 'Search', component: Search, layout: null },

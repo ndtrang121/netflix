@@ -1,3 +1,7 @@
+# Visit Website
+
+This project was deployed on Vercel, [Visit Website](https://netflix-ndt.vercel.app/).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,0 +1,24 @@
+
+.main-header {
+    position: unset;
+}
+
+.sub-header {
+    height: 68px;
+    line-height: 68px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    background-color: var(--background-color);
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .list-item {
+        margin-bottom: 3vw;
+    }
+}
+

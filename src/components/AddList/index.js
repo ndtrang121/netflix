@@ -33,7 +33,9 @@ function AddList({ id, favorite = false, hidePreview }) {
             }
         }
         check()
+        return () => setChecked(false)
     }, [id, favorite])
+
     const handleAddList = useCallback(async () => {
         if (hidePreview && !favorite && location.pathname === '/favorite') hidePreview()
         let state
@@ -51,11 +53,8 @@ function AddList({ id, favorite = false, hidePreview }) {
                 }/${state}?api_key=${api_key}&session_id=${session_id}`,
                 { media_id: id },
             )
-        } catch (error) {
-            // console.log(error)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, add, favorite])
+        } catch (error) {}
+    }, [hidePreview, favorite, location.pathname, add, id])
 
     return (
         checked && (

@@ -1,6 +1,6 @@
-import { Fragment, useLayoutEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
-import styles from './Favorite.module.scss'
+import styles from './MyList.module.scss'
 import Footer from '~/layouts/components/Footer'
 import Header from '~/layouts/components/Header'
 import MiniModalMovie from '~/layouts/components/MiniModalMovie'
@@ -12,10 +12,10 @@ const list_id = process.env.REACT_APP_LIST_ID
 
 const cx = classNames.bind(styles)
 
-function Favorite() {
+function MyList() {
     const [myList, setMyList] = useState([])
     const [end, setEnd] = useState(false)
-    useLayoutEffect(() => {
+    useEffect(() => {
         async function fetchData() {
             try {
                 await request(`/list/${list_id}`).then((res) => {
@@ -30,13 +30,15 @@ function Favorite() {
     })
     return (
         <Fragment>
-            <Header />
-            <h1 className={cx('title')} style={{ marginLeft: 'var(--PADDING)' }}>
+            <Header className={cx('main-header')} />
+            <h1 className={cx('sub-header')} style={{ marginLeft: 'var(--PADDING)' }}>
                 My List
             </h1>
             <div className={cx('container')} style={{ margin: '60px' }}>
                 {myList.length !== 0 ? (
-                    myList.reverse().map((data, index) => <Movie key={index} data={data}></Movie>)
+                    myList
+                        .reverse()
+                        .map((data, index) => <Movie className={cx('list-item')} key={index} data={data}></Movie>)
                 ) : !end ? (
                     <Loading height={200} />
                 ) : (
@@ -49,4 +51,4 @@ function Favorite() {
     )
 }
 
-export default Favorite
+export default MyList

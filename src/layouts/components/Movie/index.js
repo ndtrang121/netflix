@@ -11,7 +11,7 @@ import PreviewModal from '../PreviewModal'
 
 const cx = classNames.bind(styles)
 
-function Movie({ data }) {
+function Movie({ data, className }) {
     const { widthWin, SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } = useContext(ResponsiveContext)
 
     const { setInfoMovie, showPopup, setShowPopup, setLeftItem, setTopItem, setPosition } = useContext(MiniModalContext)
@@ -80,7 +80,7 @@ function Movie({ data }) {
         <Fragment>
             <div
                 ref={refMovie}
-                className={cx('trending-item')}
+                className={cx('trending-item', { [className]: className })}
                 style={{ marginRight: `${marginRight}px` }}
                 onMouseOver={() => handleOnPopup(data)}
                 onMouseOut={handleClearTimer}

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useContext, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -52,7 +52,7 @@ function MiniModalMovie() {
         return data
     }, [infoMovie])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         showPopup &&
             Promise.all([fetchDetail(), fetchTrailer()])
                 .then((res) => {

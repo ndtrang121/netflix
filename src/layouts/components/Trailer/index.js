@@ -1,6 +1,6 @@
 import { faVolumeHigh, faVolumeMute, faArrowRotateRight, faPlay, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Fragment, useContext, useLayoutEffect, useRef, useState } from 'react'
+import { Fragment, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import classNames from 'classnames/bind'
 import ReactPlayer from 'react-player/youtube'
 
@@ -33,7 +33,7 @@ function Trailer({
     const { showPopup } = useContext(MiniModalContext)
 
     // Handle get id trailer
-    useLayoutEffect(() => {
+    useEffect(() => {
         const fetchTrailer = async () => {
             if (infoMovie.id) {
                 try {
@@ -51,6 +51,8 @@ function Trailer({
             }
         }
         fetchTrailer()
+
+        return () => setTrailer('')
     }, [infoMovie])
 
     useLayoutEffect(() => {

@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faChevronLeft,
-    faChevronRight,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import classNames from 'classnames/bind'
-import { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import request from '~/utils/request'
 import styles from './Slider.module.scss'
@@ -14,9 +11,8 @@ import Movie from '../Movie'
 
 const cx = classNames.bind(styles)
 
-function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
-    const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } =
-        useContext(ResponsiveContext)
+function Slider({ path, page = '1', genres, title, nextBtn = false, marginTop = 3 }) {
+    const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } = useContext(ResponsiveContext)
 
     const itemHeight = itemWidth / 1.777
 
@@ -45,20 +41,13 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
 
     const handleNext = () => {
         const mod = numberMovies % itemsToShow
-        if (
-            mod !== 0 &&
-            Math.abs(distance) ===
-                (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)
-        ) {
+        console.log(numberMovies)
+        if (mod !== 0 && Math.abs(distance) === (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)) {
             setDistance(distance - (itemWidth + marginRight) * mod)
             setCurrentPage(currentPage + 1)
             setEnd(true)
             return
-        } else if (
-            mod === 0 &&
-            Math.abs(distance) ===
-                (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)
-        ) {
+        } else if (mod === 0 && Math.abs(distance) === (itemWidth + marginRight) * itemsToShow * (pageNumber - 2)) {
             setDistance(distance - (itemWidth + marginRight) * itemsToShow)
             setCurrentPage(currentPage + 1)
             setEnd(true)
@@ -88,14 +77,19 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
     }, [])
 
     // Handle get data
-    useLayoutEffect(() => {
+    useEffect(() => {
         setDistance(0)
         setCurrentPage(0)
         const fetchDta = async () => {
             try {
-                await request(path, page).then((res) => {
-                    setDataTrending(res.results)
-                    setNumberMovies(res.results.length)
+                await request(path, page, genres).then((res) => {
+                    if (res.items) {
+                        setDataTrending(res.items)
+                        setNumberMovies(res.items.length)
+                    } else {
+                        setDataTrending(res.results)
+                        setNumberMovies(res.results.length)
+                    }
                 })
             } catch (error) {
                 // throw new Error()
@@ -179,9 +173,7 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
                     }}
                     className={cx('trending-items')}
                 >
-                    {dataTrending.map((data, index) => (
-                        <Movie key={index} data={data}></Movie>
-                    ))}
+                    {dataTrending && dataTrending.map((data, index) => <Movie key={index} data={data}></Movie>)}
                 </div>
                 {distance !== 0 && (
                     <button
@@ -191,25 +183,15 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
                         }}
                         onClick={handlePrev}
                     >
-                        <FontAwesomeIcon
-                            className={cx('icon-control')}
-                            icon={faChevronLeft}
-                        />
+                        <FontAwesomeIcon className={cx('icon-control')} icon={faChevronLeft} />
                     </button>
                 )}
                 <button
                     className={cx('next-btn')}
-                    style={
-                        nextBtn
-                            ? { width: `calc(${padding}px + ${SCROLLWIDTH}px)` }
-                            : { width: `${padding}px` }
-                    }
+                    style={nextBtn ? { width: `calc(${padding}px + ${SCROLLWIDTH}px)` } : { width: `${padding}px` }}
                     onClick={handleNext}
                 >
-                    <FontAwesomeIcon
-                        className={cx('icon-control')}
-                        icon={faChevronRight}
-                    />
+                    <FontAwesomeIcon className={cx('icon-control')} icon={faChevronRight} />
                 </button>
             </div>
             <div
@@ -225,9 +207,7 @@ function Slider({ path, page = '1', title, nextBtn = false, marginTop = 3 }) {
                             <div
                                 key={index}
                                 className={cx('dot-indecator', {
-                                    active:
-                                        Math.floor(index / itemsToShow) ===
-                                        currentPage,
+                                    active: Math.floor(index / itemsToShow) === currentPage,
                                 })}
                             />
                         )
