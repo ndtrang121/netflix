@@ -72,3 +72,15 @@
 		transform: translateY(-50%) rotate(360deg);
 	}
 }
+
+// small 
+@media ( max-width: 499px) {
+    .search-text.show {
+        .search-input {
+            width: 140px;
+    
+        }
+    
+    }
+}
+

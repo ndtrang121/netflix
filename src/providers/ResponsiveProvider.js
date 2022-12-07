@@ -28,17 +28,17 @@ const ResponsiveProvider = ({ children }) => {
                 setDevice('smallScreen')
                 setItemsToShow(4)
                 setMarginRight(4)
-                setPadding(30)
+                setPadding(40)
             } else if (window.innerWidth < 800 && window.innerWidth >= 500) {
                 setDevice('tablet')
                 setItemsToShow(3)
                 setMarginRight(4)
-                setPadding(20)
+                setPadding(30)
             } else if (window.innerWidth < 500) {
                 setDevice('mobile')
                 setItemsToShow(2)
                 setMarginRight(4)
-                setPadding(10)
+                setPadding(20)
             }
             setWidthWin(window.innerWidth)
             console.log(window.innerWidth)

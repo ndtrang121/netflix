@@ -23,6 +23,7 @@ function Trailer({
     large = false,
     preview = false,
     hidePreview,
+    className,
 }) {
     const [trailer, setTrailer] = useState('')
     const [autoPlay, setAutoPlay] = useState(true)
@@ -85,7 +86,7 @@ function Trailer({
     }
     const { toggle, isShowing } = useModal()
     return (
-        <Fragment>
+        <div className={cx('wrapper', { [className]: className })}>
             {trailer !== '' && (
                 <ReactPlayer
                     ref={videoRef}
@@ -178,7 +179,7 @@ function Trailer({
                 )}
             </div>
             <PreviewModal isShowing={isShowing} hide={toggle} infoMovie={infoMovie} />
-        </Fragment>
+        </div>
     )
 }
 

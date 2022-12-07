@@ -134,3 +134,10 @@
         background-color: #646464;
     }
 }
+
+// mobile
+@media (max-width: 499px) {
+    .popup-movie.show  {
+        display: none;
+    }
+} 

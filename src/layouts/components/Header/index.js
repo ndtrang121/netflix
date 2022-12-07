@@ -3,7 +3,7 @@ import { useContext, useLayoutEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightArrowLeft, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightArrowLeft, faBars, faBell } from '@fortawesome/free-solid-svg-icons'
 import { faCircleQuestion, faUser, faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './Header.module.scss'
@@ -12,6 +12,8 @@ import { loginRoutes } from '~/routes'
 import Avatar from '~/components/Avatar'
 import Search from '../Search'
 import { AuthContext } from '~/components/Auth'
+import MenuModal from '../MenuModal'
+import useModal from '~/hooks/useModal'
 
 const cx = classNames.bind(styles)
 
@@ -42,6 +44,8 @@ function Header({ className }) {
         }
     }, [])
 
+    const { isShowing, toggle } = useModal()
+
     return (
         <div
             className={cx('wrapper', {
@@ -51,6 +55,9 @@ function Header({ className }) {
             style={{ padding: '0 var(--PADDING)' }}
         >
             <nav className={cx('primary-nav')}>
+                <div className={cx('menu-bar')} onClick={toggle}>
+                    <FontAwesomeIcon className={cx('menu-bar-icon')} icon={faBars} />
+                </div>
                 <Link className={cx('logo-link')} to="/browse">
                     <Logo className={cx('logo')} />
                 </Link>
@@ -135,6 +142,7 @@ function Header({ className }) {
                     </div>
                 </div>
             </div>
+            <MenuModal isShowing={isShowing} hide={toggle} />
         </div>
     )
 }

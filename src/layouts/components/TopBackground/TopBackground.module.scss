@@ -22,3 +22,22 @@
 	bottom: 0;
 	z-index: 2;
 }
+
+// small
+@media (max-width: 499px) {
+    .background-wrapper {
+        position: unset;
+        margin-top: var(--height-header);
+        height: auto !important;
+        &::before {
+            display: none;
+        }
+    }
+    .trailer {
+        display: none;
+    }
+
+    .trending {
+        position: unset;
+    }
+} 

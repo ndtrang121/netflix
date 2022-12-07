@@ -38,7 +38,13 @@ function TopBackground() {
                 height: heightTrailer,
             }}
         >
-            <Trailer infoMovie={dataBg} large widthTrailer={widthTrailer} heightTrailer={heightTrailer} />
+            <Trailer
+                className={cx('trailer')}
+                infoMovie={dataBg}
+                large
+                widthTrailer={widthTrailer}
+                heightTrailer={heightTrailer}
+            />
 
             <div className={cx('trending')}>
                 <Slider
