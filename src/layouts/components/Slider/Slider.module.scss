@@ -146,3 +146,16 @@
 .dot-indecator.active {
 	background-color:  #aaa;
 }
+
+
+// small 
+@media ( max-width: 499px) {
+    .prev-btn,
+    .next-btn {
+        .icon-control {
+            height: 20px;
+        }
+    }
+
+
+ }

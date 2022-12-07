@@ -1,11 +1,6 @@
 import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom'
-import {
-    FacebookIcon,
-    InstagramIcon,
-    TwitterIcon,
-    YoutubeIcon,
-} from '~/components/Icons'
+import { FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from '~/components/Icons'
 import SelectLanguage from '~/components/SelectLanguage'
 
 import styles from './Footer.module.scss'
@@ -52,37 +47,27 @@ function Footer() {
             <ul className={cx('footer-links')}>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Audio Description
-                        </span>
+                        <span className={cx('footer-link-content')}>Audio Description</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Help Center
-                        </span>
+                        <span className={cx('footer-link-content')}>Help Center</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Gift Cards
-                        </span>
+                        <span className={cx('footer-link-content')}>Gift Cards</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Media Center
-                        </span>
+                        <span className={cx('footer-link-content')}>Media Center</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Investor Relations
-                        </span>
+                        <span className={cx('footer-link-content')}>Investor Relations</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
@@ -92,49 +77,37 @@ function Footer() {
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Terms of Use
-                        </span>
+                        <span className={cx('footer-link-content')}>Terms of Use</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Privacy
-                        </span>
+                        <span className={cx('footer-link-content')}>Privacy</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Legal Notices
-                        </span>
+                        <span className={cx('footer-link-content')}>Legal Notices</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Cookie Preferences
-                        </span>
+                        <span className={cx('footer-link-content')}>Cookie Preferences</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Corporate Information
-                        </span>
+                        <span className={cx('footer-link-content')}>Corporate Information</span>
                     </Link>
                 </li>
                 <li className={cx('footer-link-wrapper')}>
                     <Link className={cx('footer-link')} to={''}>
-                        <span className={cx('footer-link-content')}>
-                            Contact Us
-                        </span>
+                        <span className={cx('footer-link-content')}>Contact Us</span>
                     </Link>
                 </li>
             </ul>
-            <SelectLanguage large />
-            <p className={cx('footer-country')}>Netflix Vietnam</p>
+            <SelectLanguage large className={cx('select')} />
+            <p className={cx('footer-country')}>Design by Trang Nguyen</p>
         </div>
     )
 }

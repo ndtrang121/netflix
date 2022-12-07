@@ -3,9 +3,9 @@ import styles from './SelectLanguage.module.scss'
 
 const cx = classNames.bind(styles)
 
-function SelectLanguage({ medium = false, large = false }) {
+function SelectLanguage({ className, medium = false, large = false }) {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', { [className]: className })}>
             <select defaultValue="Default" className={cx('select', { medium, large })}>
                 <option value="DEFAULT">English</option>
                 <option>Tiếng Việt</option>

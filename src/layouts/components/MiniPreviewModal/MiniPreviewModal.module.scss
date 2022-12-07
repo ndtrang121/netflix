@@ -1,0 +1,109 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+  }
+  
+.modal {
+    position: fixed;
+    z-index: 3;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background: #2e2e2e;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    animation: MoveDownUp .3s ease-in;
+
+}
+
+@keyframes MoveDownUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.movie {
+    display: flex;
+
+    .poster {
+        margin-right: 10px;
+        width: 25%;
+        height: auto;
+        max-height: 33vh;
+        border-radius: 4px;
+    }
+
+    .overview {
+        font-size: 1.4rem;
+    }
+
+    .release {
+        margin-bottom: 5px;
+        font-size: 1.2rem;
+        opacity: .7;
+
+        >p {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
+}
+
+.controls {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-around;
+    .btn-play {
+        .icon-play {
+            width: 2.3vw;
+            height: 2.3vw;
+            max-width: 42px;
+            max-height: 42px;
+            min-width: 32px;
+            min-height: 32px;
+        }
+    }
+
+    .btn-control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        >p {
+            font-size: 1.2rem;
+            opacity: .7;
+            margin: 5px 0;
+        }
+    }
+}
+
+.info-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 16px 0;
+    border-top: .5px solid #fff;
+
+    >div {
+        display: flex;
+        align-items: center;
+
+        .icon-detail {
+            margin-right: 5px;
+        }
+    }
+
+    .icon-detail {
+        height: 20px;
+        
+    }
+}

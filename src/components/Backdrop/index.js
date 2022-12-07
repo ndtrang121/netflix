@@ -8,11 +8,15 @@ const Backdrop = ({ path, className, large = false, style, ...passProps }) => {
             {...passProps}
             style={style}
             className={className}
-            src={large ? `https://image.tmdb.org/t/p/original${path}` : `https://image.tmdb.org/t/p/w500${path}`}
+            src={
+                large
+                    ? `https://image.tmdb.org/t/p/original${path}`
+                    : `https://image.tmdb.org/t/p/w500${path}`
+            }
             alt="backdrop"
         />
     ) : (
-        <Loading />
+        <Loading className={className} />
     )
 }
 
