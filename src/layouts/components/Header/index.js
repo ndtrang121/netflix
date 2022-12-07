@@ -54,26 +54,32 @@ function Header({ className }) {
                 <Link className={cx('logo-link')} to="/browse">
                     <Logo className={cx('logo')} />
                 </Link>
-                <ul className={cx('nav-items')}>
-                    {loginRoutes.map((route, index) => {
-                        if (index >= loginRoutes.length - 2) {
-                            // eslint-disable-next-line array-callback-return
-                            return
-                        }
-                        return (
-                            <li className={cx('nav-item')} key={index}>
-                                <Link
-                                    className={cx('nav-item-link', {
-                                        active: location.pathname === route.path,
-                                    })}
-                                    to={route.path}
-                                >
-                                    {route.title}
-                                </Link>
-                            </li>
-                        )
-                    })}
-                </ul>
+                <div className={cx('navigation')}>
+                    <div className={cx('nav-list-wrapper')}>
+                        <span className={cx('nav-list')}>Browse</span>
+                        <span className={cx('arrow-list')}></span>
+                    </div>
+                    <ul className={cx('nav-items')}>
+                        {loginRoutes.map((route, index) => {
+                            if (index >= loginRoutes.length - 2) {
+                                // eslint-disable-next-line array-callback-return
+                                return
+                            }
+                            return (
+                                <li className={cx('nav-item')} key={index}>
+                                    <Link
+                                        className={cx('nav-item-link', {
+                                            active: location.pathname === route.path,
+                                        })}
+                                        to={route.path}
+                                    >
+                                        {route.title}
+                                    </Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
             </nav>
 
             <div className={cx('icon-nav')}>
@@ -83,8 +89,8 @@ function Header({ className }) {
                 <div className={cx('icon-item')}>
                     <div className={cx('notify-btn')}>
                         <FontAwesomeIcon className={cx('bell-icon')} icon={faBell} />
-                        <ul className={cx('notifycations')}>
-                            <li className={cx('emty-notify')}>
+                        <ul className={cx('notifications')}>
+                            <li className={cx('empty-notify')}>
                                 <p>No recent notifications</p>
                             </li>
                         </ul>

@@ -14,7 +14,6 @@ const cx = classNames.bind(styles)
 function PreviewModal({ isShowing, hide, infoMovie }) {
     const [detail, setDetail] = useState([])
     const [cast, setCast] = useState([])
-
     const fetchCast = useCallback(async () => {
         const dataCast = await request(`/${infoMovie.media_type}/${infoMovie.id}/credits`).then((res) => {
             return res

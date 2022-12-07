@@ -1,5 +1,8 @@
+body {
+    --height-header: 68px;
+}
+
 .wrapper {
-	--height-header: 68px;
 
 	height: var(--height-header);
 	width: 100%;
@@ -28,9 +31,18 @@
 }
 
 .logo {
-	height: 80%;
+	height: 100%;
 	fill: var(--primary);
 	margin-right: 25px;
+}
+
+.navigation {
+    position: relative;
+    display: flex;
+
+    .nav-list {
+        display: none;
+    }
 }
 
 .nav-items {
@@ -38,20 +50,23 @@
 }
 
 .nav-item {
-	display: flex;
-	align-items: center;
 	margin-left: 20px;
-}
+    white-space: nowrap;
 
-.nav-item-link {
-	user-select: none;
-	font-size: 1.4rem;
-	color: var(--text-color);
-
-	&:hover {
+    &:hover {
+        cursor: pointer;
 		opacity: .8;
 		transition: opacity .4s;
 	}
+}
+
+.nav-item-link {
+    display: flex;
+	align-items: center;
+	user-select: none;
+	font-size: 1.4rem;
+	color: var(--text-color);
+    height: 100%;
 }
 
 .active {
@@ -72,7 +87,7 @@
 	color: var(--white);
 	align-items: center;
     display: flex;
-    height: 100%;
+    height: 100;
     position: absolute;
     right: var(--PADDING);
 }
@@ -84,7 +99,7 @@
 	position: relative;
 }
 
-.notify-btn:hover .notifycations {
+.notify-btn:hover .notifications {
 	display: block;
 }
 
@@ -95,7 +110,7 @@
 	padding: 8px 8px;
 }
 
-.notifycations {
+.notifications {
 	display: none;
 	cursor: unset;
 	background-color: rgba(0,0,0,.85);
@@ -109,9 +124,10 @@
 	right: 0;
 }
 
-.notifycations::before {
+.notifications::before {
 	content: "";
 	position: absolute;
+    z-index: 2;
 	display: inline-block;
 	border-color: transparent transparent var(--white) ;
 	border-style: solid;
@@ -120,7 +136,7 @@
 	right: 9px;
 }
 
-.notifycations::after {
+.notifications::after {
 	content: "";
 	position: absolute;
 	background-color: transparent;
@@ -130,7 +146,7 @@
     right: 0;
 }
 
-.emty-notify {
+.empty-notify {
 	user-select: none;
 	padding: 50px 0;
 	text-align: center;
@@ -233,3 +249,119 @@
 		text-decoration: underline;
 	}
 }
+
+@media ( max-width: 950px) {
+    body {
+        --height-header: 41px;
+    }
+
+    .logo-link {
+        height: 21px;
+    }
+
+    .nav-item-link {
+        font-size: 1.2rem;
+    }
+
+    .arrow-icon {
+        display: none;
+    }
+
+    .menu-items {
+        top: calc(var(--height-header) / 2 + var(--height-account) / 2 + 10px) ;
+    }
+
+    .menu-items::before {
+        right: 10px;
+    }
+}
+
+@media ( max-width: 800px) {
+    .navigation{
+        &:hover {
+            .nav-items {
+                display: flex;
+            }
+        }
+
+        .nav-list-wrapper {
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .nav-list {
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+
+            
+        }
+
+        .arrow-list {
+            margin-left: 5px;
+            height: 0;
+            border-color: var(--white) transparent transparent;
+            border-style: solid;
+            border-width: 5px 5px 0;
+        }        
+    }
+
+    .nav-items{ 
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        z-index: 3;
+        top: calc(var(--height-header)  ) ;
+        width: 260px;
+        border: 1px solid hsla(0,0%,100%,.25);
+        border-top: 2px solid #fff;
+        color: var(--white);
+        left: 100%;
+        transform: translateX(-52%);
+    }
+
+    .nav-items::before {
+        content: "";
+        position: absolute;
+        border-color: transparent transparent var(--white) ;
+        border-style: solid;
+        border-width: 0 7px 7px;
+        top: -9px;
+        right: 45%;
+        transform: translateX(-50%);
+    }
+
+    .nav-items::after {
+        content: "";
+        position: absolute;
+        background-color: transparent;
+        height: 25px;
+        width: 100%;
+        top: -25px;
+    }
+
+    .nav-item {
+        margin-left: unset;
+        background-color: rgba(0,0,0,.9);
+        width: 100%;
+        height: 50px;
+        padding: 5px 10px;
+        display: flex;
+        justify-content: center;
+
+	&:hover {
+        cursor: pointer;
+        background-color: rgba(0,0,0,.8);
+        opacity: 1;
+	}
+    }
+
+    .nav-item-link {
+        font-size: 13px;
+    }
+ }

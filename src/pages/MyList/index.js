@@ -34,7 +34,7 @@ function MyList() {
             <h1 className={cx('sub-header')} style={{ marginLeft: 'var(--PADDING)' }}>
                 My List
             </h1>
-            <div className={cx('container')} style={{ margin: '60px' }}>
+            <div className={cx('container')} style={{ margin: 'var(--PADDING)' }}>
                 {myList.length !== 0 ? (
                     myList
                         .reverse()

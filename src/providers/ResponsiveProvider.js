@@ -28,17 +28,17 @@ const ResponsiveProvider = ({ children }) => {
                 setDevice('smallScreen')
                 setItemsToShow(4)
                 setMarginRight(4)
-                setPadding(40)
+                setPadding(30)
             } else if (window.innerWidth < 800 && window.innerWidth >= 500) {
                 setDevice('tablet')
                 setItemsToShow(3)
                 setMarginRight(4)
-                setPadding(30)
+                setPadding(20)
             } else if (window.innerWidth < 500) {
                 setDevice('mobile')
                 setItemsToShow(2)
                 setMarginRight(4)
-                setPadding(20)
+                setPadding(10)
             }
             setWidthWin(window.innerWidth)
             console.log(window.innerWidth)
@@ -48,21 +48,11 @@ const ResponsiveProvider = ({ children }) => {
     }, [])
 
     const [itemWidth, setItemWidth] = useState(
-        (window.innerWidth -
-            padding * 2 -
-            SCROLLWIDTH -
-            marginRight * itemsToShow) /
-            itemsToShow,
+        (window.innerWidth - padding * 2 - SCROLLWIDTH - marginRight * itemsToShow) / itemsToShow,
     )
 
     useLayoutEffect(() => {
-        setItemWidth(
-            (window.innerWidth -
-                padding * 2 -
-                SCROLLWIDTH -
-                marginRight * itemsToShow) /
-                itemsToShow,
-        )
+        setItemWidth((window.innerWidth - padding * 2 - SCROLLWIDTH - marginRight * itemsToShow) / itemsToShow)
         paddingGlobal.style.setProperty('--PADDING', `${padding}px`)
         paddingGlobal.style.setProperty('--WIDTH-WINDOW', `${widthWin}px`)
 

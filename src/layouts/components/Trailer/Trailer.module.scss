@@ -33,7 +33,7 @@
 	user-select: none;
 	z-index: 3;
 	position: absolute;
-	bottom: 50%;
+	bottom: 45%;
 
 	.title {
 		font-size: 6vw;
@@ -214,11 +214,13 @@
     padding: 0.5vw 3.5vw 0.5vw 0.8vw;
 }
 
-.maturity-number {
-	// line-height: 30px;
-}
-
 // Laptop
-@media (min-width: 1100rem) and (max-width: 1400rem) {
-    
-}
+// @media (max-width: 799rem) {
+//     .more-info {
+//         bottom: 55%;
+        
+//         .overview {
+//             display: none;
+//         }
+//     }
+// }
