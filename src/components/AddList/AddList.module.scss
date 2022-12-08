@@ -26,3 +26,11 @@
     border-radius: 6px !important;
     font-weight: 700 !important;
 }
+
+@import '../../components/GlobalStyles/mixins';
+// small 
+@include sm {
+    .tool-tip {
+        display: none !important;
+    }
+}

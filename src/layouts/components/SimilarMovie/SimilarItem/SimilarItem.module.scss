@@ -1,3 +1,5 @@
+@import '../../../../components/GlobalStyles/mixins';
+
 .similar-item {
     position: relative;
     user-select: none;
@@ -89,10 +91,7 @@
 
     .item-overview {
         font-size: 1.4rem;
-        display: -webkit-box;
-		-webkit-line-clamp: 6;
-		-webkit-box-orient: vertical;  
-		overflow: hidden;
+        @include lineClamp(6);
     }
 
 }

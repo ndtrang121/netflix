@@ -1,6 +1,20 @@
-import { faVolumeHigh, faVolumeMute, faArrowRotateRight, faPlay, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+    faVolumeHigh,
+    faVolumeMute,
+    faArrowRotateRight,
+    faPlay,
+    faCircleInfo,
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Fragment, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+    Fragment,
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react'
 import classNames from 'classnames/bind'
 import ReactPlayer from 'react-player/youtube'
 
@@ -10,7 +24,7 @@ import styles from './Trailer.module.scss'
 import Button from '~/components/Button'
 import { MiniModalContext } from '~/providers/MiniModalProvider'
 import AddList from '~/components/AddList'
-import useModal from '~/hooks/useModal'
+import { useModal } from '~/hooks'
 import PreviewModal from '../PreviewModal'
 
 const cx = classNames.bind(styles)
@@ -38,10 +52,14 @@ function Trailer({
         const fetchTrailer = async () => {
             if (infoMovie.id) {
                 try {
-                    await request(`/${infoMovie.media_type}/${infoMovie.id}/videos`).then((res) => {
+                    await request(
+                        `/${infoMovie.media_type}/${infoMovie.id}/videos`,
+                    ).then((res) => {
                         if (res.results.length !== 0) {
                             const trailer = res.results.find(
-                                (trailer) => trailer.type === 'Trailer' || trailer.type === 'Teaser',
+                                (trailer) =>
+                                    trailer.type === 'Trailer' ||
+                                    trailer.type === 'Teaser',
                             )
                             setTrailer(trailer.key)
                         }
@@ -54,7 +72,7 @@ function Trailer({
         fetchTrailer()
 
         return () => setTrailer('')
-    }, [infoMovie])
+    }, [infoMovie.id])
 
     useLayoutEffect(() => {
         setOpacity(false)
@@ -66,11 +84,13 @@ function Trailer({
         }, delay)
 
         return () => clearTimeout(timerOpacity)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [infoMovie])
+    }, [infoMovie.id])
 
     const onProgress = () => {
-        if (trailer === '' || (videoRef.current && videoRef.current.getCurrentTime() >= 20)) {
+        if (
+            trailer === '' ||
+            (videoRef.current && videoRef.current.getCurrentTime() >= 20)
+        ) {
             setOpacity(false)
             setAutoPlay(false)
         }
@@ -82,7 +102,8 @@ function Trailer({
         }
     }
     const onReady = (e) => {
-        if (trailer !== '' && videoRef.current) videoRef.current.seekTo(0, 'seconds')
+        if (trailer !== '' && videoRef.current)
+            videoRef.current.seekTo(0, 'seconds')
     }
     const { toggle, isShowing } = useModal()
     return (
@@ -116,26 +137,43 @@ function Trailer({
 
             {large ? (
                 <div className={cx('more-info', { preview })}>
-                    <h1 className={cx('title')}>{infoMovie.name || infoMovie.title}</h1>
+                    <h1 className={cx('title')}>
+                        {infoMovie.name || infoMovie.title}
+                    </h1>
 
-                    <p className={cx('overview', { disable: preview })}>{infoMovie.overview}</p>
+                    <p className={cx('overview', { disable: preview })}>
+                        {infoMovie.overview}
+                    </p>
                     <div className={cx('button', { preview })}>
                         <Button
                             to={`/watch/${infoMovie.media_type}/${infoMovie.id}?v=${trailer}`}
                             className={cx('play-btn')}
-                            leftIcon={<FontAwesomeIcon className={cx('play-icon')} icon={faPlay} />}
+                            leftIcon={
+                                <FontAwesomeIcon
+                                    className={cx('play-icon')}
+                                    icon={faPlay}
+                                />
+                            }
                         >
                             Play
                         </Button>
                         {preview && (
                             <Fragment>
-                                <AddList id={infoMovie.id} hidePreview={hidePreview} />
+                                <AddList
+                                    id={infoMovie.id}
+                                    hidePreview={hidePreview}
+                                />
                                 <AddList id={infoMovie.id} favorite />
                             </Fragment>
                         )}
                         <Button
                             className={cx('info-btn', { disable: preview })}
-                            leftIcon={<FontAwesomeIcon className={cx('info-icon')} icon={faCircleInfo} />}
+                            leftIcon={
+                                <FontAwesomeIcon
+                                    className={cx('info-icon')}
+                                    icon={faCircleInfo}
+                                />
+                            }
                             onClick={toggle}
                         >
                             More Info
@@ -143,7 +181,9 @@ function Trailer({
                     </div>
                 </div>
             ) : (
-                <h1 className={cx('title-mini')}>{infoMovie.name || infoMovie.title}</h1>
+                <h1 className={cx('title-mini')}>
+                    {infoMovie.name || infoMovie.title}
+                </h1>
             )}
 
             <div
@@ -155,8 +195,14 @@ function Trailer({
                 {opacity
                     ? trailer && (
                           // Volume button
-                          <button className={cx('control-btn')} onClick={() => setMuted(!muted)}>
-                              <FontAwesomeIcon className={cx('icon-ctl')} icon={!muted ? faVolumeHigh : faVolumeMute} />
+                          <button
+                              className={cx('control-btn')}
+                              onClick={() => setMuted(!muted)}
+                          >
+                              <FontAwesomeIcon
+                                  className={cx('icon-ctl')}
+                                  icon={!muted ? faVolumeHigh : faVolumeMute}
+                              />
                           </button>
                       )
                     : !autoPlay && (
@@ -169,16 +215,25 @@ function Trailer({
                                   setAutoPlay(true)
                               }}
                           >
-                              <FontAwesomeIcon className={cx('icon-ctl')} icon={faArrowRotateRight} />
+                              <FontAwesomeIcon
+                                  className={cx('icon-ctl')}
+                                  icon={faArrowRotateRight}
+                              />
                           </button>
                       )}
                 {large && (
-                    <span className={cx('maturity-rating', { disable: preview })}>
+                    <span
+                        className={cx('maturity-rating', { disable: preview })}
+                    >
                         <span className={cx('maturity-number')}>16+</span>
                     </span>
                 )}
             </div>
-            <PreviewModal isShowing={isShowing} hide={toggle} infoMovie={infoMovie} />
+            <PreviewModal
+                isShowing={isShowing}
+                hide={toggle}
+                infoMovie={infoMovie}
+            />
         </div>
     )
 }

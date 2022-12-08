@@ -135,8 +135,9 @@
     }
 }
 
-// mobile
-@media (max-width: 499px) {
+@import '../../../components/GlobalStyles/mixins';
+// small device
+@include sm{
     .popup-movie.show  {
         display: none;
     }

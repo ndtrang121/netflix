@@ -12,6 +12,8 @@ const ResponsiveProvider = ({ children }) => {
     const SCROLLWIDTH = 8
     let paddingGlobal = document.querySelector(':root')
     const [device, setDevice] = useState(obj.device)
+    const [touchDevice, setTouchDevice] = useState(false)
+
     useLayoutEffect(() => {
         const handleWindowResize = () => {
             if (window.innerWidth >= 1400) {
@@ -22,37 +24,49 @@ const ResponsiveProvider = ({ children }) => {
             } else if (window.innerWidth < 1400 && window.innerWidth >= 1100) {
                 setDevice('laptop')
                 setItemsToShow(5)
-                setMarginRight(6)
+                setMarginRight(8)
                 setPadding(50)
             } else if (window.innerWidth < 1100 && window.innerWidth >= 800) {
                 setDevice('smallScreen')
                 setItemsToShow(4)
-                setMarginRight(4)
+                setMarginRight(6)
                 setPadding(40)
             } else if (window.innerWidth < 800 && window.innerWidth >= 500) {
                 setDevice('tablet')
                 setItemsToShow(3)
-                setMarginRight(4)
+                setMarginRight(6)
                 setPadding(30)
             } else if (window.innerWidth < 500) {
                 setDevice('mobile')
                 setItemsToShow(2)
-                setMarginRight(4)
+                setMarginRight(6)
                 setPadding(20)
             }
+
             setWidthWin(window.innerWidth)
             console.log(window.innerWidth)
         }
+        if ('ontouchstart' in document.documentElement) setTouchDevice(true)
         window.addEventListener('resize', handleWindowResize)
         return () => window.removeEventListener('resize', handleWindowResize)
     }, [])
 
     const [itemWidth, setItemWidth] = useState(
-        (window.innerWidth - padding * 2 - SCROLLWIDTH - marginRight * itemsToShow) / itemsToShow,
+        (window.innerWidth -
+            padding * 2 -
+            SCROLLWIDTH -
+            marginRight * itemsToShow) /
+            itemsToShow,
     )
 
     useLayoutEffect(() => {
-        setItemWidth((window.innerWidth - padding * 2 - SCROLLWIDTH - marginRight * itemsToShow) / itemsToShow)
+        setItemWidth(
+            (window.innerWidth -
+                padding * 2 -
+                SCROLLWIDTH -
+                marginRight * itemsToShow) /
+                itemsToShow,
+        )
         paddingGlobal.style.setProperty('--PADDING', `${padding}px`)
         paddingGlobal.style.setProperty('--WIDTH-WINDOW', `${widthWin}px`)
 
@@ -69,6 +83,7 @@ const ResponsiveProvider = ({ children }) => {
                 marginRight,
                 padding,
                 SCROLLWIDTH,
+                touchDevice,
             }}
         >
             {children}

@@ -1,3 +1,4 @@
+@import '../../../components/GlobalStyles/mixins';
 
 .background-wrapper {
 	user-select: none;
@@ -24,7 +25,7 @@
 }
 
 // small
-@media (max-width: 499px) {
+@include sm {
     .background-wrapper {
         position: unset;
         margin-top: var(--height-header);

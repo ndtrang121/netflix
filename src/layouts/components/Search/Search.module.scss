@@ -73,8 +73,9 @@
 	}
 }
 
+@import '../../../components/GlobalStyles/mixins';
 // small 
-@media ( max-width: 499px) {
+@include sm {
     .search-text.show {
         .search-input {
             width: 140px;

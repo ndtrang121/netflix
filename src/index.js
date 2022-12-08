@@ -5,26 +5,17 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import GlobalStyles from './components/GlobalStyles'
-import { AuthContextProvider } from './components/Auth'
-import SearchContextProvider from './components/SearchContextProvider'
-import ResponsiveProvider from './providers/ResponsiveProvider'
-import MiniModalProvider from './providers/MiniModalProvider'
+import GlobalProviders from './components/GlobalProviders'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
     // <React.StrictMode>
     <GlobalStyles>
-        <AuthContextProvider>
-            <ResponsiveProvider>
-                <MiniModalProvider>
-                    <SearchContextProvider>
-                        <Router>
-                            <App />
-                        </Router>
-                    </SearchContextProvider>
-                </MiniModalProvider>
-            </ResponsiveProvider>
-        </AuthContextProvider>
+        <GlobalProviders>
+            <Router>
+                <App />
+            </Router>
+        </GlobalProviders>
     </GlobalStyles>,
     // </React.StrictMode>,
 )

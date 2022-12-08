@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useCallback, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+    useCallback,
+    useContext,
+    useEffect,
+    useLayoutEffect,
+    useRef,
+    useState,
+} from 'react'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +17,7 @@ import { MiniModalContext } from '~/providers/MiniModalProvider'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 import Trailer from '../Trailer'
 import AddList from '~/components/AddList'
-import useModal from '~/hooks/useModal'
+import { useModal } from '~/hooks'
 import PreviewModal from '../PreviewModal'
 import { Link } from 'react-router-dom'
 import request from '~/utils/request'
@@ -18,10 +25,17 @@ import request from '~/utils/request'
 const cx = classNames.bind(styles)
 
 function MiniModalMovie() {
-    const { infoMovie, setInfoMovie, showPopup, setShowPopup, leftItem, topItem, position } =
-        useContext(MiniModalContext)
+    const {
+        infoMovie,
+        setInfoMovie,
+        showPopup,
+        setShowPopup,
+        leftItem,
+        topItem,
+        position,
+    } = useContext(MiniModalContext)
 
-    const { itemWidth } = useContext(ResponsiveContext)
+    const { itemWidth, touchDevice } = useContext(ResponsiveContext)
     const itemHeight = itemWidth / 1.777
     const refInfo = useRef()
     const [heightInfo, setHeightInfo] = useState(0)
@@ -35,22 +49,29 @@ function MiniModalMovie() {
     })
 
     const fetchDetail = useCallback(async () => {
-        const data = await getDetail(infoMovie.id, infoMovie.media_type).then((res) => {
-            return res
-        })
+        const data = await getDetail(infoMovie.id, infoMovie.media_type).then(
+            (res) => {
+                return res
+            },
+        )
         return data
-    }, [infoMovie])
+    }, [infoMovie.id])
 
     const fetchTrailer = useCallback(async () => {
-        const data = await request(`/${infoMovie.media_type}/${infoMovie.id}/videos`).then((res) => {
+        const data = await request(
+            `/${infoMovie.media_type}/${infoMovie.id}/videos`,
+        ).then((res) => {
             if (res.results.length !== 0) {
-                const trailer = res.results.find((trailer) => trailer.type === 'Trailer' || trailer.type === 'Teaser')
+                const trailer = res.results.find(
+                    (trailer) =>
+                        trailer.type === 'Trailer' || trailer.type === 'Teaser',
+                )
                 if (trailer) return trailer.key
                 else return res.results[0].key
             }
         })
         return data
-    }, [infoMovie])
+    }, [infoMovie.id])
 
     useEffect(() => {
         showPopup &&
@@ -70,13 +91,16 @@ function MiniModalMovie() {
     const { toggle, isShowing } = useModal()
 
     return (
-        !('ontouchstart' in document.documentElement) && (
+        !touchDevice && (
             <div
                 className={cx('popup-movie', { show: showPopup })}
                 style={{
                     width: `${itemWidth * 1.5}px`,
                     left: `${leftItem}px`,
-                    top: `${topItem - (itemHeight * 1.5 + heightInfo - itemHeight) / 2}px`,
+                    top: `${
+                        topItem -
+                        (itemHeight * 1.5 + heightInfo - itemHeight) / 2
+                    }px`,
                     transformOrigin: `${position}% 50%`,
                 }}
                 onMouseLeave={handleOffPopup}
@@ -118,7 +142,8 @@ function MiniModalMovie() {
                     </div>
                     <div className={cx('meta-data')}>
                         <div className={cx('match')}>
-                            {detail.vote_average && (detail.vote_average * 10).toFixed(0)}
+                            {detail.vote_average &&
+                                (detail.vote_average * 10).toFixed(0)}
                             {'% '}
                             Match
                         </div>
@@ -128,7 +153,9 @@ function MiniModalMovie() {
                             {infoMovie.media_type === 'movie' ? (
                                 <>
                                     {Math.floor(detail.runtime / 60)}h{' '}
-                                    {detail.runtime - Math.floor(detail.runtime / 60) * 60}m
+                                    {detail.runtime -
+                                        Math.floor(detail.runtime / 60) * 60}
+                                    m
                                 </>
                             ) : detail.number_of_seasons > 1 ? (
                                 <>{detail.number_of_seasons} Parts</>
@@ -147,7 +174,11 @@ function MiniModalMovie() {
                             ))}
                     </div>
                 </div>
-                <PreviewModal isShowing={isShowing} hide={toggle} infoMovie={infoMovie} />
+                <PreviewModal
+                    isShowing={isShowing}
+                    hide={toggle}
+                    infoMovie={infoMovie}
+                />
             </div>
         )
     )

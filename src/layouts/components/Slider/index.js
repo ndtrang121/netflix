@@ -11,6 +11,7 @@ import request from '~/utils/request'
 import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 import Movie from '../Movie'
+import { UpdateListContext } from '~/providers/UpdateListProvider'
 
 const cx = classNames.bind(styles)
 
@@ -22,8 +23,16 @@ function Slider({
     nextBtn = false,
     marginTop = 3,
 }) {
-    const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } =
-        useContext(ResponsiveContext)
+    const {
+        touchDevice,
+        SCROLLWIDTH,
+        itemWidth,
+        itemsToShow,
+        marginRight,
+        padding,
+    } = useContext(ResponsiveContext)
+
+    const { updateList } = useContext(UpdateListContext)
 
     const itemHeight = itemWidth / 1.777
 
@@ -52,7 +61,6 @@ function Slider({
 
     const handleNext = () => {
         const mod = numberMovies % itemsToShow
-        console.log(numberMovies)
         if (
             mod !== 0 &&
             Math.abs(distance) ===
@@ -103,7 +111,9 @@ function Slider({
             try {
                 await request(path, page, genres).then((res) => {
                     if (res.items) {
-                        setDataTrending(res.items)
+                        if (title === 'My List')
+                            setDataTrending(res.items.reverse())
+                        else setDataTrending(res.items)
                         setNumberMovies(res.items.length)
                     } else {
                         setDataTrending(res.results)
@@ -115,7 +125,7 @@ function Slider({
             }
         }
         fetchDta()
-    }, [path])
+    }, [path, title === 'My List' && updateList])
 
     // Handle on Touch device
     const [touchStart, setTouchStart] = useState(null)
@@ -202,7 +212,7 @@ function Slider({
                             return <Movie key={index} data={data}></Movie>
                         })}
                 </div>
-                {distance !== 0 && (
+                {!touchDevice && distance !== 0 && (
                     <button
                         className={cx('prev-btn')}
                         style={{
@@ -216,22 +226,24 @@ function Slider({
                         />
                     </button>
                 )}
-                <button
-                    className={cx('next-btn')}
-                    style={
-                        'ontouchstart' in document.documentElement
-                            ? { width: `${padding + SCROLLWIDTH}px` }
-                            : nextBtn
-                            ? { width: `${padding + SCROLLWIDTH}px` }
-                            : { width: `${padding}px` }
-                    }
-                    onClick={handleNext}
-                >
-                    <FontAwesomeIcon
-                        className={cx('icon-control')}
-                        icon={faChevronRight}
-                    />
-                </button>
+                {!touchDevice && numberMovies > itemsToShow && (
+                    <button
+                        className={cx('next-btn')}
+                        style={
+                            touchDevice
+                                ? { width: `${padding + SCROLLWIDTH}px` }
+                                : nextBtn
+                                ? { width: `${padding + SCROLLWIDTH}px` }
+                                : { width: `${padding}px` }
+                        }
+                        onClick={handleNext}
+                    >
+                        <FontAwesomeIcon
+                            className={cx('icon-control')}
+                            icon={faChevronRight}
+                        />
+                    </button>
+                )}
             </div>
             <div
                 className={cx('slide-indecator')}

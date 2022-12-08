@@ -6,9 +6,9 @@ import styles from './Movie.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 import Backdrop from '~/components/Backdrop'
 import { MiniModalContext } from '~/providers/MiniModalProvider'
-import useModal from '~/hooks/useModal'
 import PreviewModal from '../PreviewModal'
 import MiniPreviewModal from '../MiniPreviewModal'
+import { useModal } from '~/hooks'
 
 const cx = classNames.bind(styles)
 

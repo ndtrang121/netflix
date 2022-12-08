@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 import styles from './MyList.module.scss'
 import Footer from '~/layouts/components/Footer'
@@ -7,6 +7,7 @@ import MiniModalMovie from '~/layouts/components/MiniModalMovie'
 import Movie from '~/layouts/components/Movie'
 import request from '~/utils/request'
 import Loading from '~/components/Loading'
+import { UpdateListContext } from '~/providers/UpdateListProvider'
 
 const list_id = process.env.REACT_APP_LIST_ID
 
@@ -15,6 +16,7 @@ const cx = classNames.bind(styles)
 function MyList() {
     const [myList, setMyList] = useState([])
     const [end, setEnd] = useState(false)
+    const { updateList } = useContext(UpdateListContext)
     useEffect(() => {
         async function fetchData() {
             try {
@@ -27,18 +29,30 @@ function MyList() {
             }
         }
         fetchData()
-    })
+    }, [updateList])
     return (
         <Fragment>
             <Header className={cx('main-header')} />
-            <h1 className={cx('sub-header')} style={{ marginLeft: 'var(--PADDING)' }}>
+            <h1
+                className={cx('sub-header')}
+                style={{ marginLeft: 'var(--PADDING)' }}
+            >
                 My List
             </h1>
-            <div className={cx('container')} style={{ margin: 'var(--PADDING)' }}>
+            <div
+                className={cx('container')}
+                style={{ margin: 'var(--PADDING)' }}
+            >
                 {myList.length !== 0 ? (
                     myList
                         .reverse()
-                        .map((data, index) => <Movie className={cx('list-item')} key={index} data={data}></Movie>)
+                        .map((data, index) => (
+                            <Movie
+                                className={cx('list-item')}
+                                key={index}
+                                data={data}
+                            ></Movie>
+                        ))
                 ) : !end ? (
                     <Loading height={200} />
                 ) : (

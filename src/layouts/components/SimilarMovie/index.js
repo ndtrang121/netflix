@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState } from 'react'
 import classNames from 'classnames/bind'
 
@@ -14,11 +15,13 @@ function SimilarMovie({ infoMovie }) {
     const [more, setMore] = useState(false)
 
     const fetchMoreLike = useCallback(async () => {
-        const data = await request(`/${infoMovie.media_type}/${infoMovie.id}/similar`).then((res) => {
+        const data = await request(
+            `/${infoMovie.media_type}/${infoMovie.id}/similar`,
+        ).then((res) => {
             setRecommend(res.results)
         })
         return data
-    }, [infoMovie])
+    }, [infoMovie.id])
 
     useEffect(() => {
         fetchMoreLike()
@@ -36,13 +39,23 @@ function SimilarMovie({ infoMovie }) {
                             .map(
                                 (item, index) =>
                                     item.backdrop_path && (
-                                        <SimilarItem key={index} item={item} typeDuration={infoMovie.media_type} />
+                                        <SimilarItem
+                                            key={index}
+                                            item={item}
+                                            typeDuration={infoMovie.media_type}
+                                        />
                                     ),
                             )}
                 </div>
                 <div className={cx('more')}>
-                    <div className={cx('more-btn')} onClick={() => setMore(!more)}>
-                        <FontAwesomeIcon className={cx('more-icon')} icon={!more ? faAngleDown : faAngleUp} />
+                    <div
+                        className={cx('more-btn')}
+                        onClick={() => setMore(!more)}
+                    >
+                        <FontAwesomeIcon
+                            className={cx('more-icon')}
+                            icon={!more ? faAngleDown : faAngleUp}
+                        />
                     </div>
                 </div>
             </div>

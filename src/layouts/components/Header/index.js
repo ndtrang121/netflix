@@ -3,8 +3,16 @@ import { useContext, useLayoutEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightArrowLeft, faBars, faBell } from '@fortawesome/free-solid-svg-icons'
-import { faCircleQuestion, faUser, faPenToSquare } from '@fortawesome/free-regular-svg-icons'
+import {
+    faArrowRightArrowLeft,
+    faBars,
+    faBell,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+    faCircleQuestion,
+    faUser,
+    faPenToSquare,
+} from '@fortawesome/free-regular-svg-icons'
 
 import styles from './Header.module.scss'
 import { images, Logo } from '~/assets/media'
@@ -13,7 +21,7 @@ import Avatar from '~/components/Avatar'
 import Search from '../Search'
 import { AuthContext } from '~/components/Auth'
 import MenuModal from '../MenuModal'
-import useModal from '~/hooks/useModal'
+import { useModal } from '~/hooks'
 
 const cx = classNames.bind(styles)
 
@@ -56,7 +64,10 @@ function Header({ className }) {
         >
             <nav className={cx('primary-nav')}>
                 <div className={cx('menu-bar')} onClick={toggle}>
-                    <FontAwesomeIcon className={cx('menu-bar-icon')} icon={faBars} />
+                    <FontAwesomeIcon
+                        className={cx('menu-bar-icon')}
+                        icon={faBars}
+                    />
                 </div>
                 <Link className={cx('logo-link')} to="/browse">
                     <Logo className={cx('logo')} />
@@ -76,7 +87,9 @@ function Header({ className }) {
                                 <li className={cx('nav-item')} key={index}>
                                     <Link
                                         className={cx('nav-item-link', {
-                                            active: location.pathname === route.path,
+                                            active:
+                                                location.pathname ===
+                                                route.path,
                                         })}
                                         to={route.path}
                                     >
@@ -95,7 +108,10 @@ function Header({ className }) {
                 </div>
                 <div className={cx('icon-item')}>
                     <div className={cx('notify-btn')}>
-                        <FontAwesomeIcon className={cx('bell-icon')} icon={faBell} />
+                        <FontAwesomeIcon
+                            className={cx('bell-icon')}
+                            icon={faBell}
+                        />
                         <ul className={cx('notifications')}>
                             <li className={cx('empty-notify')}>
                                 <p>No recent notifications</p>
@@ -106,35 +122,70 @@ function Header({ className }) {
 
                 <div className={cx('icon-item')}>
                     <div className={cx('account-items')}>
-                        <Avatar className={cx('avatar')} alt="avatar" src={images.fakeAvatar} />
+                        <Avatar
+                            className={cx('avatar')}
+                            alt="avatar"
+                            src={images.fakeAvatar}
+                        />
                         <span className={cx('arrow-icon')}></span>
                         <ul className={cx('menu-items')}>
                             <li className={cx('menu-item')}>
-                                <a className={cx('profile-link')} href="#" alt="profile">
-                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faPenToSquare} />
+                                <a
+                                    className={cx('profile-link')}
+                                    href="#"
+                                    alt="profile"
+                                >
+                                    <FontAwesomeIcon
+                                        className={cx('menu-icon')}
+                                        icon={faPenToSquare}
+                                    />
                                     Manage Profiles
                                 </a>
                             </li>
                             <li className={cx('menu-item')}>
-                                <a className={cx('profile-link')} href="#" alt="profile">
-                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faArrowRightArrowLeft} />
+                                <a
+                                    className={cx('profile-link')}
+                                    href="#"
+                                    alt="profile"
+                                >
+                                    <FontAwesomeIcon
+                                        className={cx('menu-icon')}
+                                        icon={faArrowRightArrowLeft}
+                                    />
                                     Transfer Profiles
                                 </a>
                             </li>
                             <li className={cx('menu-item')}>
-                                <a className={cx('profile-link')} href="#" alt="profile">
-                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faUser} />
+                                <a
+                                    className={cx('profile-link')}
+                                    href="#"
+                                    alt="profile"
+                                >
+                                    <FontAwesomeIcon
+                                        className={cx('menu-icon')}
+                                        icon={faUser}
+                                    />
                                     Account
                                 </a>
                             </li>
                             <li className={cx('menu-item')}>
-                                <a className={cx('profile-link')} href="#" alt="profile">
-                                    <FontAwesomeIcon className={cx('menu-icon')} icon={faCircleQuestion} />
+                                <a
+                                    className={cx('profile-link')}
+                                    href="#"
+                                    alt="profile"
+                                >
+                                    <FontAwesomeIcon
+                                        className={cx('menu-icon')}
+                                        icon={faCircleQuestion}
+                                    />
                                     Help Center
                                 </a>
                             </li>
                             <li className={cx('signout')}>
-                                <div onClick={handleLogout} className={cx('profile-signout')}>
+                                <div
+                                    onClick={handleLogout}
+                                    className={cx('profile-signout')}
+                                >
                                     Sign out of Netflix
                                 </div>
                             </li>

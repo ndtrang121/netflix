@@ -28,38 +28,57 @@ function MenuModal({ isShowing, hide }) {
             <React.Fragment>
                 <div className={cx('overlay')} onClick={hide} />
                 <div className={cx('wrapper')}>
-                    <div className={cx('modal')} onClick={(e) => e.stopPropagation()}>
+                    <div
+                        className={cx('modal')}
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <div className={cx('account-items')}>
                             <div className={cx('avatar-name')}>
-                                <Avatar className={cx('avatar')} alt="avatar" src={images.fakeAvatar} />
+                                <Avatar
+                                    className={cx('avatar')}
+                                    alt="avatar"
+                                    src={images.fakeAvatar}
+                                />
                                 <span className={cx('profile-name')}>
                                     Trang Nguyen <br />
-                                    <a className={cx('switch-profile')}>Switch Profiles</a>
+                                    <a className={cx('switch-profile')}>
+                                        Switch Profiles
+                                    </a>
                                 </span>
                             </div>
                             <ul className={cx('menu-items')}>
                                 <li className={cx('menu-item')}>
-                                    <a className={cx('profile-link')} href="#" alt="profile">
+                                    <a
+                                        className={cx('profile-link')}
+                                        href="#"
+                                        alt="profile"
+                                    >
                                         Manage Profiles
                                     </a>
                                 </li>
                                 <li className={cx('menu-item')}>
-                                    <a className={cx('profile-link')} href="#" alt="profile">
-                                        Transfer Profiles
-                                    </a>
-                                </li>
-                                <li className={cx('menu-item')}>
-                                    <a className={cx('profile-link')} href="#" alt="profile">
+                                    <a
+                                        className={cx('profile-link')}
+                                        href="#"
+                                        alt="profile"
+                                    >
                                         Account
                                     </a>
                                 </li>
                                 <li className={cx('menu-item')}>
-                                    <a className={cx('profile-link')} href="#" alt="profile">
+                                    <a
+                                        className={cx('profile-link')}
+                                        href="#"
+                                        alt="profile"
+                                    >
                                         Help Center
                                     </a>
                                 </li>
                                 <li className={cx('signout')}>
-                                    <div onClick={handleLogout} className={cx('profile-signout')}>
+                                    <div
+                                        onClick={handleLogout}
+                                        className={cx('profile-signout')}
+                                    >
                                         Sign out of Netflix
                                     </div>
                                 </li>

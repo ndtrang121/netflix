@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useLayoutEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames/bind'
@@ -10,7 +11,6 @@ import { Link } from 'react-router-dom'
 import {
     faChevronRight,
     faExclamationCircle,
-    faPlay,
     faPlayCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import AddList from '~/components/AddList'
@@ -28,7 +28,7 @@ function MiniPreviewModal({ isShowing, hide, infoMovie }) {
             return res
         })
         return dataDetail
-    }, [infoMovie])
+    }, [infoMovie.id])
     const fetchTrailer = useCallback(async () => {
         const data = await request(
             `/${infoMovie.media_type}/${infoMovie.id}/videos`,
@@ -43,7 +43,7 @@ function MiniPreviewModal({ isShowing, hide, infoMovie }) {
             }
         })
         return data
-    }, [infoMovie])
+    }, [infoMovie.id])
 
     useLayoutEffect(() => {
         if (isShowing) document.body.style.overflowY = 'hidden'
@@ -63,10 +63,15 @@ function MiniPreviewModal({ isShowing, hide, infoMovie }) {
         isShowing &&
         ReactDOM.createPortal(
             <React.Fragment>
-                <div className={cx('overlay')} onClick={hide} />
+                <div
+                    className={cx('overlay')}
+                    onClick={hide}
+                    onTouchMove={(e) => e.stopPropagation()}
+                />
                 <div
                     className={cx('modal')}
                     onClick={(e) => e.stopPropagation()}
+                    onTouchMove={(e) => e.stopPropagation()}
                 >
                     <div className={cx('movie')}>
                         <Backdrop
@@ -120,11 +125,19 @@ function MiniPreviewModal({ isShowing, hide, infoMovie }) {
                             <p>Play</p>
                         </div>
                         <div className={cx('btn-control')}>
-                            <AddList id={infoMovie.id} />
+                            <AddList
+                                className={cx('btn-icon')}
+                                id={infoMovie.id}
+                                hidePreview={hide}
+                            />
                             <p>My List</p>
                         </div>
                         <div className={cx('btn-control')}>
-                            <AddList id={infoMovie.id} favorite />
+                            <AddList
+                                className={cx('btn-icon')}
+                                id={infoMovie.id}
+                                favorite
+                            />
                             <p>Like</p>
                         </div>
                     </div>

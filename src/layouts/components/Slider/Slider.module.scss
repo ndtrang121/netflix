@@ -147,9 +147,9 @@
 	background-color:  #aaa;
 }
 
-
+@import '../../../components/GlobalStyles/mixins';
 // small 
-@media ( max-width: 499px) {
+@include sm {
     .prev-btn,
     .next-btn {
         .icon-control {

@@ -1,3 +1,5 @@
+@import '../../../components/GlobalStyles/mixins';
+
 .wrapper {
     max-width: 80%;
 	width: 980px;
@@ -42,8 +44,8 @@
 	margin-bottom: 30px;
 }
 
-// small 
-@media (max-width: 499px) {
+// small device
+@include sm {
     .wrapper {
         align-items: center;
     }
@@ -51,12 +53,6 @@
     .footer-links {
         grid-template-columns: repeat(2, 1fr);
         gap: 0 20px;
-    }
-
-    .footer-link-wrapper {
-        // display: flex;
-        // // flex-direction: column;
-        // align-items: center;
     }
 
     .footer-link-wrapper:nth-child(odd) {

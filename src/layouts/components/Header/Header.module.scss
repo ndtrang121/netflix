@@ -1,3 +1,5 @@
+@import '../../../components/GlobalStyles/mixins';
+
 body {
     --height-header: 68px;
 }
@@ -288,7 +290,7 @@ body {
 }
 
 // medium
-@media ( max-width: 799px) {
+@include md {
     .navigation{
         &:hover {
             .nav-items {
@@ -310,7 +312,6 @@ body {
             font-size: 1.2rem;
             display: flex;
             align-items: center;
-
             
         }
 
@@ -380,7 +381,7 @@ body {
  }
 
 // small 
-@media ( max-width: 499px) {
+@include sm {
     .menu-bar {
         display: flex;
         margin-right: 12px;

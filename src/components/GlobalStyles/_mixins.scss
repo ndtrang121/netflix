@@ -1,0 +1,29 @@
+@import './breakpoints';
+
+@mixin lineClamp($line) {
+    display: -webkit-box;
+	-webkit-line-clamp: $line;
+	-webkit-box-orient: vertical;  
+	overflow: hidden;
+}
+
+// Small device
+@mixin sm {
+    @media (max-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+// Medium device
+@mixin md {
+    @media (max-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+
+// Large device
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
