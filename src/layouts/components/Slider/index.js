@@ -224,11 +224,13 @@ function Slider({
                     <button
                         className={cx('next-btn')}
                         style={
-                            !('ontouchstart' in window)
-                                ? { width: `${padding + SCROLLWIDTH}px` }
+                            'ontouchstart' in window
+                                ? { width: `${padding + SCROLLWIDTH}px` } // with touch screen
                                 : nextBtn
-                                ? { width: `${padding + SCROLLWIDTH}px` }
-                                : { width: `${padding}px` }
+                                ? {
+                                      width: `${padding + SCROLLWIDTH}px`, // if slide of TopBackGround
+                                  }
+                                : { width: `${padding}px` } // default
                         }
                         onClick={handleNext}
                     >
