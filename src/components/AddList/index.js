@@ -1,14 +1,14 @@
 import { Fragment, useCallback, useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faHeart, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRe } from '@fortawesome/free-regular-svg-icons'
+import ReactTooltip from 'react-tooltip'
 
 import styles from './AddList.module.scss'
 import checkFavorite from '~/utils/checkFavorite'
-import { useLocation } from 'react-router-dom'
-import ReactTooltip from 'react-tooltip'
 import { UpdateListContext } from '~/providers/UpdateListProvider'
 
 const cx = classNames.bind(styles)

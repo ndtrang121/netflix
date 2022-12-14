@@ -12,7 +12,6 @@ const ResponsiveProvider = ({ children }) => {
     const SCROLLWIDTH = 8
     let paddingGlobal = document.querySelector(':root')
     const [device, setDevice] = useState(obj.device)
-    const [touchDevice, setTouchDevice] = useState(false)
 
     useLayoutEffect(() => {
         const handleWindowResize = () => {
@@ -46,7 +45,6 @@ const ResponsiveProvider = ({ children }) => {
             setWidthWin(window.innerWidth)
             console.log(window.innerWidth)
         }
-        if ('ontouchstart' in document.documentElement) setTouchDevice(true)
         window.addEventListener('resize', handleWindowResize)
         return () => window.removeEventListener('resize', handleWindowResize)
     }, [])
@@ -83,7 +81,6 @@ const ResponsiveProvider = ({ children }) => {
                 marginRight,
                 padding,
                 SCROLLWIDTH,
-                touchDevice,
             }}
         >
             {children}

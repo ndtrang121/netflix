@@ -23,14 +23,8 @@ function Slider({
     nextBtn = false,
     marginTop = 3,
 }) {
-    const {
-        touchDevice,
-        SCROLLWIDTH,
-        itemWidth,
-        itemsToShow,
-        marginRight,
-        padding,
-    } = useContext(ResponsiveContext)
+    const { SCROLLWIDTH, itemWidth, itemsToShow, marginRight, padding } =
+        useContext(ResponsiveContext)
 
     const { updateList } = useContext(UpdateListContext)
 
@@ -212,7 +206,7 @@ function Slider({
                             return <Movie key={index} data={data}></Movie>
                         })}
                 </div>
-                {!touchDevice && distance !== 0 && (
+                {!('ontouchstart' in window) && distance !== 0 && (
                     <button
                         className={cx('prev-btn')}
                         style={{
@@ -226,11 +220,11 @@ function Slider({
                         />
                     </button>
                 )}
-                {!touchDevice && numberMovies > itemsToShow && (
+                {!('ontouchstart' in window) && numberMovies > itemsToShow && (
                     <button
                         className={cx('next-btn')}
                         style={
-                            touchDevice
+                            !('ontouchstart' in window)
                                 ? { width: `${padding + SCROLLWIDTH}px` }
                                 : nextBtn
                                 ? { width: `${padding + SCROLLWIDTH}px` }

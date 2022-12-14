@@ -20,7 +20,7 @@
 
 .footer-links {
 	display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 2fr 2fr 1fr;
     gap: 0 5px;
 	margin-bottom: 14px;
 }

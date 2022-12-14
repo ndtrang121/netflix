@@ -35,7 +35,7 @@ function MiniModalMovie() {
         position,
     } = useContext(MiniModalContext)
 
-    const { itemWidth, touchDevice } = useContext(ResponsiveContext)
+    const { itemWidth } = useContext(ResponsiveContext)
     const itemHeight = itemWidth / 1.777
     const refInfo = useRef()
     const [heightInfo, setHeightInfo] = useState(0)
@@ -91,7 +91,7 @@ function MiniModalMovie() {
     const { toggle, isShowing } = useModal()
 
     return (
-        !touchDevice && (
+        !('ontouchstart' in window) && (
             <div
                 className={cx('popup-movie', { show: showPopup })}
                 style={{
