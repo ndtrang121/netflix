@@ -51,3 +51,10 @@
         height: 28px;
     }
 }
+
+@media (max-width: 900px) {
+    .similar-movies {
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 15px;
+    }
+}

@@ -59,7 +59,7 @@ function AddList({ id, favorite = false, hidePreview, className }) {
                 { media_id: id },
             )
         } catch (error) {}
-        setUpdateList(!updateList)
+        !favorite && setUpdateList(!updateList)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hidePreview, favorite, location.pathname, add, updateList, id])
 

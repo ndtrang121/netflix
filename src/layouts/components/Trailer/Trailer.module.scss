@@ -71,11 +71,11 @@
 
     .play-btn {
         padding: 6px 24px;
+        font-size: 1.6rem;
     }
 
     .play-icon {
-        height: 1.8vw;
-        margin-right: 10px;
+        height: 24px;
     }
 
     :nth-child(2) {
@@ -100,13 +100,13 @@
 }
 
 .play-icon {
-	color: var(--black) !important;
+	color: var(--black);
 }
 
 .play-icon,
 .info-icon {
-	height: 1.5vw !important;
-    min-height: 12px;
+	height: max(20px, 1.5vw);
+    width: max(20px, 1.5vw);
 
 }
 
@@ -144,10 +144,15 @@
     }
 
     .control-btn {
-        width: 2.3vw;
-        height: 2.3vw;
+        width: max(36px, 2.3vw);
+        height: max(36px, 2.3vw);
         margin-right: 42px;
 
+    }
+
+    .icon-ctl {
+        height: 16px;
+        width: 16px;
     }
 }
 
@@ -180,22 +185,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: max(24px, 2.7vw);
-    height: max(24px, 2.7vw);
+    width: max(32px, 2.7vw);
+    height: max(32px, 2.7vw);
     margin-right: 1.1vw;
     border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.7);
     background-color: transparent;
 	cursor: pointer;
 
 	&:active {
 		background-color: rgba($color: #fff, $alpha: .6);
 	}
+
+    &:hover {
+		border: 2px solid rgba(255, 255, 255, 1);
+	}
 }
 
 .icon-ctl {
-	width: max(12px, 1.2vw);
-    height: max(12px, 1.2vw);
+	width: max(16px, 1.2vw);
+    height: max(16px, 1.2vw);
 	background-color: transparent;
 	color: var(--white);
 }
@@ -220,6 +229,25 @@
             @include lineClamp(2);
         }
         
+    }
+    
+}
+
+@media (max-width: 900px) {
+    .more-info.preview {
+        padding-left: 42px;
+        bottom: 10%;
+        .title {
+            font-size: 40px;
+        }
+    }
+    
+    .button.preview {
+        margin-top: 10px;
+    }
+
+    .control-layer.preview {
+        bottom: 10%;
     }
     
 }

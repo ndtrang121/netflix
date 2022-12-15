@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useLayoutEffect, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames/bind'
 
@@ -48,6 +48,17 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isShowing])
 
+    const [widthPre, setWidthPre] = useState(850)
+
+    useEffect(() => {
+        const handleSetWidth = () => {
+            if (window.innerWidth <= 900) setWidthPre(500)
+            else setWidthPre(850)
+        }
+        window.addEventListener('resize', handleSetWidth)
+        return () => window.removeEventListener('resize', handleSetWidth)
+    }, [])
+
     return (
         isShowing &&
         ReactDOM.createPortal(
@@ -61,13 +72,13 @@ function PreviewModal({ isShowing, hide, infoMovie }) {
                         <div
                             className={cx('trailer')}
                             style={{
-                                width: '850px',
-                                height: 'calc(850px / 1.77)',
+                                width: `${widthPre}px`,
+                                height: `${widthPre / 1.77}px`,
                             }}
                         >
                             <Trailer
-                                widthTrailer={850}
-                                heightTrailer={850 / 1.77}
+                                widthTrailer={widthPre}
+                                heightTrailer={widthPre / 1.77}
                                 infoMovie={infoMovie}
                                 delay={2000}
                                 large

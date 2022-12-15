@@ -26,7 +26,7 @@
     background: #181818;
     position: relative;
     margin: 2.75rem auto;
-    border-radius: 3px;
+    border-radius: 8px;
     width: 850px;
     overflow: hidden;
     animation: zoomin .3s ease-in;
@@ -168,5 +168,23 @@
     .maturity>*:not(:first-child) {
         margin-left: 5px;
         font-size: 14px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .modal {
+        width: 500px;
+    }
+
+    .trailer { 
+        &::before {
+            height: 100px;
+
+        }
+    }
+
+    .meta-data {
+        flex-wrap: wrap;
     }
 }

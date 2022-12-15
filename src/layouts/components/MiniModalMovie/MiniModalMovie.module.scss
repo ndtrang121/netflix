@@ -48,8 +48,8 @@
 .btn-control {    
     max-width: 42px;
     max-height: 42px;
-    min-width: 32px;
-    min-height: 32px;
+    min-width: 36px;
+    min-height: 36px;
     width: 2.3vw;
     height: 2.3vw;
     border: 2px solid rgba(255, 255, 255, .6);
@@ -67,6 +67,10 @@
     background-color: var(--white);
     color: var(--black);
     border: unset;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, .8);
+    }
 }
 
 .btn-control.btn-more {
