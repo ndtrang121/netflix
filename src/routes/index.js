@@ -26,5 +26,10 @@ export const loginRoutes = [
         layout: null,
     },
     { path: '/search', title: 'Search', component: Search, layout: null },
-    { path: '/watch/:movieType/:movieId', title: 'Watch', component: Watch, layout: null },
+    {
+        path: '/watch/:movieType/:movieId',
+        title: 'Watch',
+        component: Watch,
+        layout: null,
+    },
 ]

@@ -133,6 +133,7 @@ body {
 	border-top: 2px solid var(--white);
     color: var(--white);
 	position: absolute;
+    z-index: 3;
 	top: calc(var(--height-header) / 2 + var(--height-notify-btn) /2);
 	right: 0;
 }
@@ -174,6 +175,7 @@ body {
 	align-items: center;
     display: flex;
 	position: relative;
+    z-index: 3;
 	&:hover {
 		.arrow-icon{
 			transform: rotate(180deg);

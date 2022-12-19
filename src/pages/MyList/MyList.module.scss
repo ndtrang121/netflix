@@ -1,11 +1,10 @@
-
 .main-header {
     position: unset;
 }
 
 .sub-header {
-    height: 68px;
-    line-height: 68px;
+    height: var(--height-header);
+    line-height: var(--height-header);
     position: sticky;
     z-index: 2;
     position: -webkit-sticky;

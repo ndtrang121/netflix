@@ -65,7 +65,7 @@
     margin-top: 16px;
     display: flex;
     justify-content: space-around;
-
+    user-select: none;
     .icon-play {
         width: 2.3vw;
         height: 2.3vw;
@@ -96,6 +96,8 @@
 }
 
 .info-detail {
+    user-select: none;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     margin-top: 5px;
@@ -113,6 +115,5 @@
 
     .icon-detail {
         height: 20px;
-        
     }
 }

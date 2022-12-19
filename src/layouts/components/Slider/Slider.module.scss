@@ -5,7 +5,7 @@
 
 .header {
 	user-select: none;
-	margin-bottom: 1.2vw;
+	margin-bottom: min(10px, .7vw);
 	display: inline-flex;
 	cursor: pointer;
 	align-items: center;

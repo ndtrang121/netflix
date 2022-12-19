@@ -5,11 +5,11 @@ import styles from './Loading.module.scss'
 
 const cx = classNames.bind(styles)
 
-function Loading({ height, className }) {
+function Loading({ style, height, className }) {
     return (
         <div
             className={cx('wrapper', { [className]: className })}
-            style={{ height: `${height}px` }}
+            style={style || { height: `${height}px` }}
         >
             <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
         </div>

@@ -16,7 +16,7 @@ const Backdrop = ({ path, className, large = false, style, ...passProps }) => {
             alt="backdrop"
         />
     ) : (
-        <Loading className={className} />
+        <Loading style={style} className={className} />
     )
 }
 

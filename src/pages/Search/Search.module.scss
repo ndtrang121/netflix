@@ -1,0 +1,34 @@
+.suggest-container {
+    margin-top: calc(var(--height-header) * 2);
+    display: flex;
+
+    >span {
+        font-size: 1.6rem;
+        // margin-right: 8px;
+        white-space: nowrap;
+    }
+
+    .suggest-title {
+        padding: 0 8px;
+        display: inline-block;
+
+        &:not(:last-child) {
+            border-right: 1px solid grey;
+        }
+
+        &:hover {
+            color: var(--primary);
+            cursor: pointer;
+        }
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .list-item {
+        margin-bottom: 3vw;
+    }
+}
