@@ -139,6 +139,11 @@
     }
 }
 
+.tool-tip {
+    border-radius: 6px !important;
+    font-weight: 700 !important;
+}
+
 @import '../../../components/GlobalStyles/mixins';
 // small device
 @include sm{

@@ -21,6 +21,7 @@ import { useModal } from '~/hooks'
 import PreviewModal from '../PreviewModal'
 import { Link } from 'react-router-dom'
 import request from '~/utils/request'
+import ReactTooltip from 'react-tooltip'
 
 const cx = classNames.bind(styles)
 
@@ -131,6 +132,10 @@ function MiniModalMovie() {
                         <AddList id={infoMovie.id} hidePreview={setShowPopup} />
                         <AddList id={infoMovie.id} favorite />
                         <div
+                            data-tip={'More info'}
+                            data-place="top, center"
+                            data-type="light"
+                            data-effect="solid"
                             onClick={() => {
                                 toggle()
                                 setShowPopup(false)
@@ -178,6 +183,11 @@ function MiniModalMovie() {
                     isShowing={isShowing}
                     hide={toggle}
                     infoMovie={infoMovie}
+                />
+                <ReactTooltip
+                    clickable={true}
+                    delayShow={300}
+                    className={cx('tool-tip')}
                 />
             </div>
         )

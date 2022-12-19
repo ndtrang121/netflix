@@ -54,3 +54,9 @@
 	color: var(--text-color);
 
 }
+
+@media (max-width: 549px) { 
+    .wrapper {
+        display: none;
+    }
+}
