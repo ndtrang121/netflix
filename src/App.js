@@ -12,7 +12,7 @@ const Login = lazy(() => import('./pages/Login'))
 const Start = lazy(() => import('./pages/Start'))
 
 function App() {
-    const { isAuthenticated, setAuth } = useContext(AuthContext)
+    const { isAuthenticated } = useContext(AuthContext)
 
     return (
         <Suspense fallback={<Loading />}>
@@ -63,10 +63,7 @@ function App() {
                         path="/login"
                         element={
                             <TitlePage title="Netflix">
-                                <Login
-                                    setAuth={setAuth}
-                                    isAuthenticated={isAuthenticated}
-                                />
+                                <Login isAuthenticated={isAuthenticated} />
                             </TitlePage>
                         }
                     />

@@ -1,15 +1,34 @@
-import { useState, createContext } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { useState, createContext, useEffect } from 'react'
+import { auth } from './firebase'
 
 export const AuthContext = createContext()
 
-const data = window.localStorage.getItem('MY_APP_STATE')
 const AuthContextProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(data))
-    const setAuth = (boolean) => {
-        setIsAuthenticated(boolean)
-    }
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, see docs for a list of available properties
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                console.log(user)
+                setIsAuthenticated(true)
+                // ...
+            } else {
+                // User is signed out
+                // ...
+                setIsAuthenticated(false)
+                console.log('signed out')
+            }
+        })
 
-    return <AuthContext.Provider value={{ isAuthenticated, setAuth }}>{children}</AuthContext.Provider>
+        return () => unsubscribe()
+    }, [])
+    return (
+        <AuthContext.Provider value={{ isAuthenticated }}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
 
 export default AuthContextProvider

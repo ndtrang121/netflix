@@ -1,26 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames/bind'
 
 import styles from './MenuModal.module.scss'
 import Avatar from '~/components/Avatar'
-import { AuthContext } from '~/components/Auth'
 import { images } from '~/assets/media'
+import { signOut } from 'firebase/auth'
+import { auth } from '~/components/Auth/firebase'
 
 const cx = classNames.bind(styles)
 
 function MenuModal({ isShowing, hide }) {
-    const { setAuth } = useContext(AuthContext)
-
     useEffect(() => {
         if (isShowing) document.body.style.overflowY = 'hidden'
         else if (!isShowing) document.body.style.overflowY = 'scroll'
     }, [isShowing])
 
     const handleLogout = () => {
-        setAuth(false)
-        window.localStorage.setItem('MY_APP_STATE', false)
+        signOut(auth)
     }
     return (
         isShowing &&

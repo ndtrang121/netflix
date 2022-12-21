@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useContext, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -19,19 +19,18 @@ import { images, Logo } from '~/assets/media'
 import { loginRoutes } from '~/routes'
 import Avatar from '~/components/Avatar'
 import Search from '../Search'
-import { AuthContext } from '~/components/Auth'
 import MenuModal from '../MenuModal'
 import { useModal } from '~/hooks'
+import { signOut } from 'firebase/auth'
+import { auth } from '~/components/Auth/firebase'
 
 const cx = classNames.bind(styles)
 
 function Header({ className }) {
-    const { setAuth } = useContext(AuthContext)
     const location = useLocation()
 
     const handleLogout = () => {
-        setAuth(false)
-        window.localStorage.setItem('MY_APP_STATE', false)
+        signOut(auth)
     }
 
     const [visibleHeader, setVisibleHeader] = useState(false)
