@@ -11,14 +11,14 @@ const AuthContextProvider = ({ children }) => {
             if (user) {
                 // User is signed in, see docs for a list of available properties
                 // https://firebase.google.com/docs/reference/js/firebase.User
-                console.log(user)
+                // console.log(user)
                 setIsAuthenticated(true)
                 // ...
             } else {
                 // User is signed out
                 // ...
                 setIsAuthenticated(false)
-                console.log('signed out')
+                // console.log('signed out')
             }
         })
 

@@ -15,7 +15,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './Header.module.scss'
-import { images, Logo } from '~/assets/media'
+import { Logo } from '~/assets/media'
 import { loginRoutes } from '~/routes'
 import Avatar from '~/components/Avatar'
 import Search from '../Search'
@@ -124,7 +124,7 @@ function Header({ className }) {
                         <Avatar
                             className={cx('avatar')}
                             alt="avatar"
-                            src={images.fakeAvatar}
+                            src={auth.currentUser.photoURL}
                         />
                         <span className={cx('arrow-icon')}></span>
                         <ul className={cx('menu-items')}>

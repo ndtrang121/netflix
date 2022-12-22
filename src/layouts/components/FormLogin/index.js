@@ -241,23 +241,6 @@ function FormLogin({ register }) {
                 className={cx('login-google')}
             />
 
-            {/* <div className={cx('success')}>
-                    <div className={cx('success-title')}>
-                        <FontAwesomeIcon
-                            className={cx('success-icon')}
-                            icon={faCircleCheck}
-                        />
-                        <h4>SUCCESS</h4>
-                    </div>
-                    <p className={cx('success-message')}>
-                        Congratulations, your account has been successfully
-                        created.
-                    </p>
-                    <Button to={'/login'} className={cx('continue-login')}>
-                        Continue
-                    </Button>
-                </div> */}
-
             <div className={cx('signup-now')}>
                 {register ? 'Have an account?' : 'New to Netflix?'}{' '}
                 <Link
