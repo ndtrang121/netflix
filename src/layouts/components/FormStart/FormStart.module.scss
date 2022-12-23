@@ -1,5 +1,6 @@
 // Form get started
 .form {
+    // max-width: 90%;
 	width: 800px;
 	text-align: center;
 	display: flex;
@@ -126,8 +127,13 @@
 
 @media (max-width: 549px) {
 
-    .form-title {
-        width: 90%;
+    .form-wrapper {
+        position: relative;
+        width: 100%;
+
+        .form {
+            max-width: 110%;
+        }
     }
 
     .input-wrapper {
@@ -141,7 +147,7 @@
     }
 
     .input-wrapper {
-        margin-bottom: 16px;
+        margin-bottom: 8px;
     }
 
     .submit {

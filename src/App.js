@@ -1,5 +1,5 @@
-import { Fragment, lazy, Suspense, useContext } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Fragment, lazy, Suspense, useContext, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import DefaultLayout from './layouts/DefaultLayout'
 import { loginRoutes } from './routes'
@@ -13,6 +13,11 @@ const Start = lazy(() => import('./pages/Start'))
 
 function App() {
     const { isAuthenticated } = useContext(AuthContext)
+    const { pathname } = useLocation()
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [pathname])
 
     return (
         <Suspense fallback={<Loading />}>

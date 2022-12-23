@@ -23,3 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # deploy on firebase
+/.firebase
+/.github
+firebase.json
+database.rules.json
+.firebaserc
