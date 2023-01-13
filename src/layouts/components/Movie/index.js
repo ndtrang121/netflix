@@ -9,6 +9,7 @@ import { MiniModalContext } from '~/providers/MiniModalProvider'
 import PreviewModal from '../PreviewModal'
 import MiniPreviewModal from '../MiniPreviewModal'
 import { useModal } from '~/hooks'
+import { memo } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -143,4 +144,4 @@ function Movie({ data, className }) {
     )
 }
 
-export default Movie
+export default memo(Movie)

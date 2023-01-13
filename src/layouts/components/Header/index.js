@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useLayoutEffect, useState } from 'react'
+import { memo, useLayoutEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -197,4 +197,4 @@ function Header({ className }) {
     )
 }
 
-export default Header
+export default memo(Header)

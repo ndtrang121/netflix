@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     Fragment,
+    memo,
     useContext,
     useEffect,
     useLayoutEffect,
@@ -238,4 +239,4 @@ function Trailer({
     )
 }
 
-export default Trailer
+export default memo(Trailer)

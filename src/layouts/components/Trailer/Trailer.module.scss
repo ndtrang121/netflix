@@ -39,10 +39,13 @@
 
 	.title {
 		font-size: 6vw;
+        color: white;
+        text-shadow: #5d5b54 1px 0 10px;
         // white-space: nowrap;
 	}
 
 	.overview {
+        color: white;
         width: 35%;
 		margin-top: 1.2vw;
         font-size: max(1.2rem, 1.2vw);
@@ -121,8 +124,8 @@
     font-size: 2rem;
     bottom:10px;
     margin-left: 16px;
-    text-shadow: 2px 0 #555, -2px 0 #555, 0 2px #555, 0 -2px #555,
-    1px 1px #555, -1px -1px #555, 1px -1px #555, -1px 1px #555;
+    color: white;
+    text-shadow: #5d5b54 1px 0 10px;
 }
 
 // Control button

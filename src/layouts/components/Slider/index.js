@@ -12,6 +12,7 @@ import styles from './Slider.module.scss'
 import { ResponsiveContext } from '~/providers/ResponsiveProvider'
 import Movie from '../Movie'
 import { UpdateListContext } from '~/providers/UpdateListProvider'
+import { memo } from 'react'
 
 const cx = classNames.bind(styles)
 
@@ -268,4 +269,4 @@ function Slider({
     )
 }
 
-export default Slider
+export default memo(Slider)

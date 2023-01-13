@@ -1,5 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useRef, useLayoutEffect, useContext, useState, useEffect } from 'react'
+import {
+    useRef,
+    useLayoutEffect,
+    useContext,
+    useState,
+    useEffect,
+    memo,
+} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faMagnifyingGlass,
@@ -129,4 +136,4 @@ function Search() {
     )
 }
 
-export default Search
+export default memo(Search)
